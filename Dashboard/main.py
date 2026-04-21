@@ -33,9 +33,8 @@ from bokeh.models import (
     Patches, Segment, Text,
 )
 from bokeh.layouts import column, row, gridplot
-from bokeh.palettes import Teal, Purple
 from bokeh.transform import factor_cmap
-from bokeh.models.widgets import Tabs, Panel
+#from bokeh.models.widgets import Tabs, Panel
 
 
 # ─────────────────────────────────────────────
@@ -330,38 +329,75 @@ def make_scatter_panel():
 # This Div loads the iframe and sets up the postMessage
 # bridge so globe clicks update the Bokeh charts.
 # ─────────────────────────────────────────────
+#GLOBE_HTML = """
+#<div id="globe-wrapper" style="
+#    width:100%; height:320px; position:relative;
+#    border-radius:12px; overflow:hidden;
+#    background:#ddeef7;
+#">
+#  <iframe
+#    id="globe-iframe"
+#    src="static/globe.html"
+#    style="width:100%;height:100%;border:none;"
+#    sandbox="allow-scripts allow-same-origin">
+#  </iframe>
+#  <div style="
+#    position:absolute; top:10px; left:14px;
+#    font-size:11px; font-weight:500; color:#888;
+#    letter-spacing:.04em; text-transform:uppercase;
+#    pointer-events:none;">
+#    Globe — select country
+#  </div>
+#</div>
+#
+#<script>
+#// Listen for postMessage events from the D3 globe iframe.
+#// The globe sends: { type: "countrySelect", iso3: "DEU" }
+#window.addEventListener("message", function(evt) {
+#    if (!evt.data || evt.data.type !== "countrySelect") return;
+#    const iso3 = evt.data.iso3;
+#    // Dispatch a CustomEvent that the Bokeh CustomJS callback listens to.
+#    document.dispatchEvent(new CustomEvent("globeCountrySelect", { detail: { iso3 } }));
+#});
+#</script>
+#"""
+
+
 GLOBE_HTML = """
 <div id="globe-wrapper" style="
-    width:100%; height:320px; position:relative;
+    width:380px; height:320px; position:relative;
     border-radius:12px; overflow:hidden;
     background:#ddeef7;
 ">
   <iframe
     id="globe-iframe"
-    src="globe.html"
+    src="static/globe.html"
     style="width:100%;height:100%;border:none;"
     sandbox="allow-scripts allow-same-origin">
   </iframe>
   <div style="
     position:absolute; top:10px; left:14px;
-    font-size:11px; font-weight:500; color:#888;
+    font-size:11px; font-weight:500; color:#555;
     letter-spacing:.04em; text-transform:uppercase;
-    pointer-events:none;">
+    pointer-events:none; z-index:10;">
     Globe — select country
   </div>
 </div>
 
 <script>
-// Listen for postMessage events from the D3 globe iframe.
-// The globe sends: { type: "countrySelect", iso3: "DEU" }
+// Receive postMessage from the globe iframe and re-dispatch
+// as a CustomEvent on the document so the Bokeh listener picks it up.
 window.addEventListener("message", function(evt) {
     if (!evt.data || evt.data.type !== "countrySelect") return;
-    const iso3 = evt.data.iso3;
-    // Dispatch a CustomEvent that the Bokeh CustomJS callback listens to.
-    document.dispatchEvent(new CustomEvent("globeCountrySelect", { detail: { iso3 } }));
+    document.dispatchEvent(
+        new CustomEvent("globeCountrySelect", { detail: { iso3: evt.data.iso3 } })
+    );
 });
 </script>
 """
+
+
+
 
 globe_div = Div(text=GLOBE_HTML, width=380, height=340)
 
