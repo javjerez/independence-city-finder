@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Independence Index</title>
+
+  <!-- ================================================================
+    STEP 1 — EXTERNAL FONTS
+    When you decide on typography, load your chosen Google Fonts or
+    @font-face declarations here.
+    Example:
+      <link href="https://fonts.googleapis.com/css2?family=YourFont&display=swap" rel="stylesheet">
+  ================================================================ -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+
+  <style>
+    /* ================================================================
+      STEP 2 — DESIGN TOKENS  ← define your visual identity here
+      Once you pick a direction, fill these in. Every rule in the file
+      reads from these variables, so changing them here repaints
+      the entire dashboard.
+    ================================================================ 
+
+    :root {
+      --color-bg:           ;   // page / app background              
+      --color-surface:      ;   // panel / card background            
+      --color-surface-alt:  ;   // slightly different surface tone    
+      --color-border:       ;   // dividers, resize handle            
+      --color-text-primary: ;   // main readable text                 
+      --color-text-muted:   ;   // labels, secondary info             
+      --color-accent:       ;   // highlight, active state, dots      
+      --color-accent-soft:  ;   // hover tint, backgrounds            
+
+      --font-display:       ;   // headings, city name in card        
+      --font-body:          ;   // all other text                     
+
+      --radius-panel:       ;   // corner radius for panels           
+      --shadow-panel:       ;   // box-shadow for raised surfaces     
+    }
+
+    // Globe tooltip (STEP 7b in globe.js) ----------------
+      #globe-tooltip { }
+      #globe-tooltip .tooltip-flag    { }
+      #globe-tooltip .tooltip-city    { }
+      #globe-tooltip .tooltip-country { }
+      #globe-tooltip .tooltip-hint    { }
+    // --------------------------------------------------------------
+
+
+
+    // -- Controls (controls.js) --------------------------------
+    // .attr-box {
+    //   cursor: pointer;
+    // }
+    // 
+    // .attr-box--selected {
+    //   background-color: #00bfff;  // placeholder — swap with var(--color-accent) later 
+    //   color: #000;                // placeholder 
+    // }
+    // ---------------------------------------------------------------- 
+    ================================================================ */
+
+    /* demo */
+    .attr-box--selected {
+      background-color: #00bfff;
+      color: #000;
+      outline: 2px solid #fff;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slider-track {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ================================================================
+      STEP 3 — RESET & BASE
+      Minimal reset. Fill in var() references once tokens are defined.
+    ================================================================ */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      /* nothing scrolls at the page level */
+
+      /* background-color: var(--color-bg); */
+      /* color:            var(--color-text-primary); */
+      /* font-family:      var(--font-body); */
+    }
+
+
+    /* ================================================================
+      STEP 4 — ROOT LAYOUT
+      One CSS custom property drives the left/right split so it can be
+      changed programmatically by the resize handle without touching
+      any other rule.
+    ================================================================ */
+
+    #app {
+      --split: 60%;
+      /* ← single source of truth for the split */
+
+      display: grid;
+      grid-template-columns: var(--split) 1fr;
+      grid-template-rows: 100vh;
+      width: 100vw;
+      height: 100vh;
+    }
+
+
+    /* ================================================================
+      STEP 5 — LEFT PANEL  (globe + controls)
+      Stacked vertically: globe takes remaining space, controls sit
+      at the bottom. Proportions TBD when those modules are built.
+    ================================================================ */
+
+    #panel-left {
+      grid-column: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      /* border-right: 1px solid var(--color-border); */
+      --split-left: 70%;
+      /* ← single source of truth for globe/controls split */
+    }
+
+    #globe-container {
+      flex: 0 0 var(--split-left);
+      /* fixed to --split-left, doesn't grow or shrink */
+      /* expands to fill all available height */
+      position: relative;
+      /* anchor for any absolute children (canvas, labels) */
+      overflow: hidden;
+    }
+
+    #controls-container {
+      flex: 1;
+      /* takes the remaining 30% */
+      /* never compresses — height set by content */
+      /* height will be defined when controls module is built */
+      overflow: hidden;
+      overflow-y: auto;
+      /* allows controls to scroll if they overflow */
+    }
+
+
+    /* ================================================================
+      STEP 6 — RESIZE HANDLE
+      A thin draggable strip between the two panels.
+      JS will update #app { --split } on pointermove.
+    ================================================================ */
+
+    #resize-handle {
+      position: absolute;
+      top: 0;
+      /* left is set dynamically via JS to match --split */
+      width: 6px;
+      height: 100vh;
+      cursor: col-resize;
+      z-index: 100;
+      transform: translateX(-50%);
+
+      /* background: var(--color-border); */
+    }
+
+
+    /* ================================================================
+      STEP 7 — RIGHT PANEL  (city card + comparison views)
+      Stacked vertically: city card on top, comparison below.
+      Proportions TBD when those modules are built.
+    ================================================================ */
+
+    #panel-right {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #city-card-container {
+      flex-shrink: 0;
+      /* height will be driven by city card content */
+    }
+
+    #comparison-container {
+      flex: 1;
+      /* takes all remaining vertical space */
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+
+    <!-- ── LEFT PANEL ─────────────────────────────────────────── -->
+    <div id="panel-left">
+
+      <div id="globe-container">
+        <!-- globe.js mounts here -->
+
+      </div>
+
+      <div id="controls-container">
+        <!-- controls.js mounts here -->
+      </div>
+
+    </div>
+
+
+    <!-- ── RESIZE HANDLE ──────────────────────────────────────── -->
+    <div id="resize-handle" aria-hidden="true"></div>
+
+
+    <!-- ── RIGHT PANEL ────────────────────────────────────────── -->
+    <div id="panel-right">
+
+      <div id="city-card-container">
+        <!-- cityCard.js mounts here -->
+      </div>
+
+      <div id="comparison-container">
+        <!-- comparison.js mounts here -->
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================================
+    STEP 8 — JAVASCRIPT MODULES
+    Uncomment and add modules as they are built.
+    Load order: state first (shared store), then feature modules.
+  ================================================================
+
+  <script type="module" src="js/state.js"></script>
+  <script type="module" src="js/globe.js"></script>
+  <script type="module" src="js/controls.js"></script>
+  <script type="module" src="js/cityCard.js"></script>
+  <script type="module" src="js/comparison.js"></script>
+
+  ================================================================ -->
+
+  <script type="module">
+    import { initGlobe } from './js/globe.js';
+    import { initControls } from './js/controls.js';
+    initGlobe();
+    initControls();
+  </script>
+
+
+  <script>
+    /* ================================================================
+      STEP 9 — RESIZE HANDLE LOGIC
+      Dragging the handle writes a new value to #app's --split variable.
+      No module dependencies — safe to run immediately.
+    ================================================================ */
+
+    const app = document.getElementById('app');
+    const handle = document.getElementById('resize-handle');
+
+    /* Position the handle to sit on the column boundary on load */
+    function syncHandlePosition() {
+      const splitPx = app.getBoundingClientRect().width
+        * (parseFloat(getComputedStyle(app).getPropertyValue('--split')) / 100);
+      handle.style.left = splitPx + 'px';
+    }
+
+    syncHandlePosition();
+
+    handle.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      handle.setPointerCapture(e.pointerId);
+
+      handle.addEventListener('pointermove', onDrag);
+      handle.addEventListener('pointerup', onDrop, { once: true });
+    });
+
+    function onDrag(e) {
+      const totalWidth = app.getBoundingClientRect().width;
+      const newSplit = Math.min(Math.max(e.clientX / totalWidth * 100, 20), 80);
+      app.style.setProperty('--split', newSplit.toFixed(2) + '%');
+      handle.style.left = e.clientX + 'px';
+    }
+
+    function onDrop() {
+      handle.removeEventListener('pointermove', onDrag);
+    }
+
+    window.addEventListener('resize', syncHandlePosition);
+  </script>
+
+</body>
+
+</html>

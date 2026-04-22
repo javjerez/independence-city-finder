@@ -1,0 +1,2615 @@
+[
+  {
+    "city": "Amsterdam",
+    "country": "Netherlands",
+    "lat": 52.3676,
+    "lon": 4.9041,
+    "flag": "🇳🇱",
+    "qol": {
+      "quality_of_life_index": 198.4,
+      "purchasing_power_index": 131.2,
+      "safety_index": 66.8,
+      "healthcare_index": 75.4,
+      "cost_of_living_index": 74.3,
+      "property_price_to_income_ratio": 12.1,
+      "traffic_commute_time_index": 28.4,
+      "pollution_index": 22.1,
+      "climate_index": 82.7
+    },
+    "ua_scores": {
+      "housing": 4.8,
+      "cost_of_living": 3.9,
+      "startups": 6.2,
+      "venture_capital": 5.8,
+      "travel_connectivity": 8.4,
+      "commute": 6.9,
+      "business_freedom": 7.1,
+      "safety": 7.2,
+      "healthcare": 8.1,
+      "education": 7.3,
+      "environmental_quality": 7.8,
+      "economy": 6.5,
+      "taxation": 4.2,
+      "internet_access": 8.7,
+      "leisure_culture": 8.3,
+      "tolerance": 9.1,
+      "outdoors": 5.2
+    },
+    "salary": {
+      "avg_monthly_net_usd": 3450
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 18.0,
+      "monthly_transport_pass_usd": 105.0,
+      "rent_1br_city_center_usd": 1850.0,
+      "groceries_index": 72.1
+    },
+    "happiness": {
+      "ladder_score": 7.42,
+      "freedom_score": 0.88,
+      "social_support": 1.49,
+      "healthy_life_expectancy": 0.71
+    },
+    "sunshine": {
+      "annual_hours": 1858
+    },
+    "avg_temperature_c": 10.2,
+    "internet_speed_mbps": 178.4,
+    "aqi": 28,
+    "lgbtq_legal_index": 96.2,
+    "english_proficiency_score": 636,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 74.1,
+      "crime_index": 39.2,
+      "safety_index": 60.8,
+      "pollution_index": 28.3
+    }
+  },
+  {
+    "city": "Berlin",
+    "country": "Germany",
+    "lat": 52.5200,
+    "lon": 13.4050,
+    "flag": "🇩🇪",
+    "qol": {
+      "quality_of_life_index": 185.6,
+      "purchasing_power_index": 118.3,
+      "safety_index": 58.4,
+      "healthcare_index": 72.8,
+      "cost_of_living_index": 65.2,
+      "property_price_to_income_ratio": 14.7,
+      "traffic_commute_time_index": 35.2,
+      "pollution_index": 29.4,
+      "climate_index": 74.1
+    },
+    "ua_scores": {
+      "housing": 5.1,
+      "cost_of_living": 5.5,
+      "startups": 7.8,
+      "venture_capital": 7.2,
+      "travel_connectivity": 8.1,
+      "commute": 6.5,
+      "business_freedom": 6.8,
+      "safety": 6.4,
+      "healthcare": 8.3,
+      "education": 8.0,
+      "environmental_quality": 7.2,
+      "economy": 6.8,
+      "taxation": 3.8,
+      "internet_access": 7.9,
+      "leisure_culture": 8.9,
+      "tolerance": 8.7,
+      "outdoors": 5.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 2850
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 13.0,
+      "monthly_transport_pass_usd": 90.0,
+      "rent_1br_city_center_usd": 1400.0,
+      "groceries_index": 59.8
+    },
+    "happiness": {
+      "ladder_score": 6.98,
+      "freedom_score": 0.85,
+      "social_support": 1.45,
+      "healthy_life_expectancy": 0.73
+    },
+    "sunshine": {
+      "annual_hours": 1625
+    },
+    "avg_temperature_c": 9.6,
+    "internet_speed_mbps": 142.7,
+    "aqi": 32,
+    "lgbtq_legal_index": 82.4,
+    "english_proficiency_score": 601,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 72.4,
+      "crime_index": 35.4,
+      "safety_index": 64.6,
+      "pollution_index": 33.2
+    }
+  },
+  {
+    "city": "Lisbon",
+    "country": "Portugal",
+    "lat": 38.7169,
+    "lon": -9.1399,
+    "flag": "🇵🇹",
+    "qol": {
+      "quality_of_life_index": 179.2,
+      "purchasing_power_index": 82.4,
+      "safety_index": 72.1,
+      "healthcare_index": 70.3,
+      "cost_of_living_index": 55.8,
+      "property_price_to_income_ratio": 16.3,
+      "traffic_commute_time_index": 32.8,
+      "pollution_index": 24.7,
+      "climate_index": 95.3
+    },
+    "ua_scores": {
+      "housing": 4.3,
+      "cost_of_living": 6.2,
+      "startups": 5.9,
+      "venture_capital": 4.7,
+      "travel_connectivity": 6.8,
+      "commute": 5.9,
+      "business_freedom": 6.3,
+      "safety": 8.1,
+      "healthcare": 7.2,
+      "education": 6.4,
+      "environmental_quality": 7.9,
+      "economy": 5.4,
+      "taxation": 4.5,
+      "internet_access": 7.8,
+      "leisure_culture": 7.6,
+      "tolerance": 8.4,
+      "outdoors": 7.9
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1380
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 10.0,
+      "monthly_transport_pass_usd": 42.0,
+      "rent_1br_city_center_usd": 1150.0,
+      "groceries_index": 44.2
+    },
+    "happiness": {
+      "ladder_score": 6.14,
+      "freedom_score": 0.83,
+      "social_support": 1.38,
+      "healthy_life_expectancy": 0.73
+    },
+    "sunshine": {
+      "annual_hours": 2806
+    },
+    "avg_temperature_c": 17.4,
+    "internet_speed_mbps": 132.6,
+    "aqi": 19,
+    "lgbtq_legal_index": 87.5,
+    "english_proficiency_score": 521,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 67.8,
+      "crime_index": 31.4,
+      "safety_index": 68.6,
+      "pollution_index": 27.5
+    }
+  },
+  {
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.3851,
+    "lon": 2.1734,
+    "flag": "🇪🇸",
+    "qol": {
+      "quality_of_life_index": 176.8,
+      "purchasing_power_index": 86.2,
+      "safety_index": 55.3,
+      "healthcare_index": 78.2,
+      "cost_of_living_index": 61.4,
+      "property_price_to_income_ratio": 18.9,
+      "traffic_commute_time_index": 37.4,
+      "pollution_index": 36.8,
+      "climate_index": 97.1
+    },
+    "ua_scores": {
+      "housing": 3.9,
+      "cost_of_living": 5.8,
+      "startups": 6.4,
+      "venture_capital": 5.5,
+      "travel_connectivity": 7.9,
+      "commute": 5.7,
+      "business_freedom": 5.9,
+      "safety": 5.8,
+      "healthcare": 8.6,
+      "education": 6.9,
+      "environmental_quality": 7.1,
+      "economy": 5.9,
+      "taxation": 4.1,
+      "internet_access": 8.2,
+      "leisure_culture": 9.3,
+      "tolerance": 8.5,
+      "outdoors": 8.7
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1720
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 12.0,
+      "monthly_transport_pass_usd": 48.0,
+      "rent_1br_city_center_usd": 1400.0,
+      "groceries_index": 52.7
+    },
+    "happiness": {
+      "ladder_score": 6.42,
+      "freedom_score": 0.81,
+      "social_support": 1.40,
+      "healthy_life_expectancy": 0.79
+    },
+    "sunshine": {
+      "annual_hours": 2524
+    },
+    "avg_temperature_c": 16.2,
+    "internet_speed_mbps": 187.3,
+    "aqi": 38,
+    "lgbtq_legal_index": 80.1,
+    "english_proficiency_score": 528,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 72.8,
+      "crime_index": 47.3,
+      "safety_index": 52.7,
+      "pollution_index": 37.9
+    }
+  },
+  {
+    "city": "Vienna",
+    "country": "Austria",
+    "lat": 48.2082,
+    "lon": 16.3738,
+    "flag": "🇦🇹",
+    "qol": {
+      "quality_of_life_index": 203.1,
+      "purchasing_power_index": 107.4,
+      "safety_index": 77.8,
+      "healthcare_index": 81.3,
+      "cost_of_living_index": 68.9,
+      "property_price_to_income_ratio": 15.2,
+      "traffic_commute_time_index": 26.1,
+      "pollution_index": 17.4,
+      "climate_index": 80.5
+    },
+    "ua_scores": {
+      "housing": 6.4,
+      "cost_of_living": 4.8,
+      "startups": 5.4,
+      "venture_capital": 4.9,
+      "travel_connectivity": 8.6,
+      "commute": 8.2,
+      "business_freedom": 6.5,
+      "safety": 8.9,
+      "healthcare": 8.8,
+      "education": 8.1,
+      "environmental_quality": 8.5,
+      "economy": 6.9,
+      "taxation": 3.6,
+      "internet_access": 8.4,
+      "leisure_culture": 8.7,
+      "tolerance": 7.8,
+      "outdoors": 6.9
+    },
+    "salary": {
+      "avg_monthly_net_usd": 2740
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 15.0,
+      "monthly_transport_pass_usd": 58.0,
+      "rent_1br_city_center_usd": 1380.0,
+      "groceries_index": 62.4
+    },
+    "happiness": {
+      "ladder_score": 7.31,
+      "freedom_score": 0.87,
+      "social_support": 1.46,
+      "healthy_life_expectancy": 0.73
+    },
+    "sunshine": {
+      "annual_hours": 1884
+    },
+    "avg_temperature_c": 11.1,
+    "internet_speed_mbps": 95.8,
+    "aqi": 18,
+    "lgbtq_legal_index": 70.3,
+    "english_proficiency_score": 558,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 80.2,
+      "crime_index": 27.1,
+      "safety_index": 72.9,
+      "pollution_index": 21.3
+    }
+  },
+  {
+    "city": "Copenhagen",
+    "country": "Denmark",
+    "lat": 55.6761,
+    "lon": 12.5683,
+    "flag": "🇩🇰",
+    "qol": {
+      "quality_of_life_index": 209.4,
+      "purchasing_power_index": 143.6,
+      "safety_index": 80.2,
+      "healthcare_index": 83.7,
+      "cost_of_living_index": 82.4,
+      "property_price_to_income_ratio": 11.8,
+      "traffic_commute_time_index": 22.9,
+      "pollution_index": 14.8,
+      "climate_index": 76.4
+    },
+    "ua_scores": {
+      "housing": 6.1,
+      "cost_of_living": 3.4,
+      "startups": 7.1,
+      "venture_capital": 6.4,
+      "travel_connectivity": 7.8,
+      "commute": 8.6,
+      "business_freedom": 8.3,
+      "safety": 9.5,
+      "healthcare": 9.0,
+      "education": 8.4,
+      "environmental_quality": 9.1,
+      "economy": 7.4,
+      "taxation": 2.9,
+      "internet_access": 9.1,
+      "leisure_culture": 7.9,
+      "tolerance": 9.3,
+      "outdoors": 6.7
+    },
+    "salary": {
+      "avg_monthly_net_usd": 4120
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 22.0,
+      "monthly_transport_pass_usd": 112.0,
+      "rent_1br_city_center_usd": 2100.0,
+      "groceries_index": 79.3
+    },
+    "happiness": {
+      "ladder_score": 7.58,
+      "freedom_score": 0.82,
+      "social_support": 1.52,
+      "healthy_life_expectancy": 0.70
+    },
+    "sunshine": {
+      "annual_hours": 1630
+    },
+    "avg_temperature_c": 8.7,
+    "internet_speed_mbps": 168.9,
+    "aqi": 14,
+    "lgbtq_legal_index": 93.7,
+    "english_proficiency_score": 598,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 82.3,
+      "crime_index": 29.4,
+      "safety_index": 70.6,
+      "pollution_index": 18.4
+    }
+  },
+  {
+    "city": "Stockholm",
+    "country": "Sweden",
+    "lat": 59.3293,
+    "lon": 18.0686,
+    "flag": "🇸🇪",
+    "qol": {
+      "quality_of_life_index": 207.8,
+      "purchasing_power_index": 133.1,
+      "safety_index": 64.2,
+      "healthcare_index": 80.4,
+      "cost_of_living_index": 80.1,
+      "property_price_to_income_ratio": 10.9,
+      "traffic_commute_time_index": 29.7,
+      "pollution_index": 16.2,
+      "climate_index": 68.3
+    },
+    "ua_scores": {
+      "housing": 5.3,
+      "cost_of_living": 3.6,
+      "startups": 8.4,
+      "venture_capital": 7.8,
+      "travel_connectivity": 8.0,
+      "commute": 7.2,
+      "business_freedom": 8.0,
+      "safety": 7.4,
+      "healthcare": 8.7,
+      "education": 8.2,
+      "environmental_quality": 8.9,
+      "economy": 7.7,
+      "taxation": 2.7,
+      "internet_access": 9.4,
+      "leisure_culture": 7.8,
+      "tolerance": 9.2,
+      "outdoors": 7.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 3680
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 19.0,
+      "monthly_transport_pass_usd": 98.0,
+      "rent_1br_city_center_usd": 1950.0,
+      "groceries_index": 74.6
+    },
+    "happiness": {
+      "ladder_score": 7.35,
+      "freedom_score": 0.90,
+      "social_support": 1.48,
+      "healthy_life_expectancy": 0.73
+    },
+    "sunshine": {
+      "annual_hours": 1821
+    },
+    "avg_temperature_c": 7.4,
+    "internet_speed_mbps": 195.2,
+    "aqi": 12,
+    "lgbtq_legal_index": 94.8,
+    "english_proficiency_score": 602,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 78.1,
+      "crime_index": 43.6,
+      "safety_index": 56.4,
+      "pollution_index": 17.8
+    }
+  },
+  {
+    "city": "Zurich",
+    "country": "Switzerland",
+    "lat": 47.3769,
+    "lon": 8.5417,
+    "flag": "🇨🇭",
+    "qol": {
+      "quality_of_life_index": 218.2,
+      "purchasing_power_index": 181.4,
+      "safety_index": 84.3,
+      "healthcare_index": 90.2,
+      "cost_of_living_index": 106.4,
+      "property_price_to_income_ratio": 9.2,
+      "traffic_commute_time_index": 19.8,
+      "pollution_index": 12.3,
+      "climate_index": 79.6
+    },
+    "ua_scores": {
+      "housing": 7.2,
+      "cost_of_living": 2.4,
+      "startups": 7.6,
+      "venture_capital": 7.3,
+      "travel_connectivity": 8.9,
+      "commute": 9.1,
+      "business_freedom": 8.7,
+      "safety": 9.7,
+      "healthcare": 9.4,
+      "education": 9.2,
+      "environmental_quality": 9.3,
+      "economy": 8.9,
+      "taxation": 6.4,
+      "internet_access": 9.0,
+      "leisure_culture": 7.4,
+      "tolerance": 8.1,
+      "outdoors": 8.6
+    },
+    "salary": {
+      "avg_monthly_net_usd": 7200
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 30.0,
+      "monthly_transport_pass_usd": 118.0,
+      "rent_1br_city_center_usd": 3200.0,
+      "groceries_index": 107.3
+    },
+    "happiness": {
+      "ladder_score": 7.57,
+      "freedom_score": 0.93,
+      "social_support": 1.54,
+      "healthy_life_expectancy": 0.77
+    },
+    "sunshine": {
+      "annual_hours": 1630
+    },
+    "avg_temperature_c": 9.4,
+    "internet_speed_mbps": 218.4,
+    "aqi": 11,
+    "lgbtq_legal_index": 76.4,
+    "english_proficiency_score": 578,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 89.4,
+      "crime_index": 22.1,
+      "safety_index": 77.9,
+      "pollution_index": 14.2
+    }
+  },
+  {
+    "city": "Prague",
+    "country": "Czech Republic",
+    "lat": 50.0755,
+    "lon": 14.4378,
+    "flag": "🇨🇿",
+    "qol": {
+      "quality_of_life_index": 183.4,
+      "purchasing_power_index": 84.7,
+      "safety_index": 72.8,
+      "healthcare_index": 67.4,
+      "cost_of_living_index": 48.3,
+      "property_price_to_income_ratio": 20.4,
+      "traffic_commute_time_index": 33.5,
+      "pollution_index": 35.2,
+      "climate_index": 72.8
+    },
+    "ua_scores": {
+      "housing": 4.2,
+      "cost_of_living": 6.7,
+      "startups": 5.1,
+      "venture_capital": 3.8,
+      "travel_connectivity": 7.2,
+      "commute": 6.4,
+      "business_freedom": 6.1,
+      "safety": 7.9,
+      "healthcare": 7.1,
+      "education": 7.0,
+      "environmental_quality": 6.8,
+      "economy": 5.7,
+      "taxation": 6.8,
+      "internet_access": 7.4,
+      "leisure_culture": 7.8,
+      "tolerance": 6.9,
+      "outdoors": 5.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1540
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 8.0,
+      "monthly_transport_pass_usd": 26.0,
+      "rent_1br_city_center_usd": 820.0,
+      "groceries_index": 40.1
+    },
+    "happiness": {
+      "ladder_score": 6.89,
+      "freedom_score": 0.80,
+      "social_support": 1.39,
+      "healthy_life_expectancy": 0.70
+    },
+    "sunshine": {
+      "annual_hours": 1669
+    },
+    "avg_temperature_c": 9.9,
+    "internet_speed_mbps": 88.4,
+    "aqi": 34,
+    "lgbtq_legal_index": 47.2,
+    "english_proficiency_score": 549,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 62.3,
+      "crime_index": 34.8,
+      "safety_index": 65.2,
+      "pollution_index": 36.4
+    }
+  },
+  {
+    "city": "Warsaw",
+    "country": "Poland",
+    "lat": 52.2297,
+    "lon": 21.0122,
+    "flag": "🇵🇱",
+    "qol": {
+      "quality_of_life_index": 168.9,
+      "purchasing_power_index": 78.3,
+      "safety_index": 68.4,
+      "healthcare_index": 62.8,
+      "cost_of_living_index": 43.6,
+      "property_price_to_income_ratio": 17.8,
+      "traffic_commute_time_index": 39.2,
+      "pollution_index": 52.4,
+      "climate_index": 65.1
+    },
+    "ua_scores": {
+      "housing": 4.6,
+      "cost_of_living": 7.1,
+      "startups": 5.8,
+      "venture_capital": 4.2,
+      "travel_connectivity": 6.9,
+      "commute": 5.8,
+      "business_freedom": 6.4,
+      "safety": 7.4,
+      "healthcare": 6.8,
+      "education": 7.2,
+      "environmental_quality": 5.6,
+      "economy": 6.3,
+      "taxation": 5.9,
+      "internet_access": 7.8,
+      "leisure_culture": 7.1,
+      "tolerance": 6.2,
+      "outdoors": 4.7
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1420
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 7.0,
+      "monthly_transport_pass_usd": 28.0,
+      "rent_1br_city_center_usd": 780.0,
+      "groceries_index": 37.8
+    },
+    "happiness": {
+      "ladder_score": 6.56,
+      "freedom_score": 0.76,
+      "social_support": 1.38,
+      "healthy_life_expectancy": 0.68
+    },
+    "sunshine": {
+      "annual_hours": 1573
+    },
+    "avg_temperature_c": 8.5,
+    "internet_speed_mbps": 104.3,
+    "aqi": 52,
+    "lgbtq_legal_index": 22.8,
+    "english_proficiency_score": 558,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 61.2,
+      "crime_index": 36.7,
+      "safety_index": 63.3,
+      "pollution_index": 54.2
+    }
+  },
+  {
+    "city": "Toronto",
+    "country": "Canada",
+    "lat": 43.6532,
+    "lon": -79.3832,
+    "flag": "🇨🇦",
+    "qol": {
+      "quality_of_life_index": 186.3,
+      "purchasing_power_index": 111.7,
+      "safety_index": 61.4,
+      "healthcare_index": 74.2,
+      "cost_of_living_index": 69.8,
+      "property_price_to_income_ratio": 22.6,
+      "traffic_commute_time_index": 43.8,
+      "pollution_index": 21.4,
+      "climate_index": 60.2
+    },
+    "ua_scores": {
+      "housing": 3.4,
+      "cost_of_living": 4.3,
+      "startups": 7.4,
+      "venture_capital": 7.1,
+      "travel_connectivity": 8.2,
+      "commute": 5.1,
+      "business_freedom": 7.8,
+      "safety": 6.9,
+      "healthcare": 7.8,
+      "education": 8.3,
+      "environmental_quality": 7.4,
+      "economy": 7.2,
+      "taxation": 4.8,
+      "internet_access": 7.6,
+      "leisure_culture": 8.4,
+      "tolerance": 9.5,
+      "outdoors": 7.2
+    },
+    "salary": {
+      "avg_monthly_net_usd": 3650
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 19.0,
+      "monthly_transport_pass_usd": 128.0,
+      "rent_1br_city_center_usd": 2200.0,
+      "groceries_index": 68.4
+    },
+    "happiness": {
+      "ladder_score": 6.90,
+      "freedom_score": 0.87,
+      "social_support": 1.49,
+      "healthy_life_expectancy": 0.74
+    },
+    "sunshine": {
+      "annual_hours": 2066
+    },
+    "avg_temperature_c": 9.4,
+    "internet_speed_mbps": 132.8,
+    "aqi": 21,
+    "lgbtq_legal_index": 96.5,
+    "english_proficiency_score": null,
+    "english_proficiency_band": "Native",
+    "numbeo_country": {
+      "healthcare_index": 71.4,
+      "crime_index": 42.8,
+      "safety_index": 57.2,
+      "pollution_index": 22.1
+    }
+  },
+  {
+    "city": "Melbourne",
+    "country": "Australia",
+    "lat": -37.8136,
+    "lon": 144.9631,
+    "flag": "🇦🇺",
+    "qol": {
+      "quality_of_life_index": 189.7,
+      "purchasing_power_index": 118.4,
+      "safety_index": 68.9,
+      "healthcare_index": 79.6,
+      "cost_of_living_index": 76.3,
+      "property_price_to_income_ratio": 19.4,
+      "traffic_commute_time_index": 38.4,
+      "pollution_index": 15.4,
+      "climate_index": 87.4
+    },
+    "ua_scores": {
+      "housing": 3.8,
+      "cost_of_living": 4.1,
+      "startups": 6.8,
+      "venture_capital": 5.9,
+      "travel_connectivity": 7.4,
+      "commute": 5.4,
+      "business_freedom": 7.6,
+      "safety": 7.6,
+      "healthcare": 8.4,
+      "education": 8.6,
+      "environmental_quality": 8.2,
+      "economy": 6.9,
+      "taxation": 5.2,
+      "internet_access": 6.8,
+      "leisure_culture": 8.7,
+      "tolerance": 8.9,
+      "outdoors": 8.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 4180
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 18.0,
+      "monthly_transport_pass_usd": 115.0,
+      "rent_1br_city_center_usd": 1820.0,
+      "groceries_index": 71.2
+    },
+    "happiness": {
+      "ladder_score": 7.06,
+      "freedom_score": 0.88,
+      "social_support": 1.49,
+      "healthy_life_expectancy": 0.76
+    },
+    "sunshine": {
+      "annual_hours": 2208
+    },
+    "avg_temperature_c": 14.9,
+    "internet_speed_mbps": 56.4,
+    "aqi": 14,
+    "lgbtq_legal_index": 87.6,
+    "english_proficiency_score": null,
+    "english_proficiency_band": "Native",
+    "numbeo_country": {
+      "healthcare_index": 73.8,
+      "crime_index": 41.2,
+      "safety_index": 58.8,
+      "pollution_index": 19.4
+    }
+  },
+  {
+    "city": "Tokyo",
+    "country": "Japan",
+    "lat": 35.6762,
+    "lon": 139.6503,
+    "flag": "🇯🇵",
+    "qol": {
+      "quality_of_life_index": 195.3,
+      "purchasing_power_index": 93.2,
+      "safety_index": 88.4,
+      "healthcare_index": 88.7,
+      "cost_of_living_index": 79.8,
+      "property_price_to_income_ratio": 23.1,
+      "traffic_commute_time_index": 42.3,
+      "pollution_index": 25.3,
+      "climate_index": 73.6
+    },
+    "ua_scores": {
+      "housing": 3.9,
+      "cost_of_living": 4.2,
+      "startups": 6.7,
+      "venture_capital": 7.4,
+      "travel_connectivity": 9.4,
+      "commute": 5.8,
+      "business_freedom": 6.9,
+      "safety": 9.8,
+      "healthcare": 9.1,
+      "education": 8.7,
+      "environmental_quality": 7.6,
+      "economy": 7.8,
+      "taxation": 5.4,
+      "internet_access": 9.2,
+      "leisure_culture": 9.6,
+      "tolerance": 6.4,
+      "outdoors": 6.2
+    },
+    "salary": {
+      "avg_monthly_net_usd": 2960
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 9.0,
+      "monthly_transport_pass_usd": 88.0,
+      "rent_1br_city_center_usd": 1650.0,
+      "groceries_index": 74.2
+    },
+    "happiness": {
+      "ladder_score": 6.13,
+      "freedom_score": 0.80,
+      "social_support": 1.44,
+      "healthy_life_expectancy": 0.83
+    },
+    "sunshine": {
+      "annual_hours": 1876
+    },
+    "avg_temperature_c": 15.4,
+    "internet_speed_mbps": 214.8,
+    "aqi": 29,
+    "lgbtq_legal_index": 34.2,
+    "english_proficiency_score": 457,
+    "english_proficiency_band": "Low",
+    "numbeo_country": {
+      "healthcare_index": 83.2,
+      "crime_index": 21.4,
+      "safety_index": 78.6,
+      "pollution_index": 26.8
+    }
+  },
+  {
+    "city": "Singapore",
+    "country": "Singapore",
+    "lat": 1.3521,
+    "lon": 103.8198,
+    "flag": "🇸🇬",
+    "qol": {
+      "quality_of_life_index": 197.6,
+      "purchasing_power_index": 124.7,
+      "safety_index": 84.6,
+      "healthcare_index": 87.4,
+      "cost_of_living_index": 83.1,
+      "property_price_to_income_ratio": 26.4,
+      "traffic_commute_time_index": 35.8,
+      "pollution_index": 28.7,
+      "climate_index": 68.2
+    },
+    "ua_scores": {
+      "housing": 4.2,
+      "cost_of_living": 3.8,
+      "startups": 8.9,
+      "venture_capital": 8.7,
+      "travel_connectivity": 9.7,
+      "commute": 7.8,
+      "business_freedom": 9.2,
+      "safety": 9.6,
+      "healthcare": 9.3,
+      "education": 8.9,
+      "environmental_quality": 7.4,
+      "economy": 8.8,
+      "taxation": 8.4,
+      "internet_access": 9.5,
+      "leisure_culture": 8.1,
+      "tolerance": 7.2,
+      "outdoors": 5.9
+    },
+    "salary": {
+      "avg_monthly_net_usd": 4840
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 8.0,
+      "monthly_transport_pass_usd": 92.0,
+      "rent_1br_city_center_usd": 2600.0,
+      "groceries_index": 78.4
+    },
+    "happiness": {
+      "ladder_score": 6.52,
+      "freedom_score": 0.87,
+      "social_support": 1.37,
+      "healthy_life_expectancy": 0.80
+    },
+    "sunshine": {
+      "annual_hours": 2082
+    },
+    "avg_temperature_c": 27.2,
+    "internet_speed_mbps": 238.7,
+    "aqi": 31,
+    "lgbtq_legal_index": 19.8,
+    "english_proficiency_score": 609,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 85.4,
+      "crime_index": 19.2,
+      "safety_index": 80.8,
+      "pollution_index": 33.4
+    }
+  },
+  {
+    "city": "Seoul",
+    "country": "South Korea",
+    "lat": 37.5665,
+    "lon": 126.9780,
+    "flag": "🇰🇷",
+    "qol": {
+      "quality_of_life_index": 174.8,
+      "purchasing_power_index": 89.4,
+      "safety_index": 78.2,
+      "healthcare_index": 81.7,
+      "cost_of_living_index": 62.4,
+      "property_price_to_income_ratio": 28.7,
+      "traffic_commute_time_index": 44.1,
+      "pollution_index": 64.8,
+      "climate_index": 62.4
+    },
+    "ua_scores": {
+      "housing": 3.1,
+      "cost_of_living": 5.2,
+      "startups": 7.9,
+      "venture_capital": 7.6,
+      "travel_connectivity": 8.8,
+      "commute": 5.4,
+      "business_freedom": 7.2,
+      "safety": 8.6,
+      "healthcare": 8.9,
+      "education": 9.1,
+      "environmental_quality": 5.8,
+      "economy": 7.6,
+      "taxation": 6.2,
+      "internet_access": 9.7,
+      "leisure_culture": 8.4,
+      "tolerance": 5.8,
+      "outdoors": 6.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 2810
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 7.0,
+      "monthly_transport_pass_usd": 52.0,
+      "rent_1br_city_center_usd": 1200.0,
+      "groceries_index": 59.3
+    },
+    "happiness": {
+      "ladder_score": 5.95,
+      "freedom_score": 0.74,
+      "social_support": 1.35,
+      "healthy_life_expectancy": 0.79
+    },
+    "sunshine": {
+      "annual_hours": 2066
+    },
+    "avg_temperature_c": 12.5,
+    "internet_speed_mbps": 252.4,
+    "aqi": 58,
+    "lgbtq_legal_index": 18.4,
+    "english_proficiency_score": 514,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 80.4,
+      "crime_index": 27.8,
+      "safety_index": 72.2,
+      "pollution_index": 62.4
+    }
+  },
+  {
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "lat": 25.2048,
+    "lon": 55.2708,
+    "flag": "🇦🇪",
+    "qol": {
+      "quality_of_life_index": 171.4,
+      "purchasing_power_index": 136.2,
+      "safety_index": 82.4,
+      "healthcare_index": 72.8,
+      "cost_of_living_index": 71.6,
+      "property_price_to_income_ratio": 10.4,
+      "traffic_commute_time_index": 48.7,
+      "pollution_index": 47.3,
+      "climate_index": 62.1
+    },
+    "ua_scores": {
+      "housing": 5.8,
+      "cost_of_living": 4.7,
+      "startups": 7.4,
+      "venture_capital": 6.8,
+      "travel_connectivity": 9.8,
+      "commute": 5.2,
+      "business_freedom": 8.4,
+      "safety": 9.1,
+      "healthcare": 7.6,
+      "education": 6.8,
+      "environmental_quality": 5.4,
+      "economy": 7.9,
+      "taxation": 9.8,
+      "internet_access": 8.4,
+      "leisure_culture": 7.8,
+      "tolerance": 6.2,
+      "outdoors": 5.7
+    },
+    "salary": {
+      "avg_monthly_net_usd": 5200
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 14.0,
+      "monthly_transport_pass_usd": 82.0,
+      "rent_1br_city_center_usd": 2100.0,
+      "groceries_index": 61.4
+    },
+    "happiness": {
+      "ladder_score": 6.73,
+      "freedom_score": 0.88,
+      "social_support": 1.34,
+      "healthy_life_expectancy": 0.74
+    },
+    "sunshine": {
+      "annual_hours": 3509
+    },
+    "avg_temperature_c": 28.4,
+    "internet_speed_mbps": 309.8,
+    "aqi": 48,
+    "lgbtq_legal_index": 2.4,
+    "english_proficiency_score": 543,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 69.4,
+      "crime_index": 16.8,
+      "safety_index": 83.2,
+      "pollution_index": 49.6
+    }
+  },
+  {
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.7128,
+    "lon": -74.0060,
+    "flag": "🇺🇸",
+    "qol": {
+      "quality_of_life_index": 162.4,
+      "purchasing_power_index": 141.8,
+      "safety_index": 48.4,
+      "healthcare_index": 72.4,
+      "cost_of_living_index": 100.0,
+      "property_price_to_income_ratio": 24.8,
+      "traffic_commute_time_index": 47.2,
+      "pollution_index": 34.8,
+      "climate_index": 68.4
+    },
+    "ua_scores": {
+      "housing": 2.8,
+      "cost_of_living": 2.9,
+      "startups": 9.4,
+      "venture_capital": 9.8,
+      "travel_connectivity": 9.6,
+      "commute": 4.8,
+      "business_freedom": 8.2,
+      "safety": 5.4,
+      "healthcare": 7.1,
+      "education": 8.9,
+      "environmental_quality": 6.1,
+      "economy": 9.2,
+      "taxation": 4.4,
+      "internet_access": 8.4,
+      "leisure_culture": 9.8,
+      "tolerance": 8.6,
+      "outdoors": 6.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 5400
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 22.0,
+      "monthly_transport_pass_usd": 132.0,
+      "rent_1br_city_center_usd": 3800.0,
+      "groceries_index": 92.4
+    },
+    "happiness": {
+      "ladder_score": 6.73,
+      "freedom_score": 0.86,
+      "social_support": 1.43,
+      "healthy_life_expectancy": 0.72
+    },
+    "sunshine": {
+      "annual_hours": 2535
+    },
+    "avg_temperature_c": 12.9,
+    "internet_speed_mbps": 142.4,
+    "aqi": 36,
+    "lgbtq_legal_index": 88.4,
+    "english_proficiency_score": null,
+    "english_proficiency_band": "Native",
+    "numbeo_country": {
+      "healthcare_index": 68.7,
+      "crime_index": 54.6,
+      "safety_index": 45.4,
+      "pollution_index": 34.2
+    }
+  },
+  {
+    "city": "São Paulo",
+    "country": "Brazil",
+    "lat": -23.5505,
+    "lon": -46.6333,
+    "flag": "🇧🇷",
+    "qol": {
+      "quality_of_life_index": 108.4,
+      "purchasing_power_index": 42.8,
+      "safety_index": 26.4,
+      "healthcare_index": 57.8,
+      "cost_of_living_index": 39.2,
+      "property_price_to_income_ratio": 19.6,
+      "traffic_commute_time_index": 58.4,
+      "pollution_index": 56.4,
+      "climate_index": 71.8
+    },
+    "ua_scores": {
+      "housing": 3.6,
+      "cost_of_living": 6.8,
+      "startups": 6.4,
+      "venture_capital": 6.1,
+      "travel_connectivity": 7.6,
+      "commute": 2.8,
+      "business_freedom": 5.2,
+      "safety": 2.8,
+      "healthcare": 6.1,
+      "education": 5.4,
+      "environmental_quality": 5.1,
+      "economy": 5.8,
+      "taxation": 3.2,
+      "internet_access": 7.2,
+      "leisure_culture": 8.2,
+      "tolerance": 7.8,
+      "outdoors": 7.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 890
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 5.0,
+      "monthly_transport_pass_usd": 42.0,
+      "rent_1br_city_center_usd": 620.0,
+      "groceries_index": 34.8
+    },
+    "happiness": {
+      "ladder_score": 6.26,
+      "freedom_score": 0.79,
+      "social_support": 1.41,
+      "healthy_life_expectancy": 0.65
+    },
+    "sunshine": {
+      "annual_hours": 1787
+    },
+    "avg_temperature_c": 19.4,
+    "internet_speed_mbps": 78.4,
+    "aqi": 44,
+    "lgbtq_legal_index": 72.4,
+    "english_proficiency_score": 453,
+    "english_proficiency_band": "Low",
+    "numbeo_country": {
+      "healthcare_index": 52.4,
+      "crime_index": 72.4,
+      "safety_index": 27.6,
+      "pollution_index": 58.4
+    }
+  },
+  {
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "lat": -34.6037,
+    "lon": -58.3816,
+    "flag": "🇦🇷",
+    "qol": {
+      "quality_of_life_index": 113.2,
+      "purchasing_power_index": 32.4,
+      "safety_index": 41.8,
+      "healthcare_index": 62.4,
+      "cost_of_living_index": 31.8,
+      "property_price_to_income_ratio": 22.4,
+      "traffic_commute_time_index": 46.8,
+      "pollution_index": 42.6,
+      "climate_index": 80.4
+    },
+    "ua_scores": {
+      "housing": 4.8,
+      "cost_of_living": 8.2,
+      "startups": 5.2,
+      "venture_capital": 3.8,
+      "travel_connectivity": 6.4,
+      "commute": 4.2,
+      "business_freedom": 3.8,
+      "safety": 4.8,
+      "healthcare": 6.8,
+      "education": 6.2,
+      "environmental_quality": 5.8,
+      "economy": 2.8,
+      "taxation": 2.8,
+      "internet_access": 6.4,
+      "leisure_culture": 8.6,
+      "tolerance": 7.6,
+      "outdoors": 6.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 520
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 4.0,
+      "monthly_transport_pass_usd": 14.0,
+      "rent_1br_city_center_usd": 480.0,
+      "groceries_index": 28.4
+    },
+    "happiness": {
+      "ladder_score": 6.00,
+      "freedom_score": 0.77,
+      "social_support": 1.44,
+      "healthy_life_expectancy": 0.67
+    },
+    "sunshine": {
+      "annual_hours": 2580
+    },
+    "avg_temperature_c": 17.2,
+    "internet_speed_mbps": 44.8,
+    "aqi": 39,
+    "lgbtq_legal_index": 91.4,
+    "english_proficiency_score": 462,
+    "english_proficiency_band": "Low",
+    "numbeo_country": {
+      "healthcare_index": 58.4,
+      "crime_index": 62.4,
+      "safety_index": 37.6,
+      "pollution_index": 44.8
+    }
+  },
+  {
+    "city": "Mexico City",
+    "country": "Mexico",
+    "lat": 19.4326,
+    "lon": -99.1332,
+    "flag": "🇲🇽",
+    "qol": {
+      "quality_of_life_index": 118.6,
+      "purchasing_power_index": 46.4,
+      "safety_index": 30.2,
+      "healthcare_index": 58.4,
+      "cost_of_living_index": 36.4,
+      "property_price_to_income_ratio": 14.8,
+      "traffic_commute_time_index": 52.4,
+      "pollution_index": 68.4,
+      "climate_index": 83.6
+    },
+    "ua_scores": {
+      "housing": 5.2,
+      "cost_of_living": 7.4,
+      "startups": 5.6,
+      "venture_capital": 4.8,
+      "travel_connectivity": 7.2,
+      "commute": 2.4,
+      "business_freedom": 5.4,
+      "safety": 3.4,
+      "healthcare": 6.2,
+      "education": 5.8,
+      "environmental_quality": 3.8,
+      "economy": 5.6,
+      "taxation": 5.8,
+      "internet_access": 6.4,
+      "leisure_culture": 8.4,
+      "tolerance": 7.2,
+      "outdoors": 7.6
+    },
+    "salary": {
+      "avg_monthly_net_usd": 740
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 4.5,
+      "monthly_transport_pass_usd": 18.0,
+      "rent_1br_city_center_usd": 580.0,
+      "groceries_index": 32.6
+    },
+    "happiness": {
+      "ladder_score": 6.32,
+      "freedom_score": 0.84,
+      "social_support": 1.42,
+      "healthy_life_expectancy": 0.66
+    },
+    "sunshine": {
+      "annual_hours": 2556
+    },
+    "avg_temperature_c": 16.8,
+    "internet_speed_mbps": 52.4,
+    "aqi": 72,
+    "lgbtq_legal_index": 74.2,
+    "english_proficiency_score": 476,
+    "english_proficiency_band": "Moderate",
+    "numbeo_country": {
+      "healthcare_index": 53.4,
+      "crime_index": 68.4,
+      "safety_index": 31.6,
+      "pollution_index": 66.4
+    }
+  },
+  {
+    "city": "Nairobi",
+    "country": "Kenya",
+    "lat": -1.2921,
+    "lon": 36.8219,
+    "flag": "🇰🇪",
+    "qol": {
+      "quality_of_life_index": 94.8,
+      "purchasing_power_index": 24.6,
+      "safety_index": 28.4,
+      "healthcare_index": 42.8,
+      "cost_of_living_index": 34.8,
+      "property_price_to_income_ratio": 18.4,
+      "traffic_commute_time_index": 54.8,
+      "pollution_index": 74.8,
+      "climate_index": 84.4
+    },
+    "ua_scores": {
+      "housing": 3.8,
+      "cost_of_living": 7.6,
+      "startups": 5.4,
+      "venture_capital": 3.4,
+      "travel_connectivity": 5.4,
+      "commute": 2.2,
+      "business_freedom": 4.8,
+      "safety": 3.2,
+      "healthcare": 4.4,
+      "education": 4.8,
+      "environmental_quality": 4.2,
+      "economy": 4.4,
+      "taxation": 4.4,
+      "internet_access": 5.8,
+      "leisure_culture": 5.4,
+      "tolerance": 5.8,
+      "outdoors": 7.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 380
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 3.0,
+      "monthly_transport_pass_usd": 24.0,
+      "rent_1br_city_center_usd": 420.0,
+      "groceries_index": 31.4
+    },
+    "happiness": {
+      "ladder_score": 4.67,
+      "freedom_score": 0.62,
+      "social_support": 1.19,
+      "healthy_life_expectancy": 0.51
+    },
+    "sunshine": {
+      "annual_hours": 2826
+    },
+    "avg_temperature_c": 18.6,
+    "internet_speed_mbps": 22.4,
+    "aqi": 76,
+    "lgbtq_legal_index": 4.2,
+    "english_proficiency_score": 542,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 38.4,
+      "crime_index": 73.4,
+      "safety_index": 26.6,
+      "pollution_index": 72.4
+    }
+  },
+  {
+    "city": "Cape Town",
+    "country": "South Africa",
+    "lat": -33.9249,
+    "lon": 18.4241,
+    "flag": "🇿🇦",
+    "qol": {
+      "quality_of_life_index": 111.8,
+      "purchasing_power_index": 32.8,
+      "safety_index": 21.8,
+      "healthcare_index": 52.4,
+      "cost_of_living_index": 37.4,
+      "property_price_to_income_ratio": 16.4,
+      "traffic_commute_time_index": 44.8,
+      "pollution_index": 44.8,
+      "climate_index": 94.8
+    },
+    "ua_scores": {
+      "housing": 4.4,
+      "cost_of_living": 7.8,
+      "startups": 4.8,
+      "venture_capital": 2.8,
+      "travel_connectivity": 5.8,
+      "commute": 3.8,
+      "business_freedom": 5.4,
+      "safety": 2.4,
+      "healthcare": 5.4,
+      "education": 5.2,
+      "environmental_quality": 5.8,
+      "economy": 3.8,
+      "taxation": 4.8,
+      "internet_access": 5.4,
+      "leisure_culture": 7.4,
+      "tolerance": 6.8,
+      "outdoors": 9.2
+    },
+    "salary": {
+      "avg_monthly_net_usd": 640
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 5.5,
+      "monthly_transport_pass_usd": 34.0,
+      "rent_1br_city_center_usd": 560.0,
+      "groceries_index": 34.8
+    },
+    "happiness": {
+      "ladder_score": 5.49,
+      "freedom_score": 0.74,
+      "social_support": 1.31,
+      "healthy_life_expectancy": 0.47
+    },
+    "sunshine": {
+      "annual_hours": 3094
+    },
+    "avg_temperature_c": 17.1,
+    "internet_speed_mbps": 31.8,
+    "aqi": 42,
+    "lgbtq_legal_index": 82.4,
+    "english_proficiency_score": 534,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 44.8,
+      "crime_index": 78.4,
+      "safety_index": 21.6,
+      "pollution_index": 48.4
+    }
+  },
+  {
+    "city": "Helsinki",
+    "country": "Finland",
+    "lat": 60.1699,
+    "lon": 24.9384,
+    "flag": "🇫🇮",
+    "qol": {
+      "quality_of_life_index": 211.4,
+      "purchasing_power_index": 128.4,
+      "safety_index": 81.4,
+      "healthcare_index": 82.6,
+      "cost_of_living_index": 76.4,
+      "property_price_to_income_ratio": 11.4,
+      "traffic_commute_time_index": 22.4,
+      "pollution_index": 12.4,
+      "climate_index": 55.4
+    },
+    "ua_scores": {
+      "housing": 6.4,
+      "cost_of_living": 3.8,
+      "startups": 6.4,
+      "venture_capital": 5.8,
+      "travel_connectivity": 7.6,
+      "commute": 8.8,
+      "business_freedom": 8.4,
+      "safety": 9.4,
+      "healthcare": 8.9,
+      "education": 9.4,
+      "environmental_quality": 9.4,
+      "economy": 7.2,
+      "taxation": 2.8,
+      "internet_access": 9.6,
+      "leisure_culture": 7.2,
+      "tolerance": 8.8,
+      "outdoors": 7.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 3240
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 18.0,
+      "monthly_transport_pass_usd": 74.0,
+      "rent_1br_city_center_usd": 1580.0,
+      "groceries_index": 73.4
+    },
+    "happiness": {
+      "ladder_score": 7.74,
+      "freedom_score": 0.95,
+      "social_support": 1.57,
+      "healthy_life_expectancy": 0.70
+    },
+    "sunshine": {
+      "annual_hours": 1859
+    },
+    "avg_temperature_c": 6.4,
+    "internet_speed_mbps": 194.8,
+    "aqi": 10,
+    "lgbtq_legal_index": 82.4,
+    "english_proficiency_score": 601,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 82.8,
+      "crime_index": 26.4,
+      "safety_index": 73.6,
+      "pollution_index": 13.8
+    }
+  },
+  {
+    "city": "Oslo",
+    "country": "Norway",
+    "lat": 59.9139,
+    "lon": 10.7522,
+    "flag": "🇳🇴",
+    "qol": {
+      "quality_of_life_index": 205.4,
+      "purchasing_power_index": 148.4,
+      "safety_index": 74.8,
+      "healthcare_index": 80.4,
+      "cost_of_living_index": 96.4,
+      "property_price_to_income_ratio": 8.8,
+      "traffic_commute_time_index": 24.8,
+      "pollution_index": 13.4,
+      "climate_index": 62.4
+    },
+    "ua_scores": {
+      "housing": 7.2,
+      "cost_of_living": 2.8,
+      "startups": 6.8,
+      "venture_capital": 5.4,
+      "travel_connectivity": 7.4,
+      "commute": 8.4,
+      "business_freedom": 7.8,
+      "safety": 8.4,
+      "healthcare": 8.6,
+      "education": 8.4,
+      "environmental_quality": 9.2,
+      "economy": 8.4,
+      "taxation": 3.2,
+      "internet_access": 9.2,
+      "leisure_culture": 7.4,
+      "tolerance": 8.8,
+      "outdoors": 8.9
+    },
+    "salary": {
+      "avg_monthly_net_usd": 4680
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 26.0,
+      "monthly_transport_pass_usd": 98.0,
+      "rent_1br_city_center_usd": 1980.0,
+      "groceries_index": 88.4
+    },
+    "happiness": {
+      "ladder_score": 7.32,
+      "freedom_score": 0.93,
+      "social_support": 1.56,
+      "healthy_life_expectancy": 0.72
+    },
+    "sunshine": {
+      "annual_hours": 1668
+    },
+    "avg_temperature_c": 6.8,
+    "internet_speed_mbps": 143.8,
+    "aqi": 11,
+    "lgbtq_legal_index": 92.4,
+    "english_proficiency_score": 610,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 79.4,
+      "crime_index": 30.8,
+      "safety_index": 69.2,
+      "pollution_index": 16.4
+    }
+  },
+  {
+    "city": "Tallinn",
+    "country": "Estonia",
+    "lat": 59.4370,
+    "lon": 24.7536,
+    "flag": "🇪🇪",
+    "qol": {
+      "quality_of_life_index": 174.8,
+      "purchasing_power_index": 74.8,
+      "safety_index": 70.4,
+      "healthcare_index": 64.8,
+      "cost_of_living_index": 46.4,
+      "property_price_to_income_ratio": 12.4,
+      "traffic_commute_time_index": 20.4,
+      "pollution_index": 22.4,
+      "climate_index": 56.4
+    },
+    "ua_scores": {
+      "housing": 5.8,
+      "cost_of_living": 6.8,
+      "startups": 6.4,
+      "venture_capital": 4.8,
+      "travel_connectivity": 5.8,
+      "commute": 8.4,
+      "business_freedom": 8.8,
+      "safety": 8.2,
+      "healthcare": 6.8,
+      "education": 7.8,
+      "environmental_quality": 7.8,
+      "economy": 6.8,
+      "taxation": 7.4,
+      "internet_access": 9.4,
+      "leisure_culture": 6.4,
+      "tolerance": 7.2,
+      "outdoors": 6.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1680
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 9.0,
+      "monthly_transport_pass_usd": 24.0,
+      "rent_1br_city_center_usd": 740.0,
+      "groceries_index": 42.8
+    },
+    "happiness": {
+      "ladder_score": 6.44,
+      "freedom_score": 0.84,
+      "social_support": 1.41,
+      "healthy_life_expectancy": 0.67
+    },
+    "sunshine": {
+      "annual_hours": 1781
+    },
+    "avg_temperature_c": 6.2,
+    "internet_speed_mbps": 112.4,
+    "aqi": 18,
+    "lgbtq_legal_index": 51.4,
+    "english_proficiency_score": 581,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 62.8,
+      "crime_index": 29.4,
+      "safety_index": 70.6,
+      "pollution_index": 23.4
+    }
+  },
+  {
+    "city": "Tbilisi",
+    "country": "Georgia",
+    "lat": 41.6938,
+    "lon": 44.8015,
+    "flag": "🇬🇪",
+    "qol": {
+      "quality_of_life_index": 138.4,
+      "purchasing_power_index": 38.4,
+      "safety_index": 68.4,
+      "healthcare_index": 54.4,
+      "cost_of_living_index": 28.4,
+      "property_price_to_income_ratio": 11.4,
+      "traffic_commute_time_index": 34.8,
+      "pollution_index": 48.4,
+      "climate_index": 74.8
+    },
+    "ua_scores": {
+      "housing": 6.2,
+      "cost_of_living": 8.4,
+      "startups": 4.4,
+      "venture_capital": 2.4,
+      "travel_connectivity": 5.4,
+      "commute": 5.4,
+      "business_freedom": 7.8,
+      "safety": 7.8,
+      "healthcare": 5.8,
+      "education": 5.4,
+      "environmental_quality": 5.2,
+      "economy": 4.4,
+      "taxation": 8.8,
+      "internet_access": 6.8,
+      "leisure_culture": 6.4,
+      "tolerance": 5.8,
+      "outdoors": 8.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 540
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 5.0,
+      "monthly_transport_pass_usd": 12.0,
+      "rent_1br_city_center_usd": 520.0,
+      "groceries_index": 24.8
+    },
+    "happiness": {
+      "ladder_score": 5.01,
+      "freedom_score": 0.79,
+      "social_support": 1.29,
+      "healthy_life_expectancy": 0.64
+    },
+    "sunshine": {
+      "annual_hours": 1986
+    },
+    "avg_temperature_c": 13.2,
+    "internet_speed_mbps": 48.4,
+    "aqi": 46,
+    "lgbtq_legal_index": 18.4,
+    "english_proficiency_score": 498,
+    "english_proficiency_band": "Moderate",
+    "numbeo_country": {
+      "healthcare_index": 49.4,
+      "crime_index": 32.4,
+      "safety_index": 67.6,
+      "pollution_index": 50.4
+    }
+  },
+  {
+    "city": "Chiang Mai",
+    "country": "Thailand",
+    "lat": 18.7883,
+    "lon": 98.9853,
+    "flag": "🇹🇭",
+    "qol": {
+      "quality_of_life_index": 142.4,
+      "purchasing_power_index": 38.4,
+      "safety_index": 62.4,
+      "healthcare_index": 64.8,
+      "cost_of_living_index": 26.4,
+      "property_price_to_income_ratio": 10.4,
+      "traffic_commute_time_index": 28.4,
+      "pollution_index": 58.4,
+      "climate_index": 70.4
+    },
+    "ua_scores": {
+      "housing": 7.4,
+      "cost_of_living": 8.8,
+      "startups": 4.4,
+      "venture_capital": 2.4,
+      "travel_connectivity": 5.8,
+      "commute": 7.2,
+      "business_freedom": 5.4,
+      "safety": 7.2,
+      "healthcare": 6.8,
+      "education": 4.8,
+      "environmental_quality": 4.8,
+      "economy": 4.4,
+      "taxation": 7.4,
+      "internet_access": 6.8,
+      "leisure_culture": 7.4,
+      "tolerance": 7.4,
+      "outdoors": 8.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 580
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 2.5,
+      "monthly_transport_pass_usd": 18.0,
+      "rent_1br_city_center_usd": 340.0,
+      "groceries_index": 22.4
+    },
+    "happiness": {
+      "ladder_score": 5.98,
+      "freedom_score": 0.78,
+      "social_support": 1.37,
+      "healthy_life_expectancy": 0.68
+    },
+    "sunshine": {
+      "annual_hours": 2498
+    },
+    "avg_temperature_c": 25.8,
+    "internet_speed_mbps": 68.4,
+    "aqi": 62,
+    "lgbtq_legal_index": 28.4,
+    "english_proficiency_score": 467,
+    "english_proficiency_band": "Moderate",
+    "numbeo_country": {
+      "healthcare_index": 62.4,
+      "crime_index": 38.4,
+      "safety_index": 61.6,
+      "pollution_index": 62.4
+    }
+  },
+  {
+    "city": "Medellín",
+    "country": "Colombia",
+    "lat": 6.2476,
+    "lon": -75.5658,
+    "flag": "🇨🇴",
+    "qol": {
+      "quality_of_life_index": 128.4,
+      "purchasing_power_index": 34.8,
+      "safety_index": 38.4,
+      "healthcare_index": 62.4,
+      "cost_of_living_index": 28.4,
+      "property_price_to_income_ratio": 14.4,
+      "traffic_commute_time_index": 38.4,
+      "pollution_index": 48.4,
+      "climate_index": 88.4
+    },
+    "ua_scores": {
+      "housing": 6.4,
+      "cost_of_living": 8.6,
+      "startups": 5.4,
+      "venture_capital": 3.8,
+      "travel_connectivity": 5.8,
+      "commute": 4.8,
+      "business_freedom": 5.8,
+      "safety": 4.4,
+      "healthcare": 6.8,
+      "education": 5.4,
+      "environmental_quality": 5.4,
+      "economy": 4.8,
+      "taxation": 5.4,
+      "internet_access": 6.4,
+      "leisure_culture": 7.8,
+      "tolerance": 7.4,
+      "outdoors": 9.2
+    },
+    "salary": {
+      "avg_monthly_net_usd": 480
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 3.5,
+      "monthly_transport_pass_usd": 18.0,
+      "rent_1br_city_center_usd": 380.0,
+      "groceries_index": 24.8
+    },
+    "happiness": {
+      "ladder_score": 6.11,
+      "freedom_score": 0.84,
+      "social_support": 1.38,
+      "healthy_life_expectancy": 0.66
+    },
+    "sunshine": {
+      "annual_hours": 1784
+    },
+    "avg_temperature_c": 22.2,
+    "internet_speed_mbps": 58.4,
+    "aqi": 46,
+    "lgbtq_legal_index": 74.8,
+    "english_proficiency_score": 484,
+    "english_proficiency_band": "Moderate",
+    "numbeo_country": {
+      "healthcare_index": 58.4,
+      "crime_index": 64.8,
+      "safety_index": 35.2,
+      "pollution_index": 52.4
+    }
+  },
+  {
+    "city": "Bali (Denpasar)",
+    "country": "Indonesia",
+    "lat": -8.6705,
+    "lon": 115.2126,
+    "flag": "🇮🇩",
+    "qol": {
+      "quality_of_life_index": 131.4,
+      "purchasing_power_index": 30.4,
+      "safety_index": 66.4,
+      "healthcare_index": 48.4,
+      "cost_of_living_index": 24.4,
+      "property_price_to_income_ratio": 12.8,
+      "traffic_commute_time_index": 38.4,
+      "pollution_index": 38.4,
+      "climate_index": 82.4
+    },
+    "ua_scores": {
+      "housing": 7.2,
+      "cost_of_living": 9.2,
+      "startups": 3.8,
+      "venture_capital": 2.4,
+      "travel_connectivity": 5.4,
+      "commute": 4.8,
+      "business_freedom": 4.8,
+      "safety": 7.8,
+      "healthcare": 5.2,
+      "education": 4.4,
+      "environmental_quality": 5.8,
+      "economy": 3.8,
+      "taxation": 6.4,
+      "internet_access": 5.4,
+      "leisure_culture": 8.4,
+      "tolerance": 7.4,
+      "outdoors": 9.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 320
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 2.0,
+      "monthly_transport_pass_usd": 12.0,
+      "rent_1br_city_center_usd": 300.0,
+      "groceries_index": 18.4
+    },
+    "happiness": {
+      "ladder_score": 5.27,
+      "freedom_score": 0.78,
+      "social_support": 1.34,
+      "healthy_life_expectancy": 0.63
+    },
+    "sunshine": {
+      "annual_hours": 2840
+    },
+    "avg_temperature_c": 27.6,
+    "internet_speed_mbps": 34.8,
+    "aqi": 38,
+    "lgbtq_legal_index": 6.4,
+    "english_proficiency_score": 499,
+    "english_proficiency_band": "Moderate",
+    "numbeo_country": {
+      "healthcare_index": 44.4,
+      "crime_index": 44.8,
+      "safety_index": 55.2,
+      "pollution_index": 42.8
+    }
+  },
+  {
+    "city": "Auckland",
+    "country": "New Zealand",
+    "lat": -36.8485,
+    "lon": 174.7633,
+    "flag": "🇳🇿",
+    "qol": {
+      "quality_of_life_index": 187.4,
+      "purchasing_power_index": 108.4,
+      "safety_index": 71.4,
+      "healthcare_index": 76.4,
+      "cost_of_living_index": 78.4,
+      "property_price_to_income_ratio": 28.4,
+      "traffic_commute_time_index": 36.4,
+      "pollution_index": 12.4,
+      "climate_index": 85.4
+    },
+    "ua_scores": {
+      "housing": 3.4,
+      "cost_of_living": 4.2,
+      "startups": 5.8,
+      "venture_capital": 4.8,
+      "travel_connectivity": 6.4,
+      "commute": 5.8,
+      "business_freedom": 8.2,
+      "safety": 7.8,
+      "healthcare": 7.8,
+      "education": 7.8,
+      "environmental_quality": 9.4,
+      "economy": 6.8,
+      "taxation": 5.4,
+      "internet_access": 6.8,
+      "leisure_culture": 7.4,
+      "tolerance": 9.2,
+      "outdoors": 9.6
+    },
+    "salary": {
+      "avg_monthly_net_usd": 3240
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 14.0,
+      "monthly_transport_pass_usd": 104.0,
+      "rent_1br_city_center_usd": 1680.0,
+      "groceries_index": 74.8
+    },
+    "happiness": {
+      "ladder_score": 7.12,
+      "freedom_score": 0.91,
+      "social_support": 1.52,
+      "healthy_life_expectancy": 0.74
+    },
+    "sunshine": {
+      "annual_hours": 2060
+    },
+    "avg_temperature_c": 15.4,
+    "internet_speed_mbps": 78.4,
+    "aqi": 11,
+    "lgbtq_legal_index": 93.4,
+    "english_proficiency_score": null,
+    "english_proficiency_band": "Native",
+    "numbeo_country": {
+      "healthcare_index": 72.4,
+      "crime_index": 43.4,
+      "safety_index": 56.6,
+      "pollution_index": 15.4
+    }
+  },
+  {
+    "city": "Milan",
+    "country": "Italy",
+    "lat": 45.4642,
+    "lon": 9.1900,
+    "flag": "🇮🇹",
+    "qol": {
+      "quality_of_life_index": 164.8,
+      "purchasing_power_index": 94.4,
+      "safety_index": 52.4,
+      "healthcare_index": 74.8,
+      "cost_of_living_index": 70.4,
+      "property_price_to_income_ratio": 21.4,
+      "traffic_commute_time_index": 38.4,
+      "pollution_index": 54.4,
+      "climate_index": 82.4
+    },
+    "ua_scores": {
+      "housing": 4.2,
+      "cost_of_living": 4.8,
+      "startups": 6.2,
+      "venture_capital": 5.8,
+      "travel_connectivity": 8.4,
+      "commute": 5.8,
+      "business_freedom": 5.4,
+      "safety": 5.8,
+      "healthcare": 7.8,
+      "education": 7.4,
+      "environmental_quality": 5.4,
+      "economy": 6.4,
+      "taxation": 3.4,
+      "internet_access": 7.4,
+      "leisure_culture": 9.2,
+      "tolerance": 7.4,
+      "outdoors": 5.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 2180
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 14.0,
+      "monthly_transport_pass_usd": 42.0,
+      "rent_1br_city_center_usd": 1580.0,
+      "groceries_index": 62.4
+    },
+    "happiness": {
+      "ladder_score": 6.32,
+      "freedom_score": 0.79,
+      "social_support": 1.39,
+      "healthy_life_expectancy": 0.78
+    },
+    "sunshine": {
+      "annual_hours": 2266
+    },
+    "avg_temperature_c": 13.2,
+    "internet_speed_mbps": 152.4,
+    "aqi": 56,
+    "lgbtq_legal_index": 54.4,
+    "english_proficiency_score": 512,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 68.4,
+      "crime_index": 44.8,
+      "safety_index": 55.2,
+      "pollution_index": 56.4
+    }
+  },
+  {
+    "city": "Reykjavik",
+    "country": "Iceland",
+    "lat": 64.1355,
+    "lon": -21.8954,
+    "flag": "🇮🇸",
+    "qol": {
+      "quality_of_life_index": 199.4,
+      "purchasing_power_index": 118.4,
+      "safety_index": 92.4,
+      "healthcare_index": 79.4,
+      "cost_of_living_index": 87.4,
+      "property_price_to_income_ratio": 9.8,
+      "traffic_commute_time_index": 14.8,
+      "pollution_index": 8.4,
+      "climate_index": 42.4
+    },
+    "ua_scores": {
+      "housing": 6.8,
+      "cost_of_living": 2.8,
+      "startups": 5.4,
+      "venture_capital": 3.8,
+      "travel_connectivity": 6.4,
+      "commute": 9.4,
+      "business_freedom": 8.2,
+      "safety": 9.9,
+      "healthcare": 8.4,
+      "education": 8.8,
+      "environmental_quality": 9.8,
+      "economy": 7.4,
+      "taxation": 4.4,
+      "internet_access": 9.4,
+      "leisure_culture": 6.4,
+      "tolerance": 9.6,
+      "outdoors": 9.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 3840
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 22.0,
+      "monthly_transport_pass_usd": 82.0,
+      "rent_1br_city_center_usd": 1680.0,
+      "groceries_index": 86.4
+    },
+    "happiness": {
+      "ladder_score": 7.52,
+      "freedom_score": 0.95,
+      "social_support": 1.62,
+      "healthy_life_expectancy": 0.72
+    },
+    "sunshine": {
+      "annual_hours": 1268
+    },
+    "avg_temperature_c": 4.4,
+    "internet_speed_mbps": 154.8,
+    "aqi": 6,
+    "lgbtq_legal_index": 97.4,
+    "english_proficiency_score": null,
+    "english_proficiency_band": "Native-like",
+    "numbeo_country": {
+      "healthcare_index": 78.4,
+      "crime_index": 18.4,
+      "safety_index": 81.6,
+      "pollution_index": 9.4
+    }
+  },
+  {
+    "city": "Kuala Lumpur",
+    "country": "Malaysia",
+    "lat": 3.1390,
+    "lon": 101.6869,
+    "flag": "🇲🇾",
+    "qol": {
+      "quality_of_life_index": 152.4,
+      "purchasing_power_index": 56.4,
+      "safety_index": 54.4,
+      "healthcare_index": 68.4,
+      "cost_of_living_index": 34.4,
+      "property_price_to_income_ratio": 11.4,
+      "traffic_commute_time_index": 42.4,
+      "pollution_index": 58.4,
+      "climate_index": 68.4
+    },
+    "ua_scores": {
+      "housing": 6.4,
+      "cost_of_living": 8.4,
+      "startups": 5.4,
+      "venture_capital": 4.4,
+      "travel_connectivity": 7.8,
+      "commute": 4.8,
+      "business_freedom": 6.4,
+      "safety": 6.4,
+      "healthcare": 7.2,
+      "education": 6.4,
+      "environmental_quality": 5.4,
+      "economy": 5.8,
+      "taxation": 7.8,
+      "internet_access": 7.4,
+      "leisure_culture": 7.4,
+      "tolerance": 5.8,
+      "outdoors": 6.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1280
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 3.0,
+      "monthly_transport_pass_usd": 26.0,
+      "rent_1br_city_center_usd": 540.0,
+      "groceries_index": 28.4
+    },
+    "happiness": {
+      "ladder_score": 5.98,
+      "freedom_score": 0.80,
+      "social_support": 1.37,
+      "healthy_life_expectancy": 0.68
+    },
+    "sunshine": {
+      "annual_hours": 2568
+    },
+    "avg_temperature_c": 27.8,
+    "internet_speed_mbps": 98.4,
+    "aqi": 58,
+    "lgbtq_legal_index": 8.4,
+    "english_proficiency_score": 572,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 62.4,
+      "crime_index": 48.4,
+      "safety_index": 51.6,
+      "pollution_index": 62.4
+    }
+  },
+  {
+    "city": "Paris",
+    "country": "France",
+    "lat": 48.8566,
+    "lon": 2.3522,
+    "flag": "🇫🇷",
+    "qol": {
+      "quality_of_life_index": 172.4,
+      "purchasing_power_index": 104.4,
+      "safety_index": 50.4,
+      "healthcare_index": 80.4,
+      "cost_of_living_index": 84.4,
+      "property_price_to_income_ratio": 26.4,
+      "traffic_commute_time_index": 44.8,
+      "pollution_index": 38.4,
+      "climate_index": 78.4
+    },
+    "ua_scores": {
+      "housing": 3.4,
+      "cost_of_living": 3.4,
+      "startups": 7.4,
+      "venture_capital": 7.8,
+      "travel_connectivity": 9.4,
+      "commute": 5.4,
+      "business_freedom": 5.8,
+      "safety": 5.4,
+      "healthcare": 8.8,
+      "education": 8.8,
+      "environmental_quality": 6.4,
+      "economy": 7.2,
+      "taxation": 2.8,
+      "internet_access": 8.4,
+      "leisure_culture": 9.8,
+      "tolerance": 7.8,
+      "outdoors": 5.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 2680
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 16.0,
+      "monthly_transport_pass_usd": 88.0,
+      "rent_1br_city_center_usd": 1940.0,
+      "groceries_index": 72.4
+    },
+    "happiness": {
+      "ladder_score": 6.69,
+      "freedom_score": 0.81,
+      "social_support": 1.44,
+      "healthy_life_expectancy": 0.77
+    },
+    "sunshine": {
+      "annual_hours": 1630
+    },
+    "avg_temperature_c": 12.4,
+    "internet_speed_mbps": 182.4,
+    "aqi": 34,
+    "lgbtq_legal_index": 84.4,
+    "english_proficiency_score": 512,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 78.4,
+      "crime_index": 48.4,
+      "safety_index": 51.6,
+      "pollution_index": 40.4
+    }
+  },
+  {
+    "city": "London",
+    "country": "United Kingdom",
+    "lat": 51.5074,
+    "lon": -0.1278,
+    "flag": "🇬🇧",
+    "qol": {
+      "quality_of_life_index": 168.4,
+      "purchasing_power_index": 114.4,
+      "safety_index": 51.4,
+      "healthcare_index": 74.4,
+      "cost_of_living_index": 88.4,
+      "property_price_to_income_ratio": 28.4,
+      "traffic_commute_time_index": 48.4,
+      "pollution_index": 36.4,
+      "climate_index": 68.4
+    },
+    "ua_scores": {
+      "housing": 2.8,
+      "cost_of_living": 3.2,
+      "startups": 8.8,
+      "venture_capital": 9.2,
+      "travel_connectivity": 9.8,
+      "commute": 4.8,
+      "business_freedom": 7.8,
+      "safety": 5.8,
+      "healthcare": 7.8,
+      "education": 9.4,
+      "environmental_quality": 6.4,
+      "economy": 8.4,
+      "taxation": 4.4,
+      "internet_access": 7.8,
+      "leisure_culture": 9.6,
+      "tolerance": 8.8,
+      "outdoors": 5.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 3840
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 20.0,
+      "monthly_transport_pass_usd": 182.0,
+      "rent_1br_city_center_usd": 2480.0,
+      "groceries_index": 76.4
+    },
+    "happiness": {
+      "ladder_score": 6.91,
+      "freedom_score": 0.86,
+      "social_support": 1.44,
+      "healthy_life_expectancy": 0.73
+    },
+    "sunshine": {
+      "annual_hours": 1481
+    },
+    "avg_temperature_c": 11.4,
+    "internet_speed_mbps": 148.4,
+    "aqi": 28,
+    "lgbtq_legal_index": 90.4,
+    "english_proficiency_score": null,
+    "english_proficiency_band": "Native",
+    "numbeo_country": {
+      "healthcare_index": 72.8,
+      "crime_index": 45.4,
+      "safety_index": 54.6,
+      "pollution_index": 38.4
+    }
+  },
+  {
+    "city": "Valletta",
+    "country": "Malta",
+    "lat": 35.8997,
+    "lon": 14.5147,
+    "flag": "🇲🇹",
+    "qol": {
+      "quality_of_life_index": 158.4,
+      "purchasing_power_index": 76.4,
+      "safety_index": 74.4,
+      "healthcare_index": 68.4,
+      "cost_of_living_index": 58.4,
+      "property_price_to_income_ratio": 17.4,
+      "traffic_commute_time_index": 26.4,
+      "pollution_index": 24.4,
+      "climate_index": 96.4
+    },
+    "ua_scores": {
+      "housing": 4.8,
+      "cost_of_living": 5.8,
+      "startups": 4.8,
+      "venture_capital": 3.4,
+      "travel_connectivity": 5.8,
+      "commute": 6.4,
+      "business_freedom": 7.4,
+      "safety": 8.4,
+      "healthcare": 6.8,
+      "education": 6.4,
+      "environmental_quality": 6.8,
+      "economy": 6.4,
+      "taxation": 5.8,
+      "internet_access": 7.8,
+      "leisure_culture": 7.4,
+      "tolerance": 6.8,
+      "outdoors": 7.8
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1580
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 12.0,
+      "monthly_transport_pass_usd": 32.0,
+      "rent_1br_city_center_usd": 960.0,
+      "groceries_index": 52.4
+    },
+    "happiness": {
+      "ladder_score": 6.74,
+      "freedom_score": 0.86,
+      "social_support": 1.42,
+      "healthy_life_expectancy": 0.73
+    },
+    "sunshine": {
+      "annual_hours": 3054
+    },
+    "avg_temperature_c": 19.2,
+    "internet_speed_mbps": 86.4,
+    "aqi": 16,
+    "lgbtq_legal_index": 88.4,
+    "english_proficiency_score": null,
+    "english_proficiency_band": "Native-like",
+    "numbeo_country": {
+      "healthcare_index": 63.4,
+      "crime_index": 29.4,
+      "safety_index": 70.6,
+      "pollution_index": 26.4
+    }
+  },
+  {
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.1579,
+    "lon": -8.6291,
+    "flag": "🇵🇹",
+    "qol": {
+      "quality_of_life_index": 176.4,
+      "purchasing_power_index": 78.4,
+      "safety_index": 74.4,
+      "healthcare_index": 68.4,
+      "cost_of_living_index": 50.4,
+      "property_price_to_income_ratio": 17.8,
+      "traffic_commute_time_index": 28.4,
+      "pollution_index": 20.4,
+      "climate_index": 94.4
+    },
+    "ua_scores": {
+      "housing": 4.4,
+      "cost_of_living": 6.4,
+      "startups": 5.4,
+      "venture_capital": 3.8,
+      "travel_connectivity": 6.2,
+      "commute": 6.8,
+      "business_freedom": 6.2,
+      "safety": 8.4,
+      "healthcare": 7.0,
+      "education": 6.2,
+      "environmental_quality": 8.2,
+      "economy": 5.2,
+      "taxation": 4.4,
+      "internet_access": 7.6,
+      "leisure_culture": 7.8,
+      "tolerance": 8.6,
+      "outdoors": 8.2
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1240
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 9.0,
+      "monthly_transport_pass_usd": 38.0,
+      "rent_1br_city_center_usd": 1020.0,
+      "groceries_index": 42.4
+    },
+    "happiness": {
+      "ladder_score": 6.14,
+      "freedom_score": 0.83,
+      "social_support": 1.38,
+      "healthy_life_expectancy": 0.73
+    },
+    "sunshine": {
+      "annual_hours": 2862
+    },
+    "avg_temperature_c": 15.8,
+    "internet_speed_mbps": 124.8,
+    "aqi": 17,
+    "lgbtq_legal_index": 87.5,
+    "english_proficiency_score": 521,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 67.8,
+      "crime_index": 31.4,
+      "safety_index": 68.6,
+      "pollution_index": 27.5
+    }
+  },
+  {
+    "city": "Athens",
+    "country": "Greece",
+    "lat": 37.9838,
+    "lon": 23.7275,
+    "flag": "🇬🇷",
+    "qol": {
+      "quality_of_life_index": 148.4,
+      "purchasing_power_index": 68.4,
+      "safety_index": 58.4,
+      "healthcare_index": 62.4,
+      "cost_of_living_index": 52.4,
+      "property_price_to_income_ratio": 18.4,
+      "traffic_commute_time_index": 44.4,
+      "pollution_index": 46.4,
+      "climate_index": 96.4
+    },
+    "ua_scores": {
+      "housing": 4.8,
+      "cost_of_living": 6.4,
+      "startups": 4.4,
+      "venture_capital": 3.2,
+      "travel_connectivity": 7.2,
+      "commute": 4.8,
+      "business_freedom": 5.2,
+      "safety": 6.4,
+      "healthcare": 6.6,
+      "education": 6.8,
+      "environmental_quality": 6.2,
+      "economy": 4.4,
+      "taxation": 3.8,
+      "internet_access": 6.8,
+      "leisure_culture": 8.4,
+      "tolerance": 7.2,
+      "outdoors": 8.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1180
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 10.0,
+      "monthly_transport_pass_usd": 34.0,
+      "rent_1br_city_center_usd": 840.0,
+      "groceries_index": 48.4
+    },
+    "happiness": {
+      "ladder_score": 5.93,
+      "freedom_score": 0.72,
+      "social_support": 1.38,
+      "healthy_life_expectancy": 0.76
+    },
+    "sunshine": {
+      "annual_hours": 2773
+    },
+    "avg_temperature_c": 18.4,
+    "internet_speed_mbps": 68.4,
+    "aqi": 44,
+    "lgbtq_legal_index": 54.4,
+    "english_proficiency_score": 516,
+    "english_proficiency_band": "High",
+    "numbeo_country": {
+      "healthcare_index": 58.4,
+      "crime_index": 48.4,
+      "safety_index": 51.6,
+      "pollution_index": 48.4
+    }
+  },
+  {
+    "city": "Ljubljana",
+    "country": "Slovenia",
+    "lat": 46.0569,
+    "lon": 14.5058,
+    "flag": "🇸🇮",
+    "qol": {
+      "quality_of_life_index": 182.4,
+      "purchasing_power_index": 82.4,
+      "safety_index": 78.4,
+      "healthcare_index": 70.4,
+      "cost_of_living_index": 54.4,
+      "property_price_to_income_ratio": 14.4,
+      "traffic_commute_time_index": 22.4,
+      "pollution_index": 28.4,
+      "climate_index": 78.4
+    },
+    "ua_scores": {
+      "housing": 5.4,
+      "cost_of_living": 6.2,
+      "startups": 4.8,
+      "venture_capital": 3.4,
+      "travel_connectivity": 5.8,
+      "commute": 8.2,
+      "business_freedom": 6.8,
+      "safety": 8.8,
+      "healthcare": 7.2,
+      "education": 7.4,
+      "environmental_quality": 8.4,
+      "economy": 6.2,
+      "taxation": 4.8,
+      "internet_access": 7.8,
+      "leisure_culture": 6.8,
+      "tolerance": 7.8,
+      "outdoors": 9.4
+    },
+    "salary": {
+      "avg_monthly_net_usd": 1680
+    },
+    "cost_of_living_items": {
+      "meal_inexpensive_restaurant_usd": 10.0,
+      "monthly_transport_pass_usd": 32.0,
+      "rent_1br_city_center_usd": 760.0,
+      "groceries_index": 48.4
+    },
+    "happiness": {
+      "ladder_score": 6.84,
+      "freedom_score": 0.83,
+      "social_support": 1.42,
+      "healthy_life_expectancy": 0.71
+    },
+    "sunshine": {
+      "annual_hours": 1951
+    },
+    "avg_temperature_c": 10.4,
+    "internet_speed_mbps": 78.4,
+    "aqi": 28,
+    "lgbtq_legal_index": 62.4,
+    "english_proficiency_score": 558,
+    "english_proficiency_band": "Very High",
+    "numbeo_country": {
+      "healthcare_index": 68.4,
+      "crime_index": 24.4,
+      "safety_index": 75.6,
+      "pollution_index": 32.4
+    }
+  }
+]
