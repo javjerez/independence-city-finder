@@ -5,6 +5,7 @@
 //  Depends on: d3 (loaded globally or as module)
 // ============================================================
 
+import { selectCity } from './state.js';
 
 // ============================================================
 //  STEP 1 — CONFIGURATION
@@ -32,7 +33,7 @@ const CONFIG = {
   ROTATION_INERTIA: false,     // set true later if you want spin-on-release
 
   // -- Tooltip ---------------------------------------------
-  TOOLTIP_DELAY_MS: 500,         // hover delay before tooltip appears
+  TOOLTIP_DELAY_MS: 200,         // hover delay before tooltip appears
 };
 
 
@@ -288,9 +289,8 @@ function hideTooltip() {
 
 function onDotClick(event, d) {
   event.stopPropagation();
-  // TODO: call state.selectCity(d) here
-  // state.js will handle primary vs comparison logic
   console.log('[globe] city clicked:', d.city);
+  selectCity(d);
 }
 
 

@@ -1,0 +1,17 @@
+# List of current issues #
+- everything has to be styled with css
+- everything depends on the primary city: when deselected the comparisons disappear and also the city card disappear
+    -> solution: shift the property of main city to the second selected city
+- it is not possible to select a new main city without deselecting the previous main city 
+    -> solution: allow the use to select the main with shift+click when the a main city is already selected
+- substitute the dataset with our
+- when a new attribute is selected/deselected nothing updates accordingly
+
+
+
+
+
+
+# Ideas #
+- introduce a floating cirle like in the bottom corner of the controls to open the whole dataset in a full floating window, 
+    showing a table view whcih can be filtered in place

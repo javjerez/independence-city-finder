@@ -11,15 +11,15 @@
 
 const CONFIG = {
 
-  MAX_SELECTED:    5,       // max attributes selectable at once
-  SLIDER_MIN:      1,       // min weight value
-  SLIDER_MAX:      3,       // max weight value  ← adjust here
-  SLIDER_STEP:     1,       // step increment
-  SLIDER_DEFAULT:  1,       // weight when an attribute is first selected
+  MAX_SELECTED: 5,       // max attributes selectable at once
+  SLIDER_MIN: 1,       // min weight value
+  SLIDER_MAX: 3,       // max weight value  ← adjust here
+  SLIDER_STEP: 1,       // step increment
+  SLIDER_DEFAULT: 1,       // weight when an attribute is first selected
 
   // Grid layout
-  GRID_COLUMNS:    3,       // number of columns in the attribute grid
-                            // ← adjust here when panel width is finalised
+  GRID_COLUMNS: 3,       // number of columns in the attribute grid
+  // ← adjust here when panel width is finalised
 
 };
 
@@ -33,66 +33,66 @@ const CONFIG = {
 //  english_proficiency_band) are intentionally excluded.
 // ============================================================
 
-const ATTRIBUTES = [
+export const ATTRIBUTES = [
 
   // -- Quality of Life (Numbeo) ----------------------------
-  { key: 'qol.quality_of_life_index',          group: 'QoL',        label: 'Quality of Life'          },
-  { key: 'qol.purchasing_power_index',         group: 'QoL',        label: 'Purchasing Power'         },
-  { key: 'qol.safety_index',                   group: 'QoL',        label: 'Safety (QoL)'             },
-  { key: 'qol.healthcare_index',               group: 'QoL',        label: 'Healthcare (QoL)'         },
-  { key: 'qol.cost_of_living_index',           group: 'QoL',        label: 'Cost of Living (QoL)'     },
-  { key: 'qol.property_price_to_income_ratio', group: 'QoL',        label: 'Property/Income Ratio'    },
-  { key: 'qol.traffic_commute_time_index',     group: 'QoL',        label: 'Commute Time'             },
-  { key: 'qol.pollution_index',                group: 'QoL',        label: 'Pollution (QoL)'          },
-  { key: 'qol.climate_index',                  group: 'QoL',        label: 'Climate (QoL)'            },
+  { key: 'qol.quality_of_life_index', group: 'QoL', label: 'Quality of Life' },
+  { key: 'qol.purchasing_power_index', group: 'QoL', label: 'Purchasing Power' },
+  { key: 'qol.safety_index', group: 'QoL', label: 'Safety (QoL)' },
+  { key: 'qol.healthcare_index', group: 'QoL', label: 'Healthcare (QoL)' },
+  { key: 'qol.cost_of_living_index', group: 'QoL', label: 'Cost of Living (QoL)' },
+  { key: 'qol.property_price_to_income_ratio', group: 'QoL', label: 'Property/Income Ratio' },
+  { key: 'qol.traffic_commute_time_index', group: 'QoL', label: 'Commute Time' },
+  { key: 'qol.pollution_index', group: 'QoL', label: 'Pollution (QoL)' },
+  { key: 'qol.climate_index', group: 'QoL', label: 'Climate (QoL)' },
 
   // -- Urban Area Scores -----------------------------------
-  { key: 'ua_scores.housing',                  group: 'Urban',      label: 'Housing'                  },
-  { key: 'ua_scores.cost_of_living',           group: 'Urban',      label: 'Cost of Living (UA)'      },
-  { key: 'ua_scores.startups',                 group: 'Urban',      label: 'Startups'                 },
-  { key: 'ua_scores.venture_capital',          group: 'Urban',      label: 'Venture Capital'          },
-  { key: 'ua_scores.travel_connectivity',      group: 'Urban',      label: 'Travel Connectivity'      },
-  { key: 'ua_scores.commute',                  group: 'Urban',      label: 'Commute (UA)'             },
-  { key: 'ua_scores.business_freedom',         group: 'Urban',      label: 'Business Freedom'         },
-  { key: 'ua_scores.safety',                   group: 'Urban',      label: 'Safety (UA)'              },
-  { key: 'ua_scores.healthcare',               group: 'Urban',      label: 'Healthcare (UA)'          },
-  { key: 'ua_scores.education',                group: 'Urban',      label: 'Education'                },
-  { key: 'ua_scores.environmental_quality',    group: 'Urban',      label: 'Environment'              },
-  { key: 'ua_scores.economy',                  group: 'Urban',      label: 'Economy'                  },
-  { key: 'ua_scores.taxation',                 group: 'Urban',      label: 'Taxation'                 },
-  { key: 'ua_scores.internet_access',          group: 'Urban',      label: 'Internet Access (UA)'     },
-  { key: 'ua_scores.leisure_culture',          group: 'Urban',      label: 'Leisure & Culture'        },
-  { key: 'ua_scores.tolerance',                group: 'Urban',      label: 'Tolerance'                },
-  { key: 'ua_scores.outdoors',                 group: 'Urban',      label: 'Outdoors'                 },
+  { key: 'ua_scores.housing', group: 'Urban', label: 'Housing' },
+  { key: 'ua_scores.cost_of_living', group: 'Urban', label: 'Cost of Living (UA)' },
+  { key: 'ua_scores.startups', group: 'Urban', label: 'Startups' },
+  { key: 'ua_scores.venture_capital', group: 'Urban', label: 'Venture Capital' },
+  { key: 'ua_scores.travel_connectivity', group: 'Urban', label: 'Travel Connectivity' },
+  { key: 'ua_scores.commute', group: 'Urban', label: 'Commute (UA)' },
+  { key: 'ua_scores.business_freedom', group: 'Urban', label: 'Business Freedom' },
+  { key: 'ua_scores.safety', group: 'Urban', label: 'Safety (UA)' },
+  { key: 'ua_scores.healthcare', group: 'Urban', label: 'Healthcare (UA)' },
+  { key: 'ua_scores.education', group: 'Urban', label: 'Education' },
+  { key: 'ua_scores.environmental_quality', group: 'Urban', label: 'Environment' },
+  { key: 'ua_scores.economy', group: 'Urban', label: 'Economy' },
+  { key: 'ua_scores.taxation', group: 'Urban', label: 'Taxation' },
+  { key: 'ua_scores.internet_access', group: 'Urban', label: 'Internet Access (UA)' },
+  { key: 'ua_scores.leisure_culture', group: 'Urban', label: 'Leisure & Culture' },
+  { key: 'ua_scores.tolerance', group: 'Urban', label: 'Tolerance' },
+  { key: 'ua_scores.outdoors', group: 'Urban', label: 'Outdoors' },
 
   // -- Salary & Cost ---------------------------------------
-  { key: 'salary.avg_monthly_net_usd',                    group: 'Economy',   label: 'Avg Net Salary'          },
-  { key: 'cost_of_living_items.meal_inexpensive_restaurant_usd', group: 'Economy', label: 'Meal (cheap)'       },
-  { key: 'cost_of_living_items.monthly_transport_pass_usd',      group: 'Economy', label: 'Transport Pass'     },
-  { key: 'cost_of_living_items.rent_1br_city_center_usd',        group: 'Economy', label: 'Rent 1BR (center)'  },
-  { key: 'cost_of_living_items.groceries_index',                 group: 'Economy', label: 'Groceries Index'    },
+  { key: 'salary.avg_monthly_net_usd', group: 'Economy', label: 'Avg Net Salary' },
+  { key: 'cost_of_living_items.meal_inexpensive_restaurant_usd', group: 'Economy', label: 'Meal (cheap)' },
+  { key: 'cost_of_living_items.monthly_transport_pass_usd', group: 'Economy', label: 'Transport Pass' },
+  { key: 'cost_of_living_items.rent_1br_city_center_usd', group: 'Economy', label: 'Rent 1BR (center)' },
+  { key: 'cost_of_living_items.groceries_index', group: 'Economy', label: 'Groceries Index' },
 
   // -- Happiness -------------------------------------------
-  { key: 'happiness.ladder_score',             group: 'Happiness',  label: 'Happiness Score'          },
-  { key: 'happiness.freedom_score',            group: 'Happiness',  label: 'Freedom'                  },
-  { key: 'happiness.social_support',           group: 'Happiness',  label: 'Social Support'           },
-  { key: 'happiness.healthy_life_expectancy',  group: 'Happiness',  label: 'Life Expectancy'          },
+  { key: 'happiness.ladder_score', group: 'Happiness', label: 'Happiness Score' },
+  { key: 'happiness.freedom_score', group: 'Happiness', label: 'Freedom' },
+  { key: 'happiness.social_support', group: 'Happiness', label: 'Social Support' },
+  { key: 'happiness.healthy_life_expectancy', group: 'Happiness', label: 'Life Expectancy' },
 
   // -- Environment & Infrastructure ------------------------
-  { key: 'sunshine.annual_hours',              group: 'Environment', label: 'Sunshine Hours'          },
-  { key: 'avg_temperature_c',                  group: 'Environment', label: 'Avg Temperature'         },
-  { key: 'internet_speed_mbps',                group: 'Environment', label: 'Internet Speed'          },
-  { key: 'aqi',                                group: 'Environment', label: 'Air Quality (AQI)'       },
+  { key: 'sunshine.annual_hours', group: 'Environment', label: 'Sunshine Hours' },
+  { key: 'avg_temperature_c', group: 'Environment', label: 'Avg Temperature' },
+  { key: 'internet_speed_mbps', group: 'Environment', label: 'Internet Speed' },
+  { key: 'aqi', group: 'Environment', label: 'Air Quality (AQI)' },
 
   // -- Society ---------------------------------------------
-  { key: 'lgbtq_legal_index',                  group: 'Society',    label: 'LGBTQ+ Legal Index'       },
-  { key: 'english_proficiency_score',          group: 'Society',    label: 'English Proficiency'      },
+  { key: 'lgbtq_legal_index', group: 'Society', label: 'LGBTQ+ Legal Index' },
+  { key: 'english_proficiency_score', group: 'Society', label: 'English Proficiency' },
 
   // -- Numbeo Country --------------------------------------
-  { key: 'numbeo_country.healthcare_index',    group: 'Country',    label: 'Healthcare (Country)'     },
-  { key: 'numbeo_country.crime_index',         group: 'Country',    label: 'Crime (Country)'          },
-  { key: 'numbeo_country.safety_index',        group: 'Country',    label: 'Safety (Country)'         },
-  { key: 'numbeo_country.pollution_index',     group: 'Country',    label: 'Pollution (Country)'      },
+  { key: 'numbeo_country.healthcare_index', group: 'Country', label: 'Healthcare (Country)' },
+  { key: 'numbeo_country.crime_index', group: 'Country', label: 'Crime (Country)' },
+  { key: 'numbeo_country.safety_index', group: 'Country', label: 'Safety (Country)' },
+  { key: 'numbeo_country.pollution_index', group: 'Country', label: 'Pollution (Country)' },
 
 ];
 
@@ -104,7 +104,7 @@ const ATTRIBUTES = [
 // ============================================================
 
 const selected = new Set();   // max CONFIG.MAX_SELECTED entries
-const weights  = new Map();   // key → 1..3
+const weights = new Map();   // key → 1..3
 
 
 // ============================================================
@@ -195,7 +195,7 @@ function onBoxClick(key) {
 
 function addSlider(key) {
 
-  const attr      = ATTRIBUTES.find(a => a.key === key);
+  const attr = ATTRIBUTES.find(a => a.key === key);
   const container = document.getElementById('controls-sliders');
 
   const row = document.createElement('div');
