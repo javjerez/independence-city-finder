@@ -1,41 +1,37 @@
-// ============================================================
-//  controls.js — Attribute selector + weight sliders
-//  Mounts into: #controls-container
-//  Exports:     getWeights() — called by state.js
-// ============================================================
+
+// GENERAL INFO
+//  controls.js -->  Attribute selector + weight sliders
+//  Mounts into --> #controls-container
+//  Exports     --> getWeights(), called by state.js
 
 
-// ============================================================
-//  STEP 1 — CONFIGURATION
-// ============================================================
+// *** CONFIGURATION ***
 
 const CONFIG = {
-
-  MAX_SELECTED: 5,       // max attributes selectable at once
-  SLIDER_MIN: 1,       // min weight value
-  SLIDER_MAX: 3,       // max weight value  ← adjust here
+  MAX_SELECTED: 5,      // max attributes selectable at once
+  SLIDER_MIN: 1,        // min weight value
+  SLIDER_MAX: 5,        // max weight value  ← adjust here
   SLIDER_STEP: 1,       // step increment
-  SLIDER_DEFAULT: 1,       // weight when an attribute is first selected
+  SLIDER_DEFAULT: 3,    // weight when an attribute is first selected
 
   // Grid layout
-  GRID_COLUMNS: 3,       // number of columns in the attribute grid
-  // ← adjust here when panel width is finalised
+  GRID_COLUMNS: 3,      // number of columns in the attribute grid
+  
+  // <--- adjust here when panel width is finalised
 
 };
 
+// *** ATTRIBUTE DEFINITIONS *** (All numeric metrics from cities.json, grouped by source)
 
-// ============================================================
-//  STEP 2 — ATTRIBUTE DEFINITIONS
-//  All numeric metrics from cities.json, grouped by source.
-//  'key' is the dot-path used to read the value from a city object.
-//  'label' is what appears in the UI box.
-//  City-identity fields (city, country, lat, lon, flag,
-//  english_proficiency_band) are intentionally excluded.
-// ============================================================
+/*
+'key': it is the dot-path used to read the value from a city object
+'label': it is what appears in the UI box
+'group': groups attributes (for future filtering or styling)
+*/
 
 export const ATTRIBUTES = [
 
-  // -- Quality of Life (Numbeo) ----------------------------
+  // Quality of Life (Numbeo)
   { key: 'qol.quality_of_life_index', group: 'QoL', label: 'Quality of Life' },
   { key: 'qol.purchasing_power_index', group: 'QoL', label: 'Purchasing Power' },
   { key: 'qol.safety_index', group: 'QoL', label: 'Safety (QoL)' },
@@ -46,7 +42,7 @@ export const ATTRIBUTES = [
   { key: 'qol.pollution_index', group: 'QoL', label: 'Pollution (QoL)' },
   { key: 'qol.climate_index', group: 'QoL', label: 'Climate (QoL)' },
 
-  // -- Urban Area Scores -----------------------------------
+  // Urban Area Scores
   { key: 'ua_scores.housing', group: 'Urban', label: 'Housing' },
   { key: 'ua_scores.cost_of_living', group: 'Urban', label: 'Cost of Living (UA)' },
   { key: 'ua_scores.startups', group: 'Urban', label: 'Startups' },
@@ -65,30 +61,30 @@ export const ATTRIBUTES = [
   { key: 'ua_scores.tolerance', group: 'Urban', label: 'Tolerance' },
   { key: 'ua_scores.outdoors', group: 'Urban', label: 'Outdoors' },
 
-  // -- Salary & Cost ---------------------------------------
+  // Salary & Cost
   { key: 'salary.avg_monthly_net_usd', group: 'Economy', label: 'Avg Net Salary' },
   { key: 'cost_of_living_items.meal_inexpensive_restaurant_usd', group: 'Economy', label: 'Meal (cheap)' },
   { key: 'cost_of_living_items.monthly_transport_pass_usd', group: 'Economy', label: 'Transport Pass' },
   { key: 'cost_of_living_items.rent_1br_city_center_usd', group: 'Economy', label: 'Rent 1BR (center)' },
   { key: 'cost_of_living_items.groceries_index', group: 'Economy', label: 'Groceries Index' },
 
-  // -- Happiness -------------------------------------------
+  // Happiness
   { key: 'happiness.ladder_score', group: 'Happiness', label: 'Happiness Score' },
   { key: 'happiness.freedom_score', group: 'Happiness', label: 'Freedom' },
   { key: 'happiness.social_support', group: 'Happiness', label: 'Social Support' },
   { key: 'happiness.healthy_life_expectancy', group: 'Happiness', label: 'Life Expectancy' },
 
-  // -- Environment & Infrastructure ------------------------
+  // Environment & Infrastructure
   { key: 'sunshine.annual_hours', group: 'Environment', label: 'Sunshine Hours' },
   { key: 'avg_temperature_c', group: 'Environment', label: 'Avg Temperature' },
   { key: 'internet_speed_mbps', group: 'Environment', label: 'Internet Speed' },
   { key: 'aqi', group: 'Environment', label: 'Air Quality (AQI)' },
 
-  // -- Society ---------------------------------------------
+  // Society
   { key: 'lgbtq_legal_index', group: 'Society', label: 'LGBTQ+ Legal Index' },
   { key: 'english_proficiency_score', group: 'Society', label: 'English Proficiency' },
 
-  // -- Numbeo Country --------------------------------------
+  // Numbeo Country
   { key: 'numbeo_country.healthcare_index', group: 'Country', label: 'Healthcare (Country)' },
   { key: 'numbeo_country.crime_index', group: 'Country', label: 'Crime (Country)' },
   { key: 'numbeo_country.safety_index', group: 'Country', label: 'Safety (Country)' },
@@ -97,20 +93,13 @@ export const ATTRIBUTES = [
 ];
 
 
-// ============================================================
-//  STEP 3 — MODULE STATE
-//  selected: Set of attribute keys currently active
-//  weights:  Map of key → slider value (only for selected keys)
-// ============================================================
+// *** MODULE STATE *** 
 
-const selected = new Set();   // max CONFIG.MAX_SELECTED entries
-const weights = new Map();   // key → 1..3
+const selected = new Set();  // selected: Set of attribute-keys currently active
+const weights = new Map();   // weights:  Map of key ..> slider value (only for selected keys)
 
 
-// ============================================================
-//  STEP 4 — INITIALISE
-//  Call once from index.html after DOM is ready.
-// ============================================================
+// *** INITIALISE *** (call once from index.html after DOM is ready)
 
 export function initControls() {
 
@@ -155,9 +144,7 @@ export function initControls() {
 }
 
 
-// ============================================================
-//  STEP 5 — INTERACTION HANDLERS
-// ============================================================
+// *** INTERACTION HANDLERS *** 
 
 function onBoxClick(key) {
 
@@ -189,9 +176,7 @@ function onBoxClick(key) {
 }
 
 
-// ============================================================
-//  STEP 6 — SLIDER MANAGEMENT
-// ============================================================
+// *** SLIDER MANAGEMENT ***
 
 function addSlider(key) {
 
@@ -239,9 +224,7 @@ function removeSlider(key) {
 }
 
 
-// ============================================================
-//  STEP 7 — UI HELPERS
-// ============================================================
+// *** UI HELPERS ***
 
 function updateCounter() {
   const el = document.getElementById('controls-count');
@@ -249,10 +232,7 @@ function updateCounter() {
 }
 
 
-// ============================================================
-//  STEP 8 — PUBLIC API
-//  Called by state.js to read current weights.
-// ============================================================
+// *** PUBLIC API *** (called by state.js to read current weights)
 
 // Returns an array of { key, weight } for all selected attributes.
 // If nothing is selected, returns an empty array.

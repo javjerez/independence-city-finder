@@ -5,6 +5,13 @@
 //  Called by: globe.js (selectCity), controls.js (onWeightsChange)
 // ============================================================
 
+
+// We want to do something like: ----> score = weightedNormalizedSum / totalWeight
+
+// So that the map only read the city.score, and prints the dots with a size proportional to that score
+// The score is computed in this module and whenever the weights change, we recompute the scores for all cities and update the map
+
+
 import { updateDotStyles } from './globe.js';
 import { getWeights } from './controls.js';
 import { updateCityCard } from './cityCard.js';

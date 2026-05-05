@@ -6,10 +6,14 @@ Load order:
     2. Then other feature modules (globe, controls, city card, comparison)
 */
 
+// Load state first (since it is a shared store, other modules depend on it)
 import { initState } from './state.js';
 
-import { initGlobe } from './globe.js';
+// Load each feature module
 import { initControls } from './controls.js';
+
+// Non-finished modules
+import { initGlobe } from './globe.js';
 import { initCityCard } from './cityCard.js';
 import { initComparison } from './comparison.js';
 
