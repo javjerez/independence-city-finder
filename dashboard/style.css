@@ -1,0 +1,296 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;   /* no scroll */
+
+    /* background-color: var(--color-bg); */
+    /* color:            var(--color-text-primary); */
+    /* font-family:      var(--font-body); */
+}
+
+
+/******************************** ROOT LAYOUT *****************************************/
+
+
+#app {
+    --split: 60%;
+    /* ← single source of truth for the split */
+
+    display: grid;
+    grid-template-columns: var(--split) 1fr;
+    grid-template-rows: 100vh;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: red;
+}
+
+
+/************************* LEFT PANEL  (globe + controls) *****************************/
+
+#panel-left {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    /* border-right: 1px solid var(--color-border); */
+    --split-left: 70%;
+    /* ← single source of truth for globe/controls split */
+
+    background-color: blueviolet;
+}
+
+#globe-container {
+    flex: 0 0 var(--split-left);
+    /* fixed to --split-left, doesn't grow or shrink */
+    /* expands to fill all available height */
+    position: relative;
+    /* anchor for any absolute children (canvas, labels) */
+    overflow: hidden;
+
+    background-color: skyblue;
+}
+
+#controls-container {
+    flex: 1;
+    /* takes the remaining 30% */
+    /* never compresses — height set by content */
+    /* height will be defined when controls module is built */
+    overflow: hidden;
+    overflow-y: auto;
+    /* allows controls to scroll if they overflow */
+
+    background-color: lightslategray;
+}
+
+
+/****************** RESIZE HANDLE (draggable strip between the two panels) *****************/
+
+#resize-handle {
+    position: absolute;
+    top: 0;
+    /* left is set dynamically via JS to match --split */
+    width: 6px;
+    height: 100vh;
+    cursor: col-resize;
+    z-index: 100;
+    transform: translateX(-50%);
+
+    /* background: var(--color-border); */
+
+    background-color: yellow;
+}
+
+
+/**************** RIGHT PANEL  (city card (bot) + comparison views (top)) ******************/
+
+#panel-right {
+    /*grid-column: 2;*/
+    display: flex;
+    flex-direction: column;
+    --split-right: 20%;
+    grid-template-rows: var(--split-right) 1fr;
+    height: 100vh;
+    overflow: hidden;
+    
+    background-color: orange;
+}
+
+#comparison-container {
+    display: flex;
+    flex-direction: column;
+    flex: 2; /* takes 2/3 of the vertical space */
+    
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    background-color: maroon;
+}
+
+#comparison-histogram {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+
+    background-color: lightpink;
+}
+
+#comparison-radar {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+
+    background-color: limegreen;
+}
+
+.comparison-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#city-card-container {
+    flex: 1; /* takes 1/3 of the vertical space */
+    height: 100%;
+    
+    background-color: orangered;
+}
+
+#city-card-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#city-card-info {
+    width: 35%;
+    height: 100%;
+}
+
+#city-card-radar {
+    flex: 1;
+    height: 100%;
+}
+
+
+/*********************************** ATTRIBUTES PICKER - OTHER ********************************************/
+
+
+#attr-picker {
+    background: #1a1a2e;
+    border: 1px solid #fff;
+    padding: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#attr-picker-search {
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+#attr-picker-list {
+    list-style: none;
+}
+
+.attr-picker-item {
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.attr-picker-item:hover {
+    background: #ffffff22;
+}
+
+#comparison-legend {
+    display: flex;
+    flex-direction: column;
+    /* stack vertically */
+    gap: 4px;
+    padding: 6px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    /* smaller text */
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* demo */
+.attr-box--selected {
+    background-color: #00bfff;
+    color: #000;
+    outline: 2px solid #fff;
+}
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.slider-track {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ================================================================
+    STEP 3 — RESET & BASE
+    Minimal reset. Fill in var() references once tokens are defined.
+================================================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* ----------------------------------------------------------------- */
+
+/* ================================================================
+    STEP 2 — DESIGN TOKENS  ← define your visual identity here
+    Once you pick a direction, fill these in. Every rule in the file
+    reads from these variables, so changing them here repaints
+    the entire dashboard.
+================================================================ 
+
+:root {
+    --color-bg:           ;   // page / app background              
+    --color-surface:      ;   // panel / card background            
+    --color-surface-alt:  ;   // slightly different surface tone    
+    --color-border:       ;   // dividers, resize handle            
+    --color-text-primary: ;   // main readable text                 
+    --color-text-muted:   ;   // labels, secondary info             
+    --color-accent:       ;   // highlight, active state, dots      
+    --color-accent-soft:  ;   // hover tint, backgrounds            
+
+    --font-display:       ;   // headings, city name in card        
+    --font-body:          ;   // all other text                     
+
+    --radius-panel:       ;   // corner radius for panels           
+    --shadow-panel:       ;   // box-shadow for raised surfaces     
+}
+
+// Globe tooltip (STEP 7b in globe.js) ----------------
+    #globe-tooltip { }
+    #globe-tooltip .tooltip-flag    { }
+    #globe-tooltip .tooltip-city    { }
+    #globe-tooltip .tooltip-country { }
+    #globe-tooltip .tooltip-hint    { }
+// --------------------------------------------------------------
+
+
+
+// -- Controls (controls.js) --------------------------------
+// .attr-box {
+//   cursor: pointer;
+// }
+// 
+// .attr-box--selected {
+//   background-color: #00bfff;  // placeholder — swap with var(--color-accent) later 
+//   color: #000;                // placeholder 
+// }
+// ---------------------------------------------------------------- 
+================================================================ */
