@@ -7,10 +7,16 @@ Load order:
 */
 
 // Load state first (since it is a shared store, other modules depend on it)
-import { initState } from './state.js';
+import { initState, onWeightsChange } from './state.js';
 
 // Load each feature module
-import { initControls } from './controls.js';
+import { initControls, getWeights } from './controls.js';
+
+
+initControls(() => {
+    onWeightsChange(getWeights());
+    console.log('UPDATE: weights changed!!!');
+});
 
 // Non-finished modules
 import { initGlobe } from './globe.js';

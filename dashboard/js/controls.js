@@ -1,6 +1,5 @@
-
 // GENERAL INFO
-//  controls.js -->  Attribute selector + weight sliders
+//  controls.js --> Attribute selector + weight sliders
 //  Mounts into --> #controls-container
 //  Exports     --> getWeights(), called by state.js
 
@@ -13,12 +12,8 @@ const CONFIG = {
   SLIDER_MAX: 5,        // max weight value  ← adjust here
   SLIDER_STEP: 1,       // step increment
   SLIDER_DEFAULT: 3,    // weight when an attribute is first selected
-
-  // Grid layout
-  GRID_COLUMNS: 3,      // number of columns in the attribute grid
   
   // <--- adjust here when panel width is finalised
-
 };
 
 // *** ATTRIBUTE DEFINITIONS *** (All numeric metrics from cities.json, grouped by source)
@@ -42,6 +37,7 @@ export const ATTRIBUTES = [
   { key: 'qol.pollution_index', group: 'QoL', label: 'Pollution (QoL)' },
   { key: 'qol.climate_index', group: 'QoL', label: 'Climate (QoL)' },
 
+  /*
   // Urban Area Scores
   { key: 'ua_scores.housing', group: 'Urban', label: 'Housing' },
   { key: 'ua_scores.cost_of_living', group: 'Urban', label: 'Cost of Living (UA)' },
@@ -60,6 +56,7 @@ export const ATTRIBUTES = [
   { key: 'ua_scores.leisure_culture', group: 'Urban', label: 'Leisure & Culture' },
   { key: 'ua_scores.tolerance', group: 'Urban', label: 'Tolerance' },
   { key: 'ua_scores.outdoors', group: 'Urban', label: 'Outdoors' },
+  */
 
   // Salary & Cost
   { key: 'salary.avg_monthly_net_usd', group: 'Economy', label: 'Avg Net Salary' },
@@ -74,44 +71,56 @@ export const ATTRIBUTES = [
   { key: 'happiness.social_support', group: 'Happiness', label: 'Social Support' },
   { key: 'happiness.healthy_life_expectancy', group: 'Happiness', label: 'Life Expectancy' },
 
+  /*
   // Environment & Infrastructure
   { key: 'sunshine.annual_hours', group: 'Environment', label: 'Sunshine Hours' },
   { key: 'avg_temperature_c', group: 'Environment', label: 'Avg Temperature' },
   { key: 'internet_speed_mbps', group: 'Environment', label: 'Internet Speed' },
   { key: 'aqi', group: 'Environment', label: 'Air Quality (AQI)' },
+  */
 
+  /*
   // Society
   { key: 'lgbtq_legal_index', group: 'Society', label: 'LGBTQ+ Legal Index' },
   { key: 'english_proficiency_score', group: 'Society', label: 'English Proficiency' },
+  */
 
+  /*
   // Numbeo Country
   { key: 'numbeo_country.healthcare_index', group: 'Country', label: 'Healthcare (Country)' },
   { key: 'numbeo_country.crime_index', group: 'Country', label: 'Crime (Country)' },
   { key: 'numbeo_country.safety_index', group: 'Country', label: 'Safety (Country)' },
   { key: 'numbeo_country.pollution_index', group: 'Country', label: 'Pollution (Country)' },
-
+  */
 ];
 
 
 // *** MODULE STATE *** 
 
-const selected = new Set();  // selected: Set of attribute-keys currently active
-const weights = new Map();   // weights:  Map of key ..> slider value (only for selected keys)
+// 'Set' automatically avoids duplicates (and easy add/remove operations)
+const selected = new Set();   // selected: Set of attribute-keys currently selected
 
+// 'Map' allows to assciate each selected attribute with its slide value (weight)
+const weights = new Map();   // weights:  Map of key --> slider value (only for selected keys)
+
+// Callback function to notify the application when weights change
+let notifyChange = () => {};
 
 // *** INITIALISE *** (call once from index.html after DOM is ready)
 
-export function initControls() {
+export function initControls(onChange = () => {}) {
+  // set the callback to notify state.js when weights change
+  notifyChange = onChange;
 
-  const container = document.getElementById('controls-container');
-  container.innerHTML = '';   // clear any previous content
+  const controls_container = document.getElementById('controls-container');
+  controls_container.innerHTML = '';   // clear any previous content
 
-  // -- 4a. Wrapper -----------------------------------------
+  // Wrapper
   const wrapper = document.createElement('div');
   wrapper.id = 'controls-wrapper';
-  container.appendChild(wrapper);
+  controls_container.appendChild(wrapper);
 
-  // -- 4b. Header ------------------------------------------
+  // Header
   const header = document.createElement('div');
   header.id = 'controls-header';
   header.innerHTML = `
@@ -120,74 +129,70 @@ export function initControls() {
   `;
   wrapper.appendChild(header);
 
-  // -- 4c. Attribute grid ----------------------------------
+  // Attribute grid
   const grid = document.createElement('div');
   grid.id = 'controls-grid';
-  grid.style.gridTemplateColumns = `repeat(${CONFIG.GRID_COLUMNS}, 1fr)`;
   wrapper.appendChild(grid);
 
+  // Create a button for each attribute
   ATTRIBUTES.forEach(attr => {
-    const box = document.createElement('button');
-    box.classList.add('attr-box');
-    box.dataset.key = attr.key;
-    box.textContent = attr.label;
-    box.title = attr.key;   // full key visible on hover for debugging
-    box.addEventListener('click', () => onBoxClick(attr.key));
-    grid.appendChild(box);
+    const new_attr_button = document.createElement('button');
+    new_attr_button.classList.add('attr-button');
+    new_attr_button.dataset.key = attr.key;     // new_attr_button.dataset.key is 
+    new_attr_button.textContent = attr.label;
+    new_attr_button.title = attr.label;         // full label visible on hover
+    new_attr_button.addEventListener('click', () => onBoxClick(attr.key));
+    grid.appendChild(new_attr_button);
   });
 
-  // -- 4d. Sliders container -------------------------------
+  // Sliders container
   const slidersContainer = document.createElement('div');
   slidersContainer.id = 'controls-sliders';
   wrapper.appendChild(slidersContainer);
-
 }
 
 
 // *** INTERACTION HANDLERS *** 
 
 function onBoxClick(key) {
-
+  // Deselect attribute (already contained in the set)
   if (selected.has(key)) {
-    // Deselect — remove from state, reset weight, remove slider
-    selected.delete(key);
-    weights.delete(key);
-    removeSlider(key);
+    selected.delete(key);     // remove from set
+    weights.delete(key);      // remove weight from map
+    removeSlider(key);        // remove slider from UI
 
   } else {
-    // Reject if already at max
+    // Max attributes reached --> do nothing
     if (selected.size >= CONFIG.MAX_SELECTED) return;
 
-    // Select — add to state with default weight, add slider
-    selected.add(key);
-    weights.set(key, CONFIG.SLIDER_DEFAULT);
-    addSlider(key);
+    // Select attribute
+    selected.add(key);                        // add to set
+    weights.set(key, CONFIG.SLIDER_DEFAULT);  // add to map with default weight
+    addSlider(key);                           // add slider to UI
   }
 
   // Update box highlight
-  const box = document.querySelector(`.attr-box[data-key="${key}"]`);
-  if (box) box.classList.toggle('attr-box--selected', selected.has(key));
+  const button = document.querySelector(`.attr-button[data-key="${key}"]`);     // find the box corresponding to this key
+  if (button) button.classList.toggle('attr-button--selected', selected.has(key)); // Assign highlight class
 
   // Update counter
   updateCounter();
 
-  // TODO: notify state.js that weights changed
-  // state.onWeightsChange(getWeights());
+  // notify state.js that weights changed
+  notifyChange();
 }
-
 
 // *** SLIDER MANAGEMENT ***
 
 function addSlider(key) {
-
   const attr = ATTRIBUTES.find(a => a.key === key);
-  const container = document.getElementById('controls-sliders');
+  const sliders_container = document.getElementById('controls-sliders');
 
-  const row = document.createElement('div');
-  row.classList.add('slider-row');
-  row.dataset.key = key;
+  const new_slider = document.createElement('div');
+  new_slider.classList.add('slider-row');
+  new_slider.dataset.key = key;
 
-  row.innerHTML = `
+  new_slider.innerHTML = `
     <label class="slider-label">${attr.label}</label>
     <div class="slider-track">
       <span class="slider-bound">${CONFIG.SLIDER_MIN}</span>
@@ -206,44 +211,41 @@ function addSlider(key) {
   `;
 
   // Update weight on change
-  row.querySelector('.slider-input').addEventListener('input', (e) => {
+  new_slider.querySelector('.slider-input').addEventListener('input', (e) => {
     const val = Number(e.target.value);
-    weights.set(key, val);
-    row.querySelector('.slider-value').textContent = val;
+    weights.set(key, val);                                        // update weight in map
+    new_slider.querySelector('.slider-value').textContent = val;  // update displayed value
 
-    // TODO: notify state.js
-    // state.onWeightsChange(getWeights());
+    // notify state.js that weights changed
+    notifyChange();
   });
 
-  container.appendChild(row);
+  sliders_container.appendChild(new_slider);
 }
 
 function removeSlider(key) {
-  const row = document.querySelector(`.slider-row[data-key="${key}"]`);
-  if (row) row.remove();
-}
+  const slider = document.querySelector(`.slider-row[data-key="${key}"]`);
+  if (slider) slider.remove();
 
+  // notify state.js that weights changed (slider removed)
+  notifyChange();
+}
 
 // *** UI HELPERS ***
 
 function updateCounter() {
-  const el = document.getElementById('controls-count');
-  if (el) el.textContent = `${selected.size} / ${CONFIG.MAX_SELECTED} selected`;
+  const counter = document.getElementById('controls-count');
+  if (counter) counter.textContent = `${selected.size} / ${CONFIG.MAX_SELECTED} selected`;
 }
 
 
 // *** PUBLIC API *** (called by state.js to read current weights)
 
-// Returns an array of { key, weight } for all selected attributes.
-// If nothing is selected, returns an empty array.
+// Returns an array of { key, weight } for all selected attributes
+// If nothing is selected, returns an empty array
 export function getWeights() {
   return Array.from(selected).map(key => ({
     key,
-    weight: weights.get(key) ?? CONFIG.SLIDER_DEFAULT,
+    weight: weights.get(key) ?? CONFIG.SLIDER_DEFAULT,  // fallback to default if not found (should not happen)
   }));
-}
-
-// Returns the Set of currently selected keys (read-only reference).
-export function getSelected() {
-  return new Set(selected);
 }

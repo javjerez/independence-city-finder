@@ -12,7 +12,6 @@ body {
 
 /******************************** ROOT LAYOUT *****************************************/
 
-
 #app {
     --split: 60%;
     /* ← single source of truth for the split */
@@ -26,11 +25,10 @@ body {
     background-color: red;
 }
 
-
-/************************* LEFT PANEL  (globe + controls) *****************************/
+/************************* LEFT PANEL (globe + controls) *****************************/
 
 #panel-left {
-    grid-column: 1;
+    /*grid-column: 1;*/
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -43,7 +41,9 @@ body {
 }
 
 #globe-container {
-    flex: 0 0 var(--split-left);
+    /*flex: 0 0 var(--split-left);*/
+    flex: 3;
+
     /* fixed to --split-left, doesn't grow or shrink */
     /* expands to fill all available height */
     position: relative;
@@ -54,7 +54,7 @@ body {
 }
 
 #controls-container {
-    flex: 1;
+    flex: 2;
     /* takes the remaining 30% */
     /* never compresses — height set by content */
     /* height will be defined when controls module is built */
@@ -211,25 +211,6 @@ body {
     border-radius: 50%;
     display: inline-block;
     flex-shrink: 0;
-}
-
-/* demo */
-.attr-box--selected {
-    background-color: #00bfff;
-    color: #000;
-    outline: 2px solid #fff;
-}
-
-.slider-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.slider-track {
-    display: flex;
-    align-items: center;
-    gap: 4px;
 }
 
 /* ================================================================

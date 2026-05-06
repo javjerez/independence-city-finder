@@ -1,0 +1,2 @@
+• 'controls' should have a 'reset' button in order to remove all the weights
+and see the map without weights as in the beginning

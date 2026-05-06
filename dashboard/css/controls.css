@@ -1,0 +1,68 @@
+#controls-wrapper{
+    height: 100%;
+    background-color: brown;
+}
+
+#controls-header{
+    background-color: orange;
+}
+
+#controls-title{
+    background-color: lightblue;
+}
+
+#controls-count{
+    background-color: lightcoral;
+}
+
+#controls-grid{
+    background-color: darkblue;
+}
+
+#controls-sliders{
+    background-color: darkkhaki;
+}
+
+.attr-button{
+    background-color: mediumvioletred;
+}
+
+/* demo */
+.attr-button--selected {
+    background-color: #00bfff;
+    color: #000;
+    outline: 2px solid #fff;
+}
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: lime;
+}
+
+.slider-label {
+
+}
+
+.slider-track {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.slider-bound {
+
+}
+
+.slider-input {
+
+}
+
+.slider-bound {
+
+}
+
+.slider-value {
+    
+}
