@@ -27,6 +27,5 @@ const cities = await d3.json('data/cities.json');
 
 initState(cities);
 initGlobe();
-initControls();
 initCityCard();
 initComparison();

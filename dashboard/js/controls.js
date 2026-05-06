@@ -129,10 +129,20 @@ export function initControls(onChange = () => {}) {
   `;
   wrapper.appendChild(header);
 
+  // Content (grid of attributes + sliders)
+  const content = document.createElement('div');
+  content.id = 'controls-content';
+  wrapper.appendChild(content);
+
   // Attribute grid
   const grid = document.createElement('div');
   grid.id = 'controls-grid';
-  wrapper.appendChild(grid);
+  content.appendChild(grid);
+
+  // Sliders container
+  const slidersContainer = document.createElement('div');
+  slidersContainer.id = 'controls-sliders';
+  content.appendChild(slidersContainer);
 
   // Create a button for each attribute
   ATTRIBUTES.forEach(attr => {
@@ -144,11 +154,6 @@ export function initControls(onChange = () => {}) {
     new_attr_button.addEventListener('click', () => onBoxClick(attr.key));
     grid.appendChild(new_attr_button);
   });
-
-  // Sliders container
-  const slidersContainer = document.createElement('div');
-  slidersContainer.id = 'controls-sliders';
-  wrapper.appendChild(slidersContainer);
 }
 
 
@@ -226,9 +231,6 @@ function addSlider(key) {
 function removeSlider(key) {
   const slider = document.querySelector(`.slider-row[data-key="${key}"]`);
   if (slider) slider.remove();
-
-  // notify state.js that weights changed (slider removed)
-  notifyChange();
 }
 
 // *** UI HELPERS ***
