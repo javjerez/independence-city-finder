@@ -51,6 +51,7 @@ body {
     overflow: hidden;
 
     background-color: skyblue;
+    /*border-radius: 25px;*/
 }
 
 #controls-container {
@@ -63,6 +64,7 @@ body {
     /* allows controls to scroll if they overflow */
 
     background-color: lightslategray;
+    /*border-radius: 25px;*/
 }
 
 

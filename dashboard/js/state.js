@@ -12,7 +12,7 @@
 // The score is computed in this module and whenever the weights change, we recompute the scores for all cities and update the map
 
 
-import { updateDotStyles } from './globe.js';
+import { updateDotStyles, updateDotSizes } from './globe.js';
 import { getWeights } from './controls.js';
 import { updateCityCard } from './cityCard.js';
 import { initComparison, updateComparison, renderLegend } from './comparison.js';
@@ -237,7 +237,7 @@ export function selectCity(city) {
 
 export function onWeightsChange() {
   _rebuildScoreCache();
-  // TODO: updateDotSizes(_scoreCache) once globe exposes it
+  updateDotSizes(_scoreCache);  // push new scores to the map so it can update dot sizes
 }
 
 

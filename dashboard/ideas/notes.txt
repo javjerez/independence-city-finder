@@ -1,2 +1,5 @@
-• 'controls' should have a 'reset' button in order to remove all the weights
-and see the map without weights as in the beginning
+• Colours of the cities:
+    - Assign a random colour to a city at the moment is select, that colour should always
+      be used in the graphs for that city
+    
+    - Assign 5 preattemptive colors that allow a good visualization for the different countries
