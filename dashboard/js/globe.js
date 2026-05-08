@@ -46,11 +46,6 @@ DUDAS:
 
 - No debería de conectarse el globe.js con la aplicación en el main? Por qué llamamos a updateDotSizes desde el state.js?
 
-- CUANDO HAGO UN "HOVER" ENCIMA DE UN PUNTO, QUIERO QUE SE MUESTRE EL NOMBRE DE LA CIUDAD
-
-- DOCUMENTAR CÓMO HAGO EL ZOOM DEL MAPA
-
-
 */
 
 // 'async' because we need to load geographic data before we can draw the map
@@ -254,19 +249,6 @@ export function updateDotSizes(newscoreMap) {
     .duration(250)
     .attr('r', currentCity => getCityRadius(currentCity))
     .attr('stroke-width', getCityStrokeWidth());
-
-    /*
-    // Converts scores (0 to 1) to a radius size in the range [CITY_RADIUS_MIN, CITY_RADIUS_MAX]
-    const radiusScale = d3.scaleLinear()
-      .domain([0, 1])
-      .range([CONFIG.CITY_RADIUS_MIN, CONFIG.CITY_RADIUS_MAX]);
-
-    // Update the radius of each city dot based on its score
-    gCities.selectAll('circle.city-dot')
-      .transition()
-      .duration(250)
-      .attr('r', currentCity => radiusScale(scoreMap.get(currentCity.city) ?? 0));
-    */
 }
 
 // Function to update the color of city dots based on selection and comparison
