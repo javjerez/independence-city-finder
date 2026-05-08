@@ -37,6 +37,10 @@ let currentZPTransform = d3.zoomIdentity; // stores the current zoom, position a
 let cities = [];              // list of city data loaded from JSON
 let scoreMap = new Map();     // city name --> score
 
+// For 'hover' tooltip
+let tooltip = null;
+let tooltipTimer = null;
+
 /*
 DUDAS:
 
@@ -88,6 +92,12 @@ export async function initGlobe() {
     // Load city data
     cities = await d3.json('data/cities.json');  // this URL contains our cities dataset
 
+    // Create tooltip element to hover on city dots (hidden by default)
+    tooltip = d3.select(map_container)
+      .append('div')
+      .attr('id', 'map-tooltip')
+      .style('display', 'none');
+
     // Draw the map and cities
     drawMap(land, borders);     // 1. draw the map (countries)
     drawCities();               // 2. draw the cities on top (dots)
@@ -114,20 +124,39 @@ function drawMap(land, borders) {
 // Function to draws a dot on the map per city
 function drawCities() {
     gCities.selectAll('circle.city-dot')
-      .data(cities, currentCity => currentCity.city)          // 'currentCity' is the 'key' (the city name) to binding each city to a circle
-      .join('circle')
-      .attr('class', 'city-dot')
-      .attr('cx', currentCity => projection([currentCity.lon, currentCity.lat])[0]) // converts lat/lon to screen coordinates using the projection
-      .attr('cy', currentCity => projection([currentCity.lon, currentCity.lat])[1]) // same for y coordinate
-      .attr('r', currentCity => getCityRadius(currentCity))   // initial radius based on initial score
-      .attr('fill', CONFIG.CITY_COLOR)                        // initial color
-      .attr('opacity', 0.85)
-      .attr('stroke', '#0f172a')                            // border color
-      .attr('stroke-width', getCityStrokeWidth())                                // border width
-      .on('click', (event, clickedCity) => {
-        event.stopPropagation();                              // prevents 'click' from propagating to other elements 
-        selectCity(clickedCity);   // when a city dot is clicked, we select that city in the current state (which will trigger updates in other modules)
-      });
+    .data(cities, currentCity => currentCity.city)          // 'currentCity' is the 'key' (the city name) to binding each city to a circle
+    .join('circle')
+    .attr('class', 'city-dot')
+    .attr('cx', currentCity => projection([currentCity.lon, currentCity.lat])[0]) // converts lat/lon to screen coordinates using the projection
+    .attr('cy', currentCity => projection([currentCity.lon, currentCity.lat])[1]) // same for y coordinate
+    .attr('r', currentCity => getCityRadius(currentCity))   // initial radius based on initial score
+    .attr('fill', CONFIG.CITY_COLOR)                        // initial color
+    .attr('opacity', 0.85)
+    .attr('stroke', '#0f172a')                            // border color
+    .attr('stroke-width', getCityStrokeWidth())                                // border width
+
+    // City 'click' --> we connect it to the other views
+    .on('click', (event, clickedCity) => {
+        event.stopPropagation();            // prevents 'click' from propagating to other elements 
+        selectCity(clickedCity);            // we select the city in the app 'state'
+    })
+
+    // City 'hover' --> show tooltip with city name
+    .on('mouseenter', (event, hoveredCity) => {
+      tooltipTimer = setTimeout(() => {
+        showTooltip(event, hoveredCity);
+      }, 120);
+    })
+
+    .on('mouseleave', () => {
+      hideTooltip();
+    })
+
+    .on('mousemove', (event) => {
+      tooltip
+        .style('left', (event.offsetX + 12) + 'px')
+        .style('top', (event.offsetY - 12) + 'px');
+    })
 }
 
 /************************ ZOOM & PAN **********************/
@@ -187,6 +216,31 @@ function attachZoom() {
       });
 
     svg.call(zoom);
+}
+
+/********************** HOVER TOOLTIP *********************/
+
+// Shows the tooltip with city name and country when hovering on a city dot
+function showTooltip(event, city) {
+  tooltip
+    .style('display', 'block')
+    .html(`
+      <div class="tooltip-city">
+        ${city.city}
+      </div>
+      <div class="tooltip-country">
+        ${city.country}
+      </div>
+    `)
+    .style('left', (event.offsetX + 12) + 'px')
+    .style('top', (event.offsetY - 12) + 'px');
+}
+
+// Hides the tooltip when the mouse leaves a city dot
+function hideTooltip() {
+  clearTimeout(tooltipTimer);
+
+  tooltip.style('display', 'none');
 }
 
 /****************** INTERACTION HANDLERS ******************/
