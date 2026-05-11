@@ -1,34 +1,38 @@
-// ============================================================
-//  state.js — Central store, score engine, module connector
+//  state.js: Central store, score engine, module connector
 //  Imports:  globe.js (updateDotStyles)
 //            controls.js (getWeights)
-//  Called by: globe.js (selectCity), controls.js (onWeightsChange)
-// ============================================================
 
+/*
+1. Saves the cities scores
+2. Saves the current selected cities (primary + compared)
+3. Computes normalized scores according to weights
+4. Notifies the map, city card and comparison modules
+*/
 
-// We want to do something like: ----> score = weightedNormalizedSum / totalWeight
+/*
+DUDAS:
 
-// So that the map only read the city.score, and prints the dots with a size proportional to that score
-// The score is computed in this module and whenever the weights change, we recompute the scores for all cities and update the map
+- Deberia de llamar "initComparison(_metricStats);" desde el main.js
 
+- Está bien que el state.js llame a funciones de otros módulos para actualizarse?
 
-import { updateDotStyles, updateDotSizes } from './globe.js';
+- Estoy llamando el updateDotSize() dos veces. Solo debería de dejar una verdad?
+
+*/
+
+import { updateDotsColor, updateDotSizes } from './globe.js';
 import { getWeights } from './controls.js';
+
 import { updateCityCard } from './cityCard.js';
 import { initComparison, updateComparison, renderLegend } from './comparison.js';
 
-
-// ============================================================
-//  STEP 1 — CONFIGURATION
-// ============================================================
-
+// CONFIGURATION
 const CONFIG = {
-
   MAX_COMPARED: 5,
 
-  // Metrics where a LOWER value is better.
+  // Metrics where a LOWER value is better
   // These are inverted before normalization so that
-  // after normalization, higher always = better.
+  // after normalization, higher always = better
   INVERT_METRICS: new Set([
     'qol.cost_of_living_index',
     'qol.property_price_to_income_ratio',
@@ -46,166 +50,137 @@ const CONFIG = {
     'numbeo_country.crime_index',
     'numbeo_country.pollution_index',
   ]),
+  // contains the 'keys' of the attributes
 
 };
 
+// MODULE STATE
+let _cities = [];             // full dataset (set once on init)
+let _primaryCity = null;
+let _comparedCities = [];
 
-// ============================================================
-//  STEP 2 — MODULE STATE
-//  Single source of truth for the entire application.
-// ============================================================
+// Normalisation map (rebuilt whenever weights change)
+let _scoreMap = new Map();  // city.city --> composite score (0–1)
 
-let _cities = [];     // full dataset, set once on init
-let _primaryCity = null;   // city object or null
-let _comparedCities = [];     // array of city objects, max CONFIG.MAX_COMPARED
-
-// Normalisation cache — rebuilt whenever weights change
-// Map of city.city → composite score (0–1)
-let _scoreCache = new Map();
-
-// Min/max per metric key, computed once on init from full dataset
+// Min/max per metric key (computed once on init from full dataset)
 let _metricStats = new Map();   // key → { min, max }
 
 
-// ============================================================
-//  STEP 3 — INITIALISE
-//  Call once after data is loaded, passing the full cities array.
-//  Computes metric stats across the full dataset once and caches them.
-// ============================================================
-
+//  Computes metric stats across the full dataset once and stores them
 export function initState(cities) {
   _cities = cities;
   _computeMetricStats();
-  initComparison(_metricStats);
   console.log('[state] initialised with', _cities.length, 'cities');
 }
 
-
-// ============================================================
-//  STEP 4 — METRIC STATS
-//  Computes min and max for every numeric metric key across
-//  all cities. Called once on init — normalization reads from
-//  this cache. Uses _getAllMetricKeys() to stay decoupled from
-//  the controls attribute list.
-// ============================================================
-
+/* 
+  Computes 'min' and 'max' for every numeric metric key across
+  all cities (called once on init)
+*/
 function _computeMetricStats() {
   _metricStats.clear();
 
+  // get all attributes keys that are numeric (of the first city only)
   const allKeys = _getAllMetricKeys();
 
-  allKeys.forEach(key => {
+  allKeys.forEach(attribute => {
     let min = Infinity;
     let max = -Infinity;
 
     _cities.forEach(city => {
-      const val = _getNestedValue(city, key);
+      const val = _getNestedValue(city, attribute);
       if (val == null || isNaN(val)) return;
       if (val < min) min = val;
       if (val > max) max = val;
     });
 
-    _metricStats.set(key, { min, max });
+    _metricStats.set(attribute, { min, max });
   });
 
   console.log('[state] metric stats computed for', _metricStats.size, 'metrics');
 }
 
 
-// ============================================================
-//  STEP 5 — SCORE ENGINE
-//  Computes a composite score (0–1) for a single city
-//  given the current weights from controls.js.
-//
-//  Pipeline per selected metric:
-//    1. Read raw value from city object via dot-path
-//    2. If metric is in INVERT_METRICS → invert (max - val + min)
-//    3. Normalize to 0–1 using full-dataset min/max
-//    4. Multiply by weight
-//  Final score = sum of weighted normalized values / sum of weights
-// ============================================================
+/*
+  Computes a composite score (0–1) for a single city
+  given the current weights from controls.js
 
+  Pipeline per selected metric:
+    1. Read raw value from city object via dot-path
+    2. If metric is in INVERT_METRICS --> invert (max - val + min)
+    3. Normalize to 0–1 using full-dataset min/max
+    4. Multiply by weight
+  Final score = sum of weighted normalized values / sum of weights
+*/
 function _computeScore(city, weights) {
-
+  // if no weights selected, return 0 (lowest score)
   if (!weights || weights.length === 0) return 0;
 
   let weightedSum = 0;
   let totalWeight = 0;
 
-  weights.forEach(({ key, weight }) => {
-    const stats = _metricStats.get(key);
-    if (!stats) return;
-
-    let val = _getNestedValue(city, key);
-    if (val == null || isNaN(val)) return;
-
-    const { min, max } = stats;
-    if (max === min) return;   // all cities identical on this metric — skip
-
-    // Invert if lower-is-better
-    if (CONFIG.INVERT_METRICS.has(key)) {
-      val = max - val + min;
-    }
-
+  weights.forEach(({ attribute, weight }) => {
     // Normalize to 0–1
-    const normalized = (val - min) / (max - min);
+    // we get the normalized value for this city and metric
+    const normalized = _normalizeCityValue(city, attribute);
+
+    // if normalized is null (e.g. missing data), we skip this metric for this city
+    if (normalized == null) return;
 
     weightedSum += normalized * weight;
     totalWeight += weight;
   });
 
+  // Compute final score as weighted average (0–1)
   return totalWeight === 0 ? 0 : weightedSum / totalWeight;
 }
 
-
-// ============================================================
-//  STEP 6 — SCORE CACHE
-//  Recomputes scores for all cities and stores in _scoreCache.
-//  Called whenever weights change via onWeightsChange().
-//  After rebuilding, notifies globe to update dot sizes.
-// ============================================================
-
-function _rebuildScoreCache() {
+/*
+  1. Recomputes scores for all cities and stores in _scoreMap
+  2. Then, notifies globe to update dot sizes
+  (called whenever weights change via 'onWeightsChange()')
+*/
+function _rebuildScoreMap() {
+  // we get the new weights
   const weights = getWeights();
-  _scoreCache.clear();
 
-  _cities.forEach(city => {
-    const score = _computeScore(city, weights);
-    _scoreCache.set(city.city, score);
+  // we clean the old map
+  _scoreMap.clear();
+
+  // for each city, we compute the new score and store it in the map
+  _cities.forEach(currentCity => {
+    const score = _computeScore(currentCity, weights);
+    _scoreMap.set(currentCity.city, score);
   });
 
-  console.log('[state] score cache rebuilt');
+  console.log('[state] score map rebuilt');
 
-  // TODO: notify globe to update dot sizes based on new scores
-  // updateDotSizes(_scoreCache);   ← wire up when globe exposes this
+  // notify 'globe' to update dot sizes based on new scores
+  updateDotSizes(_scoreMap);
 }
 
 
-// ============================================================
-//  STEP 7 — CITY SELECTION
-//  Called by globe.js when a dot is clicked.
-//
-//  Logic:
-//    - Click selected primary     → deselect primary
-//    - Click selected comparison  → remove from comparison
-//    - Click any city, no primary → set as primary
-//    - Click any city, has primary, under limit → add to comparison
-//    - Click any city, at limit   → warn, do nothing
-// ============================================================
+/* Called by globe.js when a dot is clicked
 
+  Logic:
+    - Click selected primary     -->  deselect primary
+    - Click selected comparison  -->  remove from comparison
+    - Click any city, no primary -->  set as primary
+    - Click any city, has primary, under limit --> add to comparison
+    - Click any city, at limit   -->  warn, do nothing
+*/
 export function selectCity(city) {
-
   // Deselect primary
-  if (_primaryCity?.city === city.city) {
+  if (_primaryCity?.city === city.city) { // is '_primaryCity' null? if not, compare city names
     _primaryCity = null;
     _notifyModules();
     return;
   }
 
   // Deselect from comparison
-  const comparedIndex = _comparedCities.findIndex(c => c.city === city.city);
-  if (comparedIndex !== -1) {
-    _comparedCities.splice(comparedIndex, 1);
+  const comparedIndex = _comparedCities.findIndex(comparedCity => comparedCity.city === city.city);
+  if (comparedIndex !== -1) { // city is in the compared cities list
+    _comparedCities.splice(comparedIndex, 1); // 'splice' modifies the original array, removing 1 element at 'comparedIndex'
     _notifyModules();
     return;
   }
@@ -228,98 +203,126 @@ export function selectCity(city) {
 }
 
 
-// ============================================================
-//  STEP 8 — WEIGHTS CHANGE HANDLER
-//  Called by controls.js whenever a slider moves or an
-//  attribute is selected / deselected.
-//  Rebuilds score cache and notifies globe of new dot sizes.
-// ============================================================
-
+/*
+  Controlled in the 'main' module, called whenever weights
+  change in the controls module ('onWeightsChange' callback)
+  Recomputes scores and notifies modules to update
+*/
 export function onWeightsChange() {
-  _rebuildScoreCache();
-  updateDotSizes(_scoreCache);  // push new scores to the map so it can update dot sizes
+  _rebuildScoreMap();
+  // updateDotSizes(_scoreMap);  // push new scores to the map so it can update dot sizes
 }
 
 
-// ============================================================
-//  STEP 9 — NOTIFY MODULES
-//  Single function that pushes current state to all modules.
-//  Add new module calls here as each module is built.
-// ============================================================
-
+/* 
+  Notifies all modules to be updated with the current state:
+  Single function that pushes current state to all modules
+  Add new module calls here as each module is built
+*/
 function _notifyModules() {
+  const weights = getWeights();
+  // we compute the normalized scores for the primary city
+  const scores = _getNormalizedScoresForCity(_primaryCity, weights);
 
   // Globe: update dot colours
-  updateDotStyles(_primaryCity, _comparedCities);
+  updateDotsColor(_primaryCity, _comparedCities);
 
+  // TODO: update comparison.js
   updateComparison(_primaryCity, _comparedCities);
   renderLegend();
 
-  const weights = getWeights();
-  const scores = new Map(
-    weights.map(({ key }) => {
-      if (!_primaryCity) return [key, 0];
-      const stats = _metricStats.get(key);
-      if (!stats) return [key, 0];
-      let val = _getNestedValue(_primaryCity, key);
-      if (val == null || isNaN(val)) return [key, 0];
-      const { min, max } = stats;
-      if (max === min) return [key, 0];
-      if (CONFIG.INVERT_METRICS.has(key)) val = max - val + min;
-      return [key, (val - min) / (max - min)];
-    })
-  );
+  // TODO: update of cityCard.js
   updateCityCard(_primaryCity, weights, scores);
-
-  console.log('[state] notified modules —',
-    'primary:', _primaryCity?.city ?? 'none',
-    '| compared:', _comparedCities.map(c => c.city).join(', ') || 'none'
-  );
 }
 
 
-// ============================================================
-//  STEP 10 — PUBLIC GETTERS
-//  Read-only access to state for any module that needs it.
-// ============================================================
-
+/* 
+  PUBLIC GETTERS, Read-only access to state
+*/
 export function getPrimaryCity() { return _primaryCity; }
-export function getComparedCities() { return [..._comparedCities]; }
+export function getComparedCities() { return [..._comparedCities]; } // with '...' we return a new copy of the compared cities arrays
 export function getAllCities() { return _cities; }
-export function getScore(cityName) { return _scoreCache.get(cityName) ?? 0; }
-export function getScoreCache() { return new Map(_scoreCache); }
+export function getScore(cityName) { return _scoreMap.get(cityName) ?? 0; }
+export function getScoreMap() { return new Map(_scoreMap); }
 
 
-// ============================================================
-//  STEP 11 — UTILITIES
-// ============================================================
+/****************** HELPER FUNCTIONS *******************/
 
-// Reads a dot-path value from a nested object.
-// e.g. _getNestedValue(city, 'qol.safety_index') → 75.4
+
+// Computes normalized scores for all metrics for a given city, based on current weights
+function _getNormalizedScoresForCity(city, weights) {
+  return new Map(
+    weights.map(({ attribute }) => {
+      // if no primary city or no stats for this metric, return 0
+      if (!city) return [attribute, 0];
+
+      // we get the min/max values
+      const normalized = _normalizeCityValue(city, attribute);
+
+      // if normalized is null (e.g. missing data), return 0
+      return [attribute, normalized ?? 0];
+    })
+  );
+}
+
+// Normalizes a single metric value for a city based on min/max and inversion config
+function _normalizeCityValue(city, attribute) {
+  // we get the min/max values
+  const stats = _metricStats.get(attribute);
+
+  // if no stats for this metric, we skip (non-numerical/missing data)
+  if (!stats) return null;
+
+  let val = _getNestedValue(city, attribute);
+  if (val == null || isNaN(val)) return null; // NaN/missing value
+
+  const { min, max } = stats;
+  // ALL cities IDENTICAL on this metric --> skip
+  if (max === min) return null;
+
+  // Invert if lower-is-better
+  if (CONFIG.INVERT_METRICS.has(attribute)) {
+    val = max - val + min;
+    // e.g: if min = 10, max = 100, val = 30 
+    // --> invertedVal = 100 - 30 + 10 = 80 (originally low, now high)
+  }
+
+  // Normalize to 0–1
+  return (val - min) / (max - min);
+  // e.g: if min = 10, max = 100, val = 30
+  // --> normalizedVal = (30 - 10) / (100 - 10) = 20 / 90 = 0.22
+}
+
+// Reads a dot-path value from a nested object
+// e.g: _getNestedValue(city, 'qol.safety_index') --> 75.4
 function _getNestedValue(obj, dotPath) {
-  return dotPath.split('.').reduce((acc, key) => {
-    return acc != null ? acc[key] : null;
+  return dotPath.split('.').reduce((acc, attribute) => {
+    return acc != null ? acc[attribute] : null;
   }, obj);
 }
 
-// Derives all numeric metric keys by walking the first city object.
-// Returns dot-path strings for numeric values only —
-// skips strings (city, country, flag, english_proficiency_band).
+// Returns dot-path strings for all numeric metric keys, by walking the first city object.
+// dot-path example: 'qol.safety_index'
 function _getAllMetricKeys() {
+  // We assume all cities have the same structure
   if (_cities.length === 0) return [];
   const keys = [];
 
+  // We walk the object tree and collect dot-paths for numeric values
   function walk(obj, prefix) {
-    Object.entries(obj).forEach(([k, v]) => {
-      const path = prefix ? `${prefix}.${k}` : k;
-      if (typeof v === 'object' && v !== null) {
-        walk(v, path);
-      } else if (typeof v === 'number') {
+    // For example, if prefix is 'qol' and attribute is 'safety_index', path becomes 'qol.safety_index'
+    Object.entries(obj).forEach(([attribute, value]) => {
+      // so path prefix is '' at the root, then 'qol', then 'qol.safety_index', etc
+      const path = prefix ? `${prefix}.${attribute}` : attribute;
+      if (typeof value === 'object' && value !== null) {
+        walk(value, path);
+      } else if (typeof value === 'number') {
         keys.push(path);
       }
     });
   }
 
-  walk(_cities[0], '');
+  // Start walking from the first city object
+  walk(_cities[0], '');   // walk means we traverse the object tree recursively, building dot-paths as we go, collecting keys for numeric values
   return keys;
 }

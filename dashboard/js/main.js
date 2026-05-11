@@ -11,15 +11,14 @@ import { initState, onWeightsChange } from './state.js';
 
 // Load each feature module
 import { initControls, getWeights } from './controls.js';
-
-
 initControls(() => {
     onWeightsChange(getWeights());
     console.log('UPDATE: weights changed!!!');
 });
 
-// Non-finished modules
 import { initGlobe } from './globe.js';
+
+// Non-finished modules
 import { initCityCard } from './cityCard.js';
 import { initComparison } from './comparison.js';
 

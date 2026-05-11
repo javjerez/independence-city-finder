@@ -252,12 +252,14 @@ export function updateDotSizes(newscoreMap) {
 }
 
 // Function to update the color of city dots based on selection and comparison
-export function updateDotStyles(primaryCity, comparedCities = []) {
+export function updateDotsColor(primaryCity, comparedCities = []) {
     // case: no cities drawn yet (map not initialized)
     if (!gCities) return;
 
-    const comparedNames = new Set(comparedCities.map(c => c.city));
+    // create a 'set' of compared city names for quick lookup
+    const comparedNames = new Set(comparedCities.map(compareCity => compareCity.city));
 
+    // update the color of each city dot based on whether it is the primary city, a compared city or neither
     gCities.selectAll('circle.city-dot')
       .attr('fill', currentCity => {
         if (currentCity.city === primaryCity?.city) return CONFIG.CITY_COLOR_PRIMARY;
