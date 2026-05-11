@@ -1,0 +1,329 @@
+country,country_code,continent_code,internet_type,median_speed(mbps)
+Qatar,QA,AS,mobile,329.37
+United Arab Emirates,AE,AS,mobile,309.77
+Kuwait,KW,AS,mobile,233.78
+Denmark,DK,EU,mobile,147.33
+Norway,NO,EU,mobile,142.23
+South Korea,KR,AS,mobile,139.98
+Iceland,IS,EU,mobile,139.01
+China,CN,AS,mobile,133.57
+Netherlands,NL,EU,mobile,120.25
+Macau (SAR),MO,AS,mobile,118.91
+United States,US,NA,mobile,114.87
+Saudi Arabia,SA,AS,mobile,114.46
+Bahrain,BH,AS,mobile,112.12
+Finland,FI,EU,mobile,109.10
+Brunei,BN,AS,mobile,107.40
+India,IN,AS,mobile,107.37
+Luxembourg,LU,EU,mobile,107.30
+Estonia,EE,EU,mobile,104.08
+Lithuania,LT,EU,mobile,103.93
+Sweden,SE,EU,mobile,102.02
+Singapore,SG,AS,mobile,99.29
+Bulgaria,BG,EU,mobile,97.85
+Croatia,HR,EU,mobile,96.69
+France,FR,EU,mobile,95.80
+Malaysia,MY,AS,mobile,95.66
+Australia,AU,OC,mobile,93.37
+Maldives,MV,AS,mobile,91.23
+Switzerland,CH,EU,mobile,89.85
+Portugal,PT,EU,mobile,88.91
+Austria,AT,EU,mobile,88.28
+Latvia,LV,EU,mobile,86.23
+Canada,CA,NA,mobile,84.91
+North Macedonia,MK,EU,mobile,83.43
+Czechia,CZ,EU,mobile,81.96
+Taiwan,TW,AS,mobile,81.93
+Belgium,BE,EU,mobile,79.82
+Oman,OM,AS,mobile,79.64
+Mauritius,MU,AF,mobile,79.24
+Greece,GR,EU,mobile,77.01
+Uruguay,UY,SA,mobile,75.63
+Slovenia,SI,EU,mobile,71.21
+New Zealand,NZ,OC,mobile,70.34
+Malta,MT,EU,mobile,64.60
+Cyprus,CY,AS,mobile,64.06
+Brazil,BR,SA,mobile,62.95
+Hong Kong (SAR),HK,AS,mobile,61.27
+Romania,RO,EU,mobile,58.73
+Montenegro,ME,EU,mobile,56.88
+Germany,DE,EU,mobile,56.43
+Poland,PL,EU,mobile,55.56
+Slovakia,SK,EU,mobile,54.57
+Hungary,HU,EU,mobile,54.45
+United Kingdom,GB,EU,mobile,53.96
+Italy,IT,EU,mobile,53.43
+Serbia,RS,EU,mobile,52.49
+South Africa,ZA,AF,mobile,52.28
+Vietnam,VN,AS,mobile,52.15
+Suriname,SR,SA,mobile,51.28
+Azerbaijan,AZ,AS,mobile,51.18
+Albania,AL,EU,mobile,50.71
+Spain,ES,EU,mobile,49.77
+Thailand,TH,AS,mobile,48.76
+Zimbabwe,ZW,AF,mobile,45.63
+Kazakhstan,KZ,AS,mobile,45.34
+Japan,JP,AS,mobile,45.17
+Morocco,MA,AF,mobile,43.70
+Israel,IL,AS,mobile,42.33
+Turkey,TR,AS,mobile,40.77
+Georgia,GE,AS,mobile,39.83
+Ireland,IE,EU,mobile,39.79
+Chile,CL,SA,mobile,38.30
+Kosovo,XK,EU,mobile,37.63
+Iran,IR,AS,mobile,37.36
+Kyrgyzstan,KG,AS,mobile,37.21
+Senegal,SN,AF,mobile,36.74
+Togo,TG,AF,mobile,36.36
+Guatemala,GT,NA,mobile,35.75
+Uganda,UG,AF,mobile,34.94
+Botswana,BW,AF,mobile,34.90
+Moldova,MD,EU,mobile,34.47
+Lebanon,LB,AS,mobile,34.13
+Costa Rica,CR,NA,mobile,32.36
+Philippines,PH,AS,mobile,32.12
+Argentina,AR,SA,mobile,31.97
+Ethiopia,ET,AF,mobile,31.48
+Tanzania,TZ,AF,mobile,30.78
+Honduras,HN,NA,mobile,30.45
+Iraq,IQ,AS,mobile,29.85
+Uzbekistan,UZ,AS,mobile,29.50
+Mexico,MX,NA,mobile,29.30
+Trinidad and Tobago,TT,NA,mobile,29.19
+Myanmar (Burma),MM,AS,mobile,29.01
+El Salvador,SV,NA,mobile,28.90
+Kenya,KE,AF,mobile,28.58
+Dominican Republic,DO,NA,mobile,28.56
+Jamaica,JM,NA,mobile,28.47
+Indonesia,ID,AS,mobile,27.99
+Laos,LA,AS,mobile,27.94
+Madagascar,MG,AF,mobile,27.70
+Armenia,AM,AS,mobile,27.57
+Guyana,GY,SA,mobile,27.23
+Cambodia,KH,AS,mobile,26.24
+Jordan,JO,AS,mobile,26.08
+Tunisia,TN,AF,mobile,25.56
+Russia,RU,EU,mobile,25.51
+Ecuador,EC,SA,mobile,25.13
+Egypt,EG,AF,mobile,24.39
+Fiji,FJ,OC,mobile,23.97
+Bangladesh,BD,AS,mobile,23.82
+Namibia,NA,AF,mobile,23.17
+Rwanda,RW,AF,mobile,23.15
+Algeria,DZ,AF,mobile,23.15
+Côte d'Ivoire,CI,AF,mobile,22.56
+Zambia,ZM,AF,mobile,22.27
+Somalia,SO,AF,mobile,22.07
+Mozambique,MZ,AF,mobile,21.57
+Nigeria,NG,AF,mobile,21.16
+Bosnia and Herzegovina,BA,EU,mobile,21.00
+Ukraine,UA,EU,mobile,20.99
+Papua New Guinea,PG,OC,mobile,20.56
+Malawi,MW,AF,mobile,20.32
+Peru,PE,SA,mobile,19.97
+Panama,PA,NA,mobile,19.17
+Colombia,CO,SA,mobile,18.65
+Pakistan,PK,AS,mobile,18.14
+Paraguay,PY,SA,mobile,18.13
+Nicaragua,NI,NA,mobile,18.07
+Sri Lanka,LK,AS,mobile,17.91
+DR Congo,CD,AF,mobile,17.44
+Angola,AO,AF,mobile,16.23
+Ghana,GH,AF,mobile,15.85
+Libya,LY,AF,mobile,14.86
+Sudan,SD,AF,mobile,14.36
+Cameroon,CM,AF,mobile,13.99
+Mongolia,MN,AS,mobile,13.80
+Syria,SY,AS,mobile,13.76
+Nepal,NP,AS,mobile,12.94
+Venezuela,VE,SA,mobile,12.17
+Belarus,BY,EU,mobile,11.55
+Haiti,HT,NA,mobile,11.25
+Belize,BZ,NA,mobile,10.69
+Bolivia,BO,SA,mobile,10.57
+Tajikistan,TJ,AS,mobile,9.58
+East Timor,TL,AS,mobile,7.36
+Afghanistan,AF,AS,mobile,7.25
+Yemen,YE,AS,mobile,6.53
+Cuba,CU,NA,mobile,3.77
+Singapore,SG,AS,fixed_broadband,289.98
+Hong Kong (SAR),HK,AS,fixed_broadband,282.48
+Chile,CL,SA,fixed_broadband,274.46
+United Arab Emirates,AE,AS,fixed_broadband,272.90
+Iceland,IS,EU,fixed_broadband,255.69
+United States,US,NA,fixed_broadband,248.27
+France,FR,EU,fixed_broadband,237.06
+Thailand,TH,AS,fixed_broadband,235.86
+China,CN,AS,fixed_broadband,233.38
+Denmark,DK,EU,fixed_broadband,224.31
+Spain,ES,EU,fixed_broadband,218.72
+Romania,RO,EU,fixed_broadband,211.66
+Switzerland,CH,EU,fixed_broadband,203.52
+Israel,IL,AS,fixed_broadband,203.40
+Netherlands,NL,EU,fixed_broadband,197.99
+Japan,JP,AS,fixed_broadband,190.44
+Taiwan,TW,AS,fixed_broadband,190.09
+Canada,CA,NA,fixed_broadband,189.74
+Liechtenstein,LI,EU,fixed_broadband,186.71
+New Zealand,NZ,OC,fixed_broadband,185.55
+Portugal,PT,EU,fixed_broadband,181.20
+Hungary,HU,EU,fixed_broadband,179.88
+Kuwait,KW,AS,fixed_broadband,177.88
+Uruguay,UY,SA,fixed_broadband,172.97
+Andorra,AD,EU,fixed_broadband,172.04
+South Korea,KR,AS,fixed_broadband,169.53
+Qatar,QA,AS,fixed_broadband,169.20
+Brazil,BR,SA,fixed_broadband,166.24
+Macau (SAR),MO,AS,fixed_broadband,160.03
+Poland,PL,EU,fixed_broadband,156.32
+Monaco,MC,EU,fixed_broadband,154.42
+Peru,PE,SA,fixed_broadband,154.24
+Luxembourg,LU,EU,fixed_broadband,152.06
+Panama,PA,NA,fixed_broadband,151.82
+Sweden,SE,EU,fixed_broadband,150.18
+Jordan,JO,AS,fixed_broadband,147.40
+Colombia,CO,SA,fixed_broadband,143.68
+Norway,NO,EU,fixed_broadband,136.07
+Malaysia,MY,AS,fixed_broadband,134.44
+Vietnam,VN,AS,fixed_broadband,129.01
+Lithuania,LT,EU,fixed_broadband,128.48
+Moldova,MD,EU,fixed_broadband,128.39
+Ireland,IE,EU,fixed_broadband,122.42
+Trinidad and Tobago,TT,NA,fixed_broadband,122.35
+Finland,FI,EU,fixed_broadband,117.46
+Saudi Arabia,SA,AS,fixed_broadband,116.66
+Malta,MT,EU,fixed_broadband,115.60
+Saint Lucia,LC,NA,fixed_broadband,109.49
+United Kingdom,GB,EU,fixed_broadband,107.48
+Barbados,BB,NA,fixed_broadband,100.94
+Austria,AT,EU,fixed_broadband,98.89
+Belgium,BE,EU,fixed_broadband,98.10
+San Marino,SM,EU,fixed_broadband,96.99
+Saint Vincent and the Grenadines,VC,NA,fixed_broadband,94.90
+Costa Rica,CR,NA,fixed_broadband,94.58
+Philippines,PH,AS,fixed_broadband,94.50
+Grenada,GD,NA,fixed_broadband,93.79
+Ecuador,EC,SA,fixed_broadband,93.77
+Slovenia,SI,EU,fixed_broadband,93.47
+Latvia,LV,EU,fixed_broadband,93.40
+Dominica,DM,NA,fixed_broadband,92.99
+Paraguay,PY,SA,fixed_broadband,92.78
+Germany,DE,EU,fixed_broadband,90.44
+Russia,RU,EU,fixed_broadband,87.71
+Bahrain,BH,AS,fixed_broadband,87.13
+Argentina,AR,SA,fixed_broadband,86.20
+Estonia,EE,EU,fixed_broadband,84.65
+Slovakia,SK,EU,fixed_broadband,83.81
+Cyprus,CY,AS,fixed_broadband,83.73
+Italy,IT,EU,fixed_broadband,82.50
+Ukraine,UA,EU,fixed_broadband,81.18
+Jamaica,JM,NA,fixed_broadband,80.91
+Bulgaria,BG,EU,fixed_broadband,80.50
+Guyana,GY,SA,fixed_broadband,79.72
+Serbia,RS,EU,fixed_broadband,79.17
+Brunei,BN,AS,fixed_broadband,78.07
+Montenegro,ME,EU,fixed_broadband,77.78
+Nepal,NP,AS,fixed_broadband,75.86
+Egypt,EG,AF,fixed_broadband,75.44
+Mongolia,MN,AS,fixed_broadband,73.33
+Oman,OM,AS,fixed_broadband,73.05
+Palestine,PS,AS,fixed_broadband,71.05
+The Bahamas,BS,NA,fixed_broadband,70.76
+Mexico,MX,NA,fixed_broadband,70.60
+Kosovo,XK,EU,fixed_broadband,70.43
+Australia,AU,OC,fixed_broadband,69.36
+Czechia,CZ,EU,fixed_broadband,69.18
+Saint Kitts and Nevis,KN,NA,fixed_broadband,68.07
+Kyrgyzstan,KG,AS,fixed_broadband,65.26
+Uzbekistan,UZ,AS,fixed_broadband,64.52
+Croatia,HR,EU,fixed_broadband,64.46
+India,IN,AS,fixed_broadband,64.22
+Albania,AL,EU,fixed_broadband,64.18
+Côte d'Ivoire,CI,AF,fixed_broadband,63.79
+Belarus,BY,EU,fixed_broadband,63.06
+Armenia,AM,AS,fixed_broadband,56.77
+Nicaragua,NI,NA,fixed_broadband,56.06
+Kazakhstan,KZ,AS,fixed_broadband,55.13
+Venezuela,VE,SA,fixed_broadband,53.90
+Guatemala,GT,NA,fixed_broadband,53.20
+El Salvador,SV,NA,fixed_broadband,52.84
+Mauritius,MU,AF,fixed_broadband,52.01
+Seychelles,SC,AF,fixed_broadband,49.25
+Greece,GR,EU,fixed_broadband,49.23
+South Africa,ZA,AF,fixed_broadband,48.28
+Honduras,HN,NA,fixed_broadband,48.06
+Belize,BZ,NA,fixed_broadband,47.95
+Bangladesh,BD,AS,fixed_broadband,46.96
+Cambodia,KH,AS,fixed_broadband,46.31
+Congo,CG,AF,fixed_broadband,44.92
+Turkey,TR,AS,fixed_broadband,44.21
+Antigua and Barbuda,AG,NA,fixed_broadband,44.08
+Madagascar,MG,AF,fixed_broadband,43.88
+Burkina Faso,BF,AF,fixed_broadband,43.28
+North Macedonia,MK,EU,fixed_broadband,43.24
+DR Congo,CD,AF,fixed_broadband,42.93
+Gabon,GA,AF,fixed_broadband,39.95
+Azerbaijan,AZ,AS,fixed_broadband,39.48
+Ghana,GH,AF,fixed_broadband,38.91
+Laos,LA,AS,fixed_broadband,38.16
+Rwanda,RW,AF,fixed_broadband,36.87
+Dominican Republic,DO,NA,fixed_broadband,34.21
+Iraq,IQ,AS,fixed_broadband,33.99
+Haiti,HT,NA,fixed_broadband,33.58
+Bolivia,BO,SA,fixed_broadband,32.78
+Bosnia and Herzegovina,BA,EU,fixed_broadband,31.62
+Indonesia,ID,AS,fixed_broadband,31.20
+Morocco,MA,AF,fixed_broadband,30.91
+Tajikistan,TJ,AS,fixed_broadband,29.68
+Togo,TG,AF,fixed_broadband,28.87
+Western Sahara,EH,AF,fixed_broadband,26.99
+Georgia,GE,AS,fixed_broadband,26.71
+Lesotho,LS,AF,fixed_broadband,26.23
+Benin,BJ,AF,fixed_broadband,25.78
+Senegal,SN,AF,fixed_broadband,25.60
+Mauritania,MR,AF,fixed_broadband,25.47
+Mali,ML,AF,fixed_broadband,24.58
+Nigeria,NG,AF,fixed_broadband,24.30
+Malawi,MW,AF,fixed_broadband,22.62
+Sri Lanka,LK,AS,fixed_broadband,22.37
+Zambia,ZM,AF,fixed_broadband,21.35
+Myanmar (Burma),MM,AS,fixed_broadband,20.90
+Sierra Leone,SL,AF,fixed_broadband,20.75
+Swaziland,SZ,AF,fixed_broadband,19.62
+Angola,AO,AF,fixed_broadband,19.38
+Tanzania,TZ,AF,fixed_broadband,19.31
+Fiji,FJ,OC,fixed_broadband,19.11
+Djibouti,DJ,AF,fixed_broadband,17.58
+Lebanon,LB,AS,fixed_broadband,16.22
+Mozambique,MZ,AF,fixed_broadband,16.19
+Somalia,SO,AF,fixed_broadband,16.18
+Uganda,UG,AF,fixed_broadband,15.58
+Papua New Guinea,PG,OC,fixed_broadband,15.31
+Iran,IR,AS,fixed_broadband,15.28
+Pakistan,PK,AS,fixed_broadband,15.18
+Algeria,DZ,AF,fixed_broadband,14.73
+Vanuatu,VU,OC,fixed_broadband,14.66
+Zimbabwe,ZW,AF,fixed_broadband,14.64
+Namibia,NA,AF,fixed_broadband,13.78
+Suriname,SR,SA,fixed_broadband,13.64
+Maldives,MV,AS,fixed_broadband,13.03
+Sudan,SD,AF,fixed_broadband,12.90
+Kenya,KE,AF,fixed_broadband,12.58
+Bhutan,BT,AS,fixed_broadband,12.37
+Cape Verde,CV,AF,fixed_broadband,10.94
+Cameroon,CM,AF,fixed_broadband,10.48
+Tunisia,TN,AF,fixed_broadband,10.27
+Libya,LY,AF,fixed_broadband,10.22
+Guinea,GN,AF,fixed_broadband,9.67
+Ethiopia,ET,AF,fixed_broadband,8.92
+Botswana,BW,AF,fixed_broadband,8.36
+East Timor,TL,AS,fixed_broadband,8.21
+Liberia,LR,AF,fixed_broadband,8.12
+The Gambia,GM,AF,fixed_broadband,7.44
+Yemen,YE,AS,fixed_broadband,7.21
+Niger,NE,AF,fixed_broadband,6.88
+Turkmenistan,TM,AS,fixed_broadband,6.75
+Burundi,BI,AF,fixed_broadband,6.20
+Syria,SY,AS,fixed_broadband,4.60
+Afghanistan,AF,AS,fixed_broadband,3.50
+Cuba,CU,NA,fixed_broadband,2.69
