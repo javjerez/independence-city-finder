@@ -1,4 +1,4 @@
- // JAVASCRIPT MODULES
+// JAVASCRIPT MODULES
 
 /*
 Load order: 
@@ -23,6 +23,9 @@ import { initCityCard } from './cityCard.js';
 import { initComparison } from './comparison.js';
 
 const cities = await d3.json('data/cities.json');
+//const cities = await d3.json('data/cities_dataset.json');
+//const cities = await d3.json('data/columns_dataset.json');
+
 
 initState(cities);
 initGlobe();
