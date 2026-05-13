@@ -16,9 +16,14 @@ body {
     --split: 60%;
     /* ← single source of truth for the split */
 
+    /*
     display: grid;
     grid-template-columns: var(--split) 1fr;
     grid-template-rows: 100vh;
+    */
+
+    display: flex;
+    flex-direction: row;
     width: 100vw;
     height: 100vh;
 
@@ -32,6 +37,8 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
+    flex: 55;
 
     /* border-right: 1px solid var(--color-border); */
     --split-left: 70%;
@@ -85,11 +92,12 @@ body {
     background-color: yellow;
 }
 
-
 /**************** RIGHT PANEL  (city card (bot) + comparison views (top)) ******************/
 
 #panel-right {
     /*grid-column: 2;*/
+    flex: 45;
+
     display: flex;
     flex-direction: column;
     --split-right: 20%;
