@@ -15,3 +15,17 @@
 # Ideas #
 - introduce a floating cirle like in the bottom corner of the controls to open the whole dataset in a full floating window, 
     showing a table view whcih can be filtered in place
+
+
+
+Germany
+Italy
+Ireland
+Brazil
+Mexico
+
+BIGIM Volleyball team 
+
+GIMIB
+
+IMBIG 

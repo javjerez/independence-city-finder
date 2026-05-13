@@ -21,10 +21,11 @@ DUDAS:
 */
 
 import { updateDotsColor, updateDotSizes } from './globe.js';
-import { getWeights } from './controls.js';
+import { getWeights, getSelectedAttributes } from './controls.js';
 
 import { updateCityCard } from './cityCard.js';
 import { initComparison, updateComparison, renderLegend } from './comparison.js';
+import { barchart_render } from './barchart.js';
 
 // CONFIGURATION
 const CONFIG = {
@@ -217,8 +218,11 @@ function _notifyModules() {
   // Globe: update dot colours
   updateDotsColor(_primaryCity, _comparedCities);
 
-  // TODO: update comparison.js
-  updateComparison(_primaryCity, _comparedCities);
+  // ------ TODO: update comparison.js
+  //updateComparison(_primaryCity, _comparedCities);
+
+  // BarChart: update bar chart
+  barchart_render(_cities, _getCurrentCities(), getSelectedAttributes());
   renderLegend();
 
   // TODO: update of cityCard.js
@@ -315,6 +319,10 @@ function _getAllMetricKeys() {
   // Start walking from the first city object
   walk(_cities[0], '');   // walk means we traverse the object tree recursively, building dot-paths as we go, collecting keys for numeric values
   return keys;
+}
+
+function _getCurrentCities() {
+  return [_primaryCity.city, ..._comparedCities.map(c => c.city)];
 }
 
 /* Debugging metrics for weights and scores:

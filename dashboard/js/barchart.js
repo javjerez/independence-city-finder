@@ -1,0 +1,236 @@
+// ============================================================
+//  STEP 1 — CONFIGURATION
+// ============================================================
+
+const CONFIG = {
+
+    // -- Shared colors — index 0 = primary, 1–4 = compared ----
+    CITY_COLORS: [
+        '#ff6b35',   // primary
+        '#ffd700',   // compared 1
+        '#00bfff',   // compared 2
+        '#7fff00',   // compared 3
+        '#ff69b4',   // compared 4
+    ],
+
+    // -- Placeholder -----------------------------------------
+    PLACEHOLDER_TEXT: 'Select at least 2 cities on the globe and 1 attribute to compare',
+
+    // -- Bar Chart ------------------------------------------
+    CHART_HEIGHT: 300,
+    MARGIN: { TOP: 15, RIGHT: 10, BOTTOM: 60, LEFT: 25 },
+    BAR_PADDING: 0,
+    BAR_COLOR: "steelblue",
+    BAR_RADIUS: 3,
+
+    // Axes
+    Y_TICKS: 5,
+    X_TICK_SIZE: 0,
+    //X_LABEL_DY: "1.2em",
+    //X_LABEL_SIZE: "12px",
+
+    // Title
+    TITLE_SIZE: "13px",
+    TITLE_WEIGHT: "bold",
+
+    // Container
+    CHARTS_ID: "comparison-histogram",
+
+    // Tooltip
+    TOOLTIP_FONT_SIZE: "12px",
+    TOOLTIP_PADDING: "6px 10px",
+    TOOLTIP_BORDER: "1px solid #ccc",
+    TOOLTIP_BORDER_RADIUS: "4px",
+    TOOLTIP_OFFSET_X: 12,
+    TOOLTIP_OFFSET_Y: 28,
+};
+
+
+
+
+
+
+const tooltip = d3.select("body").append("div")
+    .style("position", "absolute")
+    .style("background", "white")
+    .style("border", "1px solid #ccc")
+    .style("border-radius", "4px")
+    .style("padding", "6px 10px")
+    .style("font-size", "12px")
+    .style("pointer-events", "none")   // so it doesn't interfere with mouse events
+    .style("opacity", 0);       // hidden by default
+
+
+
+
+
+function drawBarChart(data, attr, width) {
+    // --- Derived dimensions ---
+    const innerWidth = width - CONFIG.MARGIN.LEFT - CONFIG.MARGIN.RIGHT;
+    const innerHeight = CONFIG.CHART_HEIGHT - CONFIG.MARGIN.TOP - CONFIG.MARGIN.BOTTOM;
+
+    // --- SVG + inner group ---
+    const svg = d3.select(`#${CONFIG.CHARTS_ID}`)
+        .append("svg")
+        .attr("width", width)
+        .attr("height", CONFIG.CHART_HEIGHT);
+
+    const g = svg.append("g")
+        .attr("transform", `translate(${CONFIG.MARGIN.LEFT}, ${CONFIG.MARGIN.TOP})`);
+
+    // --- Scales ---
+    const x = d3.scaleBand()
+        .domain(data.map(d => d.city))
+        .range([0, innerWidth])
+        .padding(CONFIG.BAR_PADDING);
+
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d[attr])])
+        .nice()
+        .range([innerHeight, 0]);
+
+    // Color lookup: maps each city name to its color by position in the x domain
+    const colorForCity = city => {
+        const i = x.domain().indexOf(city);
+        return CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
+    };
+
+    // --- Axes ---
+    g.append("g")
+        .attr("transform", `translate(0, ${innerHeight})`)
+        .call(d3.axisBottom(x).tickSize(CONFIG.X_TICK_SIZE))
+        .selectAll(".tick text").remove();
+
+    g.append("g")
+        .call(d3.axisLeft(y).ticks(CONFIG.Y_TICKS));
+
+    // --- Bars ---
+    g.selectAll("rect")
+        .data(data)
+        .join("rect")
+        .attr("x", d => x(d.city))
+        .attr("y", d => y(d[attr]))
+        .attr("width", x.bandwidth())
+        .attr("height", d => innerHeight - y(d[attr]))
+        .attr("fill", d => colorForCity(d.city))
+        .attr("rx", CONFIG.BAR_RADIUS)
+        .on("mouseover", (event, d) => {
+            tooltip
+                .style("opacity", 1)
+                .html(`<strong>${d.city}</strong><br>${attr}: ${d[attr]}`);
+        })
+        .on("mousemove", (event) => {
+            const tooltipNode = tooltip.node();
+            const tooltipWidth = tooltipNode.offsetWidth;
+            const tooltipHeight = tooltipNode.offsetHeight;
+
+            const pageWidth = window.innerWidth;
+            const pageHeight = window.innerHeight;
+
+            // If tooltip would overflow the right edge, flip it to the left of the cursor
+            const left = (event.pageX + CONFIG.TOOLTIP_OFFSET_X + tooltipWidth > pageWidth)
+                ? event.pageX - tooltipWidth - CONFIG.TOOLTIP_OFFSET_X
+                : event.pageX + CONFIG.TOOLTIP_OFFSET_X;
+
+            // If tooltip would overflow the bottom edge, flip it above the cursor
+            const top = (event.pageY + CONFIG.TOOLTIP_OFFSET_Y + tooltipHeight > pageHeight)
+                ? event.pageY - tooltipHeight - CONFIG.TOOLTIP_OFFSET_Y
+                : event.pageY + CONFIG.TOOLTIP_OFFSET_Y;
+
+            tooltip
+                .style("left", left + "px")
+                .style("top", top + "px");
+        })
+        .on("mouseout", () => {
+            tooltip.style("opacity", 0);
+        });
+
+    // --- Title ---
+    svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", CONFIG.CHART_HEIGHT - 35)
+        .attr("text-anchor", "middle")
+        .style("font-size", CONFIG.TITLE_SIZE)
+        .style("font-weight", CONFIG.TITLE_WEIGHT)
+        .text(attr);
+}
+
+
+
+
+
+
+
+
+
+
+
+// ============================================================
+//  STEP 3 — INITIALISE
+//  Call once from main.js after the DOM is ready.
+// ============================================================
+
+export function initBarChart() {
+    _renderPlaceholder('comparison-histogram');
+}
+
+
+
+
+// ============================================================
+//  STEP 5 — PLACEHOLDER
+// ============================================================
+
+function _renderPlaceholder(containerId) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    el.innerHTML = '';
+
+    const msg = document.createElement('div');
+    msg.className = 'comparison-placeholder';
+    msg.textContent = CONFIG.PLACEHOLDER_TEXT;
+    el.appendChild(msg);
+}
+
+
+
+// ============================================================
+//  STEP 5 — RENDER BAR CHART
+// ============================================================
+
+
+export function barchart_render(data, selectedCities, selectedAttrs) {
+    console.log("render called", selectedCities, selectedAttrs);
+    console.log(data);
+
+    // --- Clear previous charts ---
+    // Every time render is called we start from scratch.
+    // This is simpler than trying to update existing SVGs in place,
+    // since the number of charts can change entirely.
+    d3.select(`#${CONFIG.CHARTS_ID}`).selectAll("*").remove();
+
+    // --- Guard: nothing to draw ---
+    if (selectedCities.length < 2 || selectedAttrs.length < 1) {
+        _renderPlaceholder(CONFIG.CHARTS_ID);
+        return;
+    }
+
+    // --- Compute per-chart width ---
+    // The container width is divided equally among all charts.
+    // clientWidth reads the actual rendered width of the flex container,
+    // so this automatically adapts if the window is resized.
+    const containerWidth = document.getElementById(CONFIG.CHARTS_ID).clientWidth;
+    const chartWidth = containerWidth / selectedAttrs.length;
+
+    // --- Filter data to selected cities ---
+    // We do this once here rather than inside drawBarChart,
+    // so the function receives only what it needs to draw.
+    const filteredData = data.filter(d => selectedCities.includes(d.city));
+
+    // --- Draw one chart per selected attribute ---
+    // Each chart shares the same filtered city data but has its own y scale.
+    selectedAttrs.forEach(attr => {
+        drawBarChart(filteredData, attr, chartWidth);
+    });
+}
+

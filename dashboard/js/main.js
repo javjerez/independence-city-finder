@@ -21,7 +21,8 @@ import { initGlobe } from './globe.js';
 
 // Non-finished modules
 import { initCityCard } from './cityCard.js';
-import { initComparison } from './comparison.js';
+//import { initComparison } from './comparison.js';
+import { initBarChart } from './barchart.js';
 
 // Load the data and initialize the app
 const cities = await d3.json('data/pretty_columns_dataset.json');
@@ -31,4 +32,4 @@ const cities = await d3.json('data/pretty_columns_dataset.json');
 initState(cities);
 initGlobe(cities);
 initCityCard();
-initComparison();
+initBarChart();
