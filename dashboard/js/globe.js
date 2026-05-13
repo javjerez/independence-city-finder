@@ -49,7 +49,7 @@ DUDAS:
 */
 
 // 'async' because we need to load geographic data before we can draw the map
-export async function initGlobe() {
+export async function initGlobe(citiesData) {
     const map_container = document.getElementById('globe-container');
     map_container.innerHTML = '';
 
@@ -85,7 +85,7 @@ export async function initGlobe() {
     const borders = topojson.mesh(world, world.objects.countries);  // country borders as lines
 
     // Load city data
-    cities = await d3.json('data/cities.json');  // this URL contains our cities dataset
+    cities = citiesData; // citiesData is passed from main.js
 
     // Create tooltip element to hover on city dots (hidden by default)
     tooltip = d3.select(map_container)
@@ -243,6 +243,9 @@ function hideTooltip() {
 // Function to update the radius of city dots based on their scores
 export function updateDotSizes(newscoreMap) {
     scoreMap = newscoreMap ?? new Map();  // if map does not exist, use empty map (not possible case)
+
+    // if cities not drawn yet --> do nothing
+    if (!gCities) return; // To avoid errors when trying to update dot sizes before the map is initialized
 
     gCities.selectAll('circle.city-dot')
     .transition()

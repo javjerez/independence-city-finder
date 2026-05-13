@@ -24,3 +24,4 @@
 
     - Is it good to extend it and NOT display all the info at first?
     
+    - Ask for the computation of the weights (small changes)

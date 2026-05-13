@@ -34,21 +34,11 @@ const CONFIG = {
   // These are inverted before normalization so that
   // after normalization, higher always = better
   INVERT_METRICS: new Set([
-    'qol.cost_of_living_index',
-    'qol.property_price_to_income_ratio',
-    'qol.traffic_commute_time_index',
-    'qol.pollution_index',
-    'ua_scores.cost_of_living',
-    'ua_scores.commute',
-    'ua_scores.taxation',
-    'cost_of_living_items.meal_inexpensive_restaurant_usd',
-    'cost_of_living_items.monthly_transport_pass_usd',
-    'cost_of_living_items.rent_1br_city_center_usd',
-    'cost_of_living_items.groceries_index',
-    'avg_temperature_c',
-    'aqi',                    // lower AQI = cleaner air = better
-    'numbeo_country.crime_index',
-    'numbeo_country.pollution_index',
+    'cost_of_living',
+    'commute',
+    'taxation',
+    'mcmeal_combo',
+    'internet_60mbps'
   ]),
   // contains the 'keys' of the attributes
 
@@ -326,3 +316,22 @@ function _getAllMetricKeys() {
   walk(_cities[0], '');   // walk means we traverse the object tree recursively, building dot-paths as we go, collecting keys for numeric values
   return keys;
 }
+
+/* Debugging metrics for weights and scores:
+
+    'qol.cost_of_living_index',
+    'qol.property_price_to_income_ratio',
+    'qol.traffic_commute_time_index',
+    'qol.pollution_index',
+    'ua_scores.cost_of_living',
+    'ua_scores.commute',
+    'ua_scores.taxation',
+    'cost_of_living_items.meal_inexpensive_restaurant_usd',
+    'cost_of_living_items.monthly_transport_pass_usd',
+    'cost_of_living_items.rent_1br_city_center_usd',
+    'cost_of_living_items.groceries_index',
+    'avg_temperature_c',
+    'aqi',                    // lower AQI = cleaner air = better
+    'numbeo_country.crime_index',
+    'numbeo_country.pollution_index',
+*/
