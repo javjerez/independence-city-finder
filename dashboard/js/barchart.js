@@ -200,9 +200,6 @@ function _renderPlaceholder(containerId) {
 
 
 export function barchart_render(data, selectedCities, selectedAttrs) {
-    console.log("render called", selectedCities, selectedAttrs);
-    console.log(data);
-
     // --- Clear previous charts ---
     // Every time render is called we start from scratch.
     // This is simpler than trying to update existing SVGs in place,

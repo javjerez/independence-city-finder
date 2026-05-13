@@ -25,7 +25,8 @@ import { getWeights, getSelectedAttributes } from './controls.js';
 
 import { updateCityCard } from './cityCard.js';
 import { initComparison, updateComparison, renderLegend } from './comparison.js';
-import { barchart_render } from './barchart.js';
+import { barchart_render } from './barChart.js';
+import { radar_render } from './radarChart.js';
 
 // CONFIGURATION
 const CONFIG = {
@@ -227,6 +228,9 @@ function _notifyModules() {
 
   // TODO: update of cityCard.js
   updateCityCard(_primaryCity, weights, scores);
+
+  // Radar: update radar chart
+  radar_render(_cities, _getCurrentCities());
 }
 
 
