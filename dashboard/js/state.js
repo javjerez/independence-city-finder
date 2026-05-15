@@ -30,7 +30,7 @@ import { radar_render } from './radarChart.js';
 
 // CONFIGURATION
 const CONFIG = {
-  MAX_COMPARED: 5,
+  MAX_COMPARED: 4,
 
   // Metrics where a LOWER value is better
   // These are inverted before normalization so that
@@ -152,7 +152,7 @@ function _rebuildScoreMap() {
 }
 
 
-/* Called by globe.js when a dot is clicked
+/* Called by globe.js and cityCard.js when a dot or header-name is clicked
 
   Logic:
     - Click selected primary     -->  deselect primary
@@ -202,6 +202,7 @@ export function selectCity(city) {
 */
 export function onWeightsChange() {
   _rebuildScoreMap();
+  _notifyModules(); // we notify other modules for the visualization
   // updateDotSizes(_scoreMap);  // push new scores to the map so it can update dot sizes
 }
 
@@ -226,8 +227,8 @@ function _notifyModules() {
   barchart_render(_cities, _getCurrentCities(), getSelectedAttributes());
   renderLegend();
 
-  // TODO: update of cityCard.js
-  updateCityCard(_primaryCity, weights, scores);
+  // update of cityCard.js
+  updateCityCard(_primaryCity, _comparedCities, weights, scores);
 
   // Radar: update radar chart
   radar_render(_cities, _getCurrentCities());

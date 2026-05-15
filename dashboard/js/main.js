@@ -7,7 +7,7 @@ Load order:
 */
 
 // Load state first (since it is a shared store, other modules depend on it)
-import { initState, onWeightsChange } from './state.js';
+import { initState, onWeightsChange, selectCity } from './state.js';
 
 // Load each feature module
 import { initControls, getWeights } from './controls.js';
@@ -32,7 +32,7 @@ const cities = await d3.json('data/pretty_columns_dataset.json');
 
 initState(cities);
 initGlobe(cities);
-initCityCard();
+
 initBarChart();
 initRadarChart();
-
+initCityCard(selectCity);   // for changing the names of the header in the city card

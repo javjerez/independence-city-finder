@@ -202,7 +202,7 @@ function updateCounter() {
 
 // *** PUBLIC API *** (called by state.js to read current weights)
 
-// Returns an array of { key, weight } for all selected attributes
+// Returns an array of { attribute -> weight } for all selected attributes
 // If nothing is selected, returns an empty array
 export function getWeights() {
   return Array.from(selected).map(attribute => ({

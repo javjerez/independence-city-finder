@@ -1,333 +1,281 @@
-// ============================================================
-//  cityCard.js — City card with D3 radar plot
-//  Mounts into: #city-card-container
-//  Called by:   state.js (updateCityCard)
-//  Depends on:  d3 (loaded globally)
-// ============================================================
+/*
+cityCard.js
+City information card + radar chart
+Mounts into #city-card-container
+*/
 
-
-// ============================================================
-//  STEP 1 — CONFIGURATION
-// ============================================================
+import { ATTRIBUTES } from './controls.js';
 
 const CONFIG = {
-
-  // -- Layout ----------------------------------------------
-  INFO_WIDTH_PERCENT: 35,     // % of card width given to left info panel
-  // radar takes the remaining %
-
-  // -- Radar geometry --------------------------------------
-  RADAR_MARGIN: 40,     // px — space around the radar for axis labels
-  RADAR_LEVELS: 4,      // number of concentric rings
-  RADAR_MAX_VALUE: 1,      // normalized scores are always 0–1
-
-  // -- Radar appearance ------------------------------------
-  RADAR_COLOR: '#00bfff',   // placeholder — swap with var(--color-accent)
-  RADAR_FILL_OPACITY: 0.25,
+  RADAR_LEVELS: 4,
+  RADAR_MIN_LENGTH: 120,
+  RADAR_MARGIN: 34,
+  RADAR_MAX_VALUE: 1,
+  RADAR_COLOR: '#38bdf8',
+  RADAR_FILL_OPACITY: 0.22,
   RADAR_STROKE_WIDTH: 2,
-  RADAR_DOT_RADIUS: 4,
-
-  RADAR_GRID_COLOR: '#ffffff',   // placeholder
-  RADAR_GRID_OPACITY: 0.15,
-
-  RADAR_LABEL_SIZE: 11,          // px — axis label font size
-  // auto-reduces when many attributes shown
-
-  // -- Placeholder -----------------------------------------
-  PLACEHOLDER_TEXT: 'Click a city on the globe to explore its data',
-
+  DOT_RADIUS: 4,
 };
 
+let _primaryCity = null;
+let _comparedCities = [];
+let _weights = [];
+let _scores = new Map();        // normalized values of current city
+let _onCityTabClick = () => {}; // saves a functions that is executed when we click a city in the header
 
-// ============================================================
-//  STEP 2 — MODULE STATE
-// ============================================================
-
-let _city = null;    // current city object from state.js
-let _weights = [];      // current weights array [{ key, weight }]
-let _scores = new Map(); // key → normalized score (0–1) for current city
-
-let _svg = null;    // radar SVG selection
-let _radarGroup = null;   // g element inside SVG for the radar
-
-
-// ============================================================
-//  STEP 3 — INITIALISE
-//  Call once from index.html after DOM is ready.
-//  Renders the empty / placeholder state.
-// ============================================================
-
-export function initCityCard() {
+export function initCityCard(onCityTabClick = () => {}) {
+  _onCityTabClick = onCityTabClick;
 
   const container = document.getElementById('city-card-container');
-  container.innerHTML = '';
+  container.innerHTML = `
+    <div id="city-card-wrapper">
+      <div id="city-card-tabs"></div>
 
-  // -- 3a. Outer wrapper -----------------------------------
-  const wrapper = document.createElement('div');
-  wrapper.id = 'city-card-wrapper';
-  container.appendChild(wrapper);
+      <div id="city-card-content">
+        <section id="city-card-info">
+          <div>
+            <h2 id="city-card-title">No city selected</h2>
+            <p id="city-card-subtitle">Click a city on the map to inspect it.</p>
+          </div>
 
-  // -- 3b. Left info panel ---------------------------------
-  const infoPanel = document.createElement('div');
-  infoPanel.id = 'city-card-info';
-  wrapper.appendChild(infoPanel);
+          <div id="city-card-attributes"></div>
 
-  // City identity block
-  const identity = document.createElement('div');
-  identity.id = 'city-card-identity';
-  identity.innerHTML = `
-    <span id="city-card-flag"></span>
-    <span id="city-card-name">—</span>
-    <span id="city-card-country"></span>
+          <div id="city-card-stats"></div>
+        </section>
+
+        <section id="city-card-radar"></section>
+      </div>
+    </div>
   `;
-  infoPanel.appendChild(identity);
 
-  // --------------------------------------------------------
-  // RESERVED SPACE — left info panel extra content
-  // This section is intentionally left blank.
-  // Add additional city info elements here when ready
-  // (e.g. composite score badge, rank, quick stats, etc.)
-  // --------------------------------------------------------
-  const reserved = document.createElement('div');
-  reserved.id = 'city-card-reserved';
-  reserved.textContent = 'Provisional space';
-  infoPanel.appendChild(reserved);
-
-  // -- 3c. Radar panel -------------------------------------
-  const radarPanel = document.createElement('div');
-  radarPanel.id = 'city-card-radar';
-  wrapper.appendChild(radarPanel);
-
-  // -- 3d. Render placeholder ------------------------------
-  _renderPlaceholder(radarPanel);
+  renderCityCard();
 }
 
-
-// ============================================================
-//  STEP 4 — PUBLIC UPDATE
-//  Called by state.js whenever the primary city or weights change.
-//  city    — city object or null
-//  weights — array of { key, weight, label } from controls.js
-//  scores  — Map of key → normalized score (0–1) for this city
-// ============================================================
-
-export function updateCityCard(city, weights, scores) {
-  _city = city;
+// Called by state.js when the primaryCity, compared cities, weights or score changes
+export function updateCityCard(primaryCity, comparedCities, weights, scores) {
+  _primaryCity = primaryCity;
+  _comparedCities = comparedCities ?? [];
   _weights = weights ?? [];
   _scores = scores ?? new Map();
+  // '??' means: if value is NULL/undefined, we use default value
 
-  _renderIdentity();
-  _renderRadar();
+  renderCityCard();
 }
 
-
-// ============================================================
-//  STEP 5 — IDENTITY RENDER
-//  Updates the left panel text fields.
-// ============================================================
-
-function _renderIdentity() {
-
-  document.getElementById('city-card-flag').textContent = _city?.flag ?? '';
-  document.getElementById('city-card-name').textContent = _city?.city ?? '—';
-  document.getElementById('city-card-country').textContent = _city?.country ?? '';
+// Renders all visual sections of the city card
+function renderCityCard() {
+  renderTabs();
+  renderInfo();
+  renderRadar();
 }
 
+// Prints the buttons of the selected cities in the header
+function renderTabs() {
+  const tabs = document.getElementById('city-card-tabs');
+  if (!tabs) return;
 
-// ============================================================
-//  STEP 6 — RADAR RENDER
-//  Clears and redraws the radar every time city or weights change.
-//  Handles 1–5 attributes gracefully — axes auto-space.
-// ============================================================
+  // Join all the selected cities (deleting NULL/empty values)
+  const cities = [_primaryCity, ..._comparedCities].filter(Boolean);
 
-function _renderRadar() {
+  if (cities.length === 0) {
+    tabs.innerHTML = `<span class="city-card-empty-tab">No selected cities</span>`;
+    return;
+  }
 
+  tabs.innerHTML = '';
+
+  // Creates a button for each selected city
+  cities.forEach((city, index) => {
+    const button = document.createElement('button');
+    button.className = index === 0 ? 'city-tab city-tab--active' : 'city-tab';
+    button.textContent = `${city.city}`; // {city.country}
+
+    // each button executes the function from state.js --> TODO
+    button.addEventListener('click', () => _onCityTabClick(city));
+    tabs.appendChild(button);
+  });
+}
+
+// Prints all the information related to the primary city
+function renderInfo() {
+  const title = document.getElementById('city-card-title');
+  const subtitle = document.getElementById('city-card-subtitle');
+  const stats = document.getElementById('city-card-stats');
+  const attributes = document.getElementById('city-card-attributes');
+
+  // TODO -> REVISAR
+
+  if (!_primaryCity) {
+    title.textContent = 'No city selected';
+    subtitle.textContent = 'Click a city on the map to inspect it.';
+    stats.innerHTML = '';
+    attributes.innerHTML = '';
+    return;
+  }
+
+  title.textContent = _primaryCity.city;
+  subtitle.textContent = `${_primaryCity.country} · Population: ${formatNumber(_primaryCity.population)}`;
+
+  const salary = _primaryCity.avg_monthly_net_salary;
+  const mcmeal = _primaryCity.mcmeal_combo;
+  const mcMeals = salary && mcmeal ? salary / mcmeal : null;
+
+  stats.innerHTML = `
+    <div class="stat-card">
+      <span class="stat-label">Monthly salary</span>
+      <strong>${formatMoney(salary)}</strong>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">McMeal price</span>
+      <strong>${formatMoney(mcmeal)}</strong>
+    </div>
+
+    <div class="stat-card stat-card--highlight">
+      <span class="stat-label">McMeals per salary</span>
+      <strong>${mcMeals ? Math.round(mcMeals) : '—'}</strong>
+    </div>
+  `;
+
+  attributes.innerHTML = '';
+
+  _weights.forEach(({ attribute }) => {
+    const label = getAttributeLabel(attribute);
+    const rawValue = _primaryCity[attribute];
+    const normalized = _scores.get(attribute);
+
+    const row = document.createElement('div');
+    row.className = 'attribute-row';
+    row.innerHTML = `
+      <span>${label}</span>
+      <strong>${formatValue(rawValue)}</strong>
+      <small>${normalized != null ? `${Math.round(normalized * 100)}% normalized` : 'No score'}</small>
+    `;
+
+    attributes.appendChild(row);
+  });
+}
+
+// Prints the radar chart
+function renderRadar() {
   const panel = document.getElementById('city-card-radar');
-  panel.innerHTML = '';   // clear previous SVG
+  panel.innerHTML = '';
 
-  // -- No city selected ------------------------------------
-  if (!_city) {
-    _renderPlaceholder(panel);
+  if (!_primaryCity) {
+    panel.innerHTML = `<div class="radar-placeholder">Select a city to show its fingerprint</div>`;
     return;
   }
 
-  // -- No attributes selected ------------------------------
-  if (_weights.length === 0) {
-    const msg = document.createElement('div');
-    msg.id = 'city-card-no-attrs';
-    msg.textContent = 'Select attributes in the control panel to see scores';
-    panel.appendChild(msg);
+  if (_weights.length < 3) {
+    panel.innerHTML = `<div class="radar-placeholder">Select at least 3 attributes for a useful radar chart</div>`;
     return;
   }
 
-  // -- Measure available space -----------------------------
   const { width, height } = panel.getBoundingClientRect();
-  const size = Math.min(width, height);
-  const margin = CONFIG.RADAR_MARGIN;
-  const radius = size / 2 - margin;
-  const cx = size / 2;
-  const cy = size / 2;
 
-  // -- Build SVG -------------------------------------------
-  _svg = d3.select('#city-card-radar')
+  // minimum size of the graph is equal to RADAR_MIN_LENGTH
+  const size = Math.max(CONFIG.RADAR_MIN_LENGTH, Math.min(width, height));
+  const radius = size / 2 - 45; //CONFIG.RADAR_MARGIN;
+  const center = size / 2;
+
+  const svg = d3.select(panel)
     .append('svg')
     .attr('width', size)
     .attr('height', size);
 
-  _radarGroup = _svg.append('g')
-    .attr('transform', `translate(${cx}, ${cy})`);
+  const g = svg.append('g')
+    .attr('transform', `translate(${center}, ${center})`);
 
+  // We divide the axis in a circle distribution
+  // with "- Math.PI / 2", the first always starts on top
   const n = _weights.length;
-  const slice = (2 * Math.PI) / n;
+  const angle = i => (2 * Math.PI * i / n) - Math.PI / 2;
 
-  // Angle for axis i — start at top (−π/2)
-  const angle = i => i * slice - Math.PI / 2;
-
-  // Scale: normalized score (0–1) → radius in px
+  // Converts a normalized scores [0, 1] into pixles (radial distances)
   const rScale = d3.scaleLinear()
     .domain([0, CONFIG.RADAR_MAX_VALUE])
     .range([0, radius]);
 
-  // -- 6a. Concentric grid rings ---------------------------
-  _renderGridRings(radius, n, angle, rScale);
+  // Draws the inner reference rings of the figure
+  // Their shapen depends on the number of selected values
+  for (let level = 1; level <= CONFIG.RADAR_LEVELS; level++) {
+    const r = radius * level / CONFIG.RADAR_LEVELS;
 
-  // -- 6b. Axis spokes -------------------------------------
-  _renderAxes(radius, n, angle);
-
-  // -- 6c. Axis labels -------------------------------------
-  _renderLabels(radius, n, angle);
-
-  // -- 6d. Data polygon ------------------------------------
-  _renderPolygon(n, angle, rScale);
-
-  // -- 6e. Data dots ---------------------------------------
-  _renderDots(n, angle, rScale);
-}
-
-
-// ============================================================
-//  STEP 7 — RADAR SUB-RENDERERS
-// ============================================================
-
-function _renderGridRings(radius, n, angle, rScale) {
-
-  const levels = CONFIG.RADAR_LEVELS;
-
-  for (let level = 1; level <= levels; level++) {
-
-    const r = radius * (level / levels);
-
-    // Build ring polygon points
-    const points = d3.range(n).map(i => {
+    const ringPoints = d3.range(n).map(i => {
       const a = angle(i);
       return [r * Math.cos(a), r * Math.sin(a)];
     });
 
-    _radarGroup.append('polygon')
-      .attr('points', points.map(p => p.join(',')).join(' '))
-      .attr('fill', 'none')
-      .attr('stroke', CONFIG.RADAR_GRID_COLOR)
-      .attr('stroke-opacity', CONFIG.RADAR_GRID_OPACITY)
-      .attr('stroke-width', 0.5);
+    g.append('polygon')
+      .attr('points', ringPoints.map(p => p.join(',')).join(' '))
+      .attr('class', 'radar-grid-ring');
   }
-}
 
-function _renderAxes(radius, n, angle) {
-
-  d3.range(n).forEach(i => {
+  // for each attribute, draws a line from the center to the border, and puts the label outside
+  _weights.forEach(({ attribute }, i) => {
     const a = angle(i);
-    const x2 = radius * Math.cos(a);
-    const y2 = radius * Math.sin(a);
 
-    _radarGroup.append('line')
-      .attr('x1', 0).attr('y1', 0)
-      .attr('x2', x2).attr('y2', y2)
-      .attr('stroke', CONFIG.RADAR_GRID_COLOR)
-      .attr('stroke-opacity', CONFIG.RADAR_GRID_OPACITY)
-      .attr('stroke-width', 0.5);
-  });
-}
+    g.append('line')
+      .attr('x1', 0)
+      .attr('y1', 0)
+      .attr('x2', radius * Math.cos(a))
+      .attr('y2', radius * Math.sin(a))
+      .attr('class', 'radar-axis');
 
-function _renderLabels(radius, n, angle) {
-
-  // Shrink font for many attributes
-  const fontSize = n <= 3
-    ? CONFIG.RADAR_LABEL_SIZE
-    : Math.max(8, CONFIG.RADAR_LABEL_SIZE - (n - 3));
-
-  const labelRadius = radius + 16;   // px beyond the outer ring
-
-  _weights.forEach((attr, i) => {
-    const a = angle(i);
-    const x = labelRadius * Math.cos(a);
-    const y = labelRadius * Math.sin(a);
-
-    // Anchor: left/right based on position
-    const anchor = Math.cos(a) > 0.1 ? 'start'
-      : Math.cos(a) < -0.1 ? 'end'
-        : 'middle';
-
-    _radarGroup.append('text')
-      .attr('x', x)
-      .attr('y', y)
-      .attr('text-anchor', anchor)
+    g.append('text')
+      .attr('x', (radius + 18) * Math.cos(a))
+      .attr('y', (radius + 18) * Math.sin(a))
+      .attr('text-anchor', Math.cos(a) > 0.2 ? 'start' : Math.cos(a) < -0.2 ? 'end' : 'middle')
       .attr('dominant-baseline', 'middle')
-      .attr('font-size', fontSize)
-      // color: var(--color-text-primary) — set via CSS once tokens defined
-      .text(_shortLabel(attr.label ?? attr.key));
+      .attr('class', 'radar-label')
+      // cuts the long labels so that they occupy too much space
+      .text(shortLabel(getAttributeLabel(attribute)));
   });
-}
 
-function _renderPolygon(n, angle, rScale) {
+  // For each attribute:
+  const dataPoints = _weights.map(({ attribute }, i) => {
+    // Read normalized score
+    const value = _scores.get(attribute) ?? 0;
 
-  const points = _weights.map((attr, i) => {
-    const score = _scores.get(attr.key) ?? 0;
-    const r = rScale(score);
+    // Convert the score into a radius
+    const r = rScale(value);
+
+    // Calculates position (x,y), with 'sin' and 'cos'
     const a = angle(i);
     return [r * Math.cos(a), r * Math.sin(a)];
   });
 
-  _radarGroup.append('polygon')
-    .attr('points', points.map(p => p.join(',')).join(' '))
-    .attr('fill', CONFIG.RADAR_COLOR)
-    .attr('fill-opacity', CONFIG.RADAR_FILL_OPACITY)
-    .attr('stroke', CONFIG.RADAR_COLOR)
-    .attr('stroke-width', CONFIG.RADAR_STROKE_WIDTH);
+  g.append('polygon')
+    .attr('points', dataPoints.map(p => p.join(',')).join(' '))
+    .attr('class', 'radar-area');
+
+  g.selectAll('.radar-dot')
+    .data(dataPoints)
+    .join('circle')
+    .attr('class', 'radar-dot')
+    .attr('cx', d => d[0])
+    .attr('cy', d => d[1])
+    .attr('r', CONFIG.DOT_RADIUS);
 }
 
-function _renderDots(n, angle, rScale) {
-
-  _weights.forEach((attr, i) => {
-    const score = _scores.get(attr.key) ?? 0;
-    const r = rScale(score);
-    const a = angle(i);
-
-    _radarGroup.append('circle')
-      .attr('cx', r * Math.cos(a))
-      .attr('cy', r * Math.sin(a))
-      .attr('r', CONFIG.RADAR_DOT_RADIUS)
-      .attr('fill', CONFIG.RADAR_COLOR);
-  });
+function getAttributeLabel(attribute) {
+  return ATTRIBUTES.find(a => a.attribute === attribute)?.label ?? attribute;
 }
 
-
-// ============================================================
-//  STEP 8 — PLACEHOLDER
-// ============================================================
-
-function _renderPlaceholder(container) {
-  const el = document.createElement('div');
-  el.id = 'city-card-placeholder';
-  el.textContent = CONFIG.PLACEHOLDER_TEXT;
-  container.appendChild(el);
+// 2 decimal values format
+function formatMoney(value) {
+  return value == null || isNaN(value) ? '—' : `$${Number(value).toFixed(2)}`;
 }
 
+function formatNumber(value) {
+  return value == null || isNaN(value) ? '—' : Number(value).toLocaleString();
+}
 
-// ============================================================
-//  STEP 9 — UTILITIES
-// ============================================================
+function formatValue(value) {
+  if (value == null || isNaN(value)) return '—';
+  return Number(value).toFixed(2);
+}
 
-// Truncates long labels for the radar axes
-function _shortLabel(label) {
-  return label.length > 14 ? label.slice(0, 13) + '…' : label;
+function shortLabel(label) {
+  return label.length > 15 ? label.slice(0, 14) + '…' : label;
 }
