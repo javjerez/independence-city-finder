@@ -25,3 +25,59 @@
   color: #94a3b8;
   font-size: 11px;
 }
+
+#globe-container {
+  position: relative;
+}
+
+#map-toggle-btn {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 20;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+
+  background: rgba(15, 23, 42, 0.88);
+  color: #e5e7eb;
+
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  backdrop-filter: blur(6px);
+}
+
+#map-toggle-btn:hover {
+  background: rgba(30, 41, 59, 0.95);
+}
+
+#globe-container {
+  position: relative;
+}
+
+#map-toggle-btn {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 20;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+
+  background: rgba(15, 23, 42, 0.88);
+  color: #e5e7eb;
+
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  backdrop-filter: blur(6px);
+}
+
+#map-toggle-btn:hover {
+  background: rgba(30, 41, 59, 0.95);
+}

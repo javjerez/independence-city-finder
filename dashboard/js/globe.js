@@ -41,12 +41,9 @@ let scoreMap = new Map();     // city name --> score
 let tooltip = null;
 let tooltipTimer = null;
 
-/*
-DUDAS:
-
-- No debería de conectarse el globe.js con la aplicación en el main? Por qué llamamos a updateDotSizes desde el state.js?
-
-*/
+// To switch from one map to another
+// let gGeoImage;
+// let geoMode = false;
 
 // 'async' because we need to load geographic data before we can draw the map
 export async function initGlobe(citiesData) {
@@ -69,10 +66,13 @@ export async function initGlobe(citiesData) {
     // Create path generator (converts GeoJSON to SVG paths)
     path = d3.geoPath(projection);
 
+    //gGeoImage = svg.append('g').attr('class', 'geo-image-layer');       // the the geographical map layer (geography)
+    
     // the 'g' is used to group SVG elements together
-    gViewport = svg.append('g').attr('class', 'map-viewport');    // 1. first the viewport group --> SVG container (for zoom/pan)
-    gMap = gViewport.append('g').attr('class', 'map-layer');      // 2. then the map layer (countries)
-    gCities = gViewport.append('g').attr('class', 'city-layer');  // 3. then the city layer (dots on top of countries)
+    gViewport = svg.append('g').attr('class', 'map-viewport');          // 1. first the viewport group --> SVG container (for zoom/pan)
+    
+    gMap = gViewport.append('g').attr('class', 'map-layer');            // 2. then the smooth map layer (only countries)
+    gCities = gViewport.append('g').attr('class', 'city-layer');        // 3. then the city layer (dots on top of countries)
 
     // Load geographic data and draw the map
     const world = await d3.json(
@@ -94,9 +94,11 @@ export async function initGlobe(citiesData) {
       .style('display', 'none');
 
     // Draw the map and cities
-    drawMap(land, borders);     // 1. draw the map (countries)
-    drawCities();               // 2. draw the cities on top (dots)
-    attachZoom();               // 3. attach zoom/pan behavior to the SVG
+    // drawGeoImage(width, height);          // draw the geography (detailed map)
+    drawMap(land, borders);               // 1. draw the map (countries)
+    drawCities();                         // 2. draw the cities on top (dots)
+    attachZoom();                         // 3. attach zoom/pan behavior to the SVG
+    // createMapToggleButton(map_container); // Create the visibility button
 }
 
 // Function to draw the map (countries and borders)
@@ -115,6 +117,20 @@ function drawMap(land, borders) {
       .attr('stroke', CONFIG.BORDER_COLOR)
       .attr('stroke-width', 0.5);
 }
+
+/*
+// Function to draw the geographical map
+function drawGeoImage(width, height) {
+  gGeoImage.append('image')
+    .attr('href', 'data/natural-earth-relief.jpg')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', width)
+    .attr('height', height)
+    .attr('preserveAspectRatio', 'none')
+    .style('opacity', 1);
+}
+*/
 
 // Function to draws a dot on the map per city
 function drawCities() {
@@ -237,6 +253,33 @@ function hideTooltip() {
 
   tooltip.style('display', 'none');
 }
+
+/****************** VISIBILITY MAP ******************/
+
+/*
+// Button that controls the bisibility of both maps
+function createMapToggleButton(map_container) {
+  const button = d3.select(map_container)
+    .append('button')
+    .attr('id', 'map-toggle-btn')
+    .text('Geographic map')
+    .on('click', () => {
+      geoMode = !geoMode;
+
+      gGeoImage
+        .transition()
+        .duration(250)
+        .style('opacity', geoMode ? 1 : 0);
+
+      gMap
+        .transition()
+        .duration(250)
+        .style('opacity', geoMode ? 0 : 1);
+
+      button.text(geoMode ? 'Dark map' : 'Geographic map');
+    });
+}
+*/
 
 /****************** INTERACTION HANDLERS ******************/
 
