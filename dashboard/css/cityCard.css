@@ -10,68 +10,89 @@
   overflow: hidden;
 }
 
-/* HEADER BUTTONS */
+/* Header */
 #city-card-tabs {
   flex: 0 0 auto;
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
+  height: 52px;
+  margin-bottom: 3px;
   padding: 6px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   border: 2px solid #334155;
   border-radius: 999px;
+
   overflow-x: auto;
   overflow-y: hidden;
+}
 
-  background-color: blue;
+.city-tab,
+.city-card-empty-tab {
+  flex: 0 0 120px;
+  min-width: 0;
+  padding: 8px 12px;
+  box-sizing: border-box;
+
+  color: #cbd5e1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .city-tab {
-  flex: 1 0 110px;
-  min-width: 110px;
   border: 1px solid #334155;
+  border-radius: 999px;
   background: #1e293b;
-  color: #cbd5e1;
-  padding: 8px 12px;
   cursor: pointer;
   text-align: center;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.city-tab:not(.city-tab--active):hover {
+  background: #334155;
+  border-color: #38bdf8;
+  color: #f8fafc;
+  transform: translateY(-1px);
 }
 
 .city-tab--active {
   background: #38bdf8;
   color: #020617;
+  cursor: default;
 }
 
-/* MAIN BODY */
+/* Main layout */
 #city-card-content {
   flex: 1 1 auto;
-  min-height: 0;
   min-width: 0;
+  min-height: 0;
 
   display: flex;
-  flex-direction: row;
-  /*gap: 24px;*/
   overflow: hidden;
-
-  background-color: red;
 }
 
-/* LEFT COLUMN */
+/* Left information column */
 #city-card-info {
+  flex: 0 0 58%;
+  max-width: 58%;
   min-width: 0;
   min-height: 0;
-  flex: 6;
 
-  display: grid;
-  grid-template-rows: auto minmax(150px, 1fr) auto;
-  /*gap: 14px;*/
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+}
 
-  background-color: orange;
+#city-card-info > div:first-child {
+  flex: 0 0 auto;
 }
 
 #city-card-title {
   margin: 0;
-  font-size: 26px;
+  font-size: 20px;
 }
 
 #city-card-subtitle {
@@ -79,70 +100,92 @@
   color: #cbd5e1;
 }
 
-/* ATTRIBUTE SCORES BOX */
-#city-card-attributes {
+/* Salary / McMeal text */
+#city-card-stats {
+  flex: 0 0 auto;
   min-width: 0;
-  min-height: 0;
-  overflow-y: auto;
-  /*overflow-x: hidden;*/
-
-  /*
-  display: grid;
-  grid-template-columns: 120px 1fr auto;
-  */
-
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 12px;
-  background: #111827;
+  padding: 4px 0 6px;
+  overflow: hidden;
 }
 
-.attribute-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 4px 12px;
-  padding: 8px 0;
-  border-bottom: 1px solid #243244;
-}
+.mcmeal-summary {
+  margin: 0;
+  font-size: 14px;
+  color: #cbd5e1;
 
-.attribute-row span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.attribute-row strong {
-  white-space: nowrap;
+.mcmeal-summary strong {
+  color: #f8fafc;
 }
 
-.attribute-row small {
-  grid-column: 1 / -1;
-  white-space: nowrap;
-  color: #94a3b8;
+/* Attribute score bars */
+#city-card-attributes {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #111827;
 }
 
-/* SALARY + MAC MENU BLOCKS */
-#city-card-stats {
+.attribute-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(90px, 1fr));
-  gap: 10px;
+  grid-template-columns: 105px 1fr 28px;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 0;
+  border-bottom: 1px solid #243244;
 }
 
-.stat-card {
+.attribute-row:last-child {
+  border-bottom: none;
+}
+
+.attribute-label {
   min-width: 0;
+  font-size: 12px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attribute-bar {
+  min-width: 0;
+  height: 6px;
+  border-radius: 999px;
+  background: #334155;
   overflow: hidden;
 }
 
-.stat-card strong,
-.stat-label {
-  white-space: nowrap;
+.attribute-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #38bdf8;
 }
 
-/* RIGHT RADAR */
+.attribute-score {
+  width: 28px;
+  min-width: 28px;
+  text-align: right;
+  font-size: 12px;
+}
+
+/* Right radar column */
 #city-card-radar {
+  flex: 0 0 42%;
+  max-width: 42%;
   min-width: 0;
   min-height: 0;
-  flex: 4;
 
   display: flex;
   align-items: center;
@@ -152,8 +195,6 @@
   border-radius: 14px;
   background: #111827;
   overflow: hidden;
-
-  /*background-color: honeydew;*/
 }
 
 #city-card-radar svg {
@@ -161,11 +202,11 @@
   max-height: 100%;
 }
 
-/* RADAR STYLE */
+/* Radar chart */
 .radar-grid-ring,
 .radar-axis {
   fill: none;
-  stroke: rgba(255,255,255,0.18);
+  stroke: rgba(255, 255, 255, 0.18);
 }
 
 .radar-area {
@@ -185,6 +226,13 @@
 }
 
 .radar-placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
   color: #94a3b8;
-  /* I want to put the text centered !!!*/
 }

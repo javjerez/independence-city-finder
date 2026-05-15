@@ -9,7 +9,7 @@ import { ATTRIBUTES } from './controls.js';
 const CONFIG = {
   RADAR_LEVELS: 4,
   RADAR_MIN_LENGTH: 120,
-  RADAR_MARGIN: 34,
+  RADAR_MARGIN: 55,
   RADAR_MAX_VALUE: 1,
   RADAR_COLOR: '#38bdf8',
   RADAR_FILL_OPACITY: 0.22,
@@ -38,9 +38,10 @@ export function initCityCard(onCityTabClick = () => {}) {
             <p id="city-card-subtitle">Click a city on the map to inspect it.</p>
           </div>
 
+          <div id="city-card-stats"></div>
+
           <div id="city-card-attributes"></div>
 
-          <div id="city-card-stats"></div>
         </section>
 
         <section id="city-card-radar"></section>
@@ -103,29 +104,31 @@ function renderInfo() {
   const stats = document.getElementById('city-card-stats');
   const attributes = document.getElementById('city-card-attributes');
 
-  // TODO -> REVISAR
-
   if (!_primaryCity) {
     title.textContent = 'No city selected';
-    subtitle.textContent = 'Click a city on the map to inspect it.';
+    subtitle.textContent = 'Click a city on the map to inspect it';
     stats.innerHTML = '';
     attributes.innerHTML = '';
     return;
   }
 
-  title.textContent = _primaryCity.city;
-  subtitle.textContent = `${_primaryCity.country} · Population: ${formatNumber(_primaryCity.population)}`;
+  title.textContent = `${_primaryCity.city}, ${_primaryCity.country}`;
+  subtitle.textContent = `Population: ${formatNumber(_primaryCity.population)}`;
 
+  // Compute derived affordability indicator
+  // "How many McMeal menus can be bought with one average monthly salary"
   const salary = _primaryCity.avg_monthly_net_salary;
   const mcmeal = _primaryCity.mcmeal_combo;
   const mcMeals = salary && mcmeal ? salary / mcmeal : null;
 
   stats.innerHTML = `
-    <div class="stat-card">
-      <span class="stat-label">Monthly salary</span>
-      <strong>${formatMoney(salary)}</strong>
-    </div>
+    <p class="mcmeal-summary">
+      Average salary: <strong>${formatMoney(salary)}</strong> - You can buy 
+      <strong>${mcMeals ? Math.round(mcMeals) : '—'}</strong> McMeals/month
+    </p>
+  `;
 
+  /*
     <div class="stat-card">
       <span class="stat-label">McMeal price</span>
       <strong>${formatMoney(mcmeal)}</strong>
@@ -135,21 +138,33 @@ function renderInfo() {
       <span class="stat-label">McMeals per salary</span>
       <strong>${mcMeals ? Math.round(mcMeals) : '—'}</strong>
     </div>
-  `;
+  */
 
   attributes.innerHTML = '';
-
+  
+  // For each selected attribute, show only the normalized score.
+  // This keeps the row compact and avoids vertical overflow in the card.
   _weights.forEach(({ attribute }) => {
     const label = getAttributeLabel(attribute);
-    const rawValue = _primaryCity[attribute];
-    const normalized = _scores.get(attribute);
+    const normalized = _scores.get(attribute);  // value between 0 and 1
+    const score10 = normalized != null ? normalized * 10 : null;
 
     const row = document.createElement('div');
     row.className = 'attribute-row';
+
     row.innerHTML = `
-      <span>${label}</span>
-      <strong>${formatValue(rawValue)}</strong>
-      <small>${normalized != null ? `${Math.round(normalized * 100)}% normalized` : 'No score'}</small>
+      <span class="attribute-label">${label}</span>
+
+      <div class="attribute-bar">
+        <div 
+          class="attribute-bar-fill" 
+          style="width: ${score10 != null ? score10 * 10 : 0}%"
+        ></div>
+      </div>
+
+      <strong class="attribute-score">
+        ${score10 != null ? score10.toFixed(1) : '—'}
+      </strong>
     `;
 
     attributes.appendChild(row);
@@ -175,7 +190,7 @@ function renderRadar() {
 
   // minimum size of the graph is equal to RADAR_MIN_LENGTH
   const size = Math.max(CONFIG.RADAR_MIN_LENGTH, Math.min(width, height));
-  const radius = size / 2 - 45; //CONFIG.RADAR_MARGIN;
+  const radius = size / 2 - CONFIG.RADAR_MARGIN;
   const center = size / 2;
 
   const svg = d3.select(panel)
@@ -186,8 +201,11 @@ function renderRadar() {
   const g = svg.append('g')
     .attr('transform', `translate(${center}, ${center})`);
 
-  // We divide the axis in a circle distribution
-  // with "- Math.PI / 2", the first always starts on top
+  /*
+  We divide the axis (number of weights) in a circle distribution
+  The circle is divided into 'n' equal parts
+  "-Math.PI / 2" starts the first axis at the top
+  */
   const n = _weights.length;
   const angle = i => (2 * Math.PI * i / n) - Math.PI / 2;
 
@@ -223,13 +241,15 @@ function renderRadar() {
       .attr('class', 'radar-axis');
 
     g.append('text')
-      .attr('x', (radius + 18) * Math.cos(a))
-      .attr('y', (radius + 18) * Math.sin(a))
+      .attr('x', (radius + 8) * Math.cos(a))
+      .attr('y', (radius + 8) * Math.sin(a))
       .attr('text-anchor', Math.cos(a) > 0.2 ? 'start' : Math.cos(a) < -0.2 ? 'end' : 'middle')
       .attr('dominant-baseline', 'middle')
       .attr('class', 'radar-label')
       // cuts the long labels so that they occupy too much space
-      .text(shortLabel(getAttributeLabel(attribute)));
+      .text(shortLabel(getAttributeLabel(attribute)))
+      .append('title')
+      .text(getAttributeLabel(attribute));
   });
 
   // For each attribute:
@@ -264,7 +284,7 @@ function getAttributeLabel(attribute) {
 
 // 2 decimal values format
 function formatMoney(value) {
-  return value == null || isNaN(value) ? '—' : `$${Number(value).toFixed(2)}`;
+  return value == null || isNaN(value) ? '—' : `$${Number(value).toFixed(0)}`;
 }
 
 function formatNumber(value) {
@@ -277,5 +297,5 @@ function formatValue(value) {
 }
 
 function shortLabel(label) {
-  return label.length > 15 ? label.slice(0, 14) + '…' : label;
+  return label.length > 10 ? label.slice(0, 9) + '…' : label;
 }

@@ -44,9 +44,9 @@ export const ATTRIBUTES = [
 
   // Extra datasets
   { attribute: 'population', label: 'Population' },
-  { attribute: 'mcmeal_combo', label: 'McMeal Price' },
+  // { attribute: 'mcmeal_combo', label: 'McMeal Price' },
   { attribute: 'avg_monthly_net_salary', label: 'Monthly Salary' },
-  { attribute: 'internet_60mbps', label: 'Internet 60Mbps Price' },
+  // { attribute: 'internet_60mbps', label: 'Internet 60Mbps Price' },
 
   // Sunshine
   { attribute: 'sun_year', label: 'Yearly Sunshine' }

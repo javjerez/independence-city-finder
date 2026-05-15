@@ -7,7 +7,7 @@ Load order:
 */
 
 // Load state first (since it is a shared store, other modules depend on it)
-import { initState, onWeightsChange, selectCity } from './state.js';
+import { initState, onWeightsChange, setPrimaryCityFromHeader } from './state.js';
 
 // Load each feature module
 import { initControls, getWeights } from './controls.js';
@@ -35,4 +35,4 @@ initGlobe(cities);
 
 initBarChart();
 initRadarChart();
-initCityCard(selectCity);   // for changing the names of the header in the city card
+initCityCard(setPrimaryCityFromHeader);   // for changing the names of the header in the city card

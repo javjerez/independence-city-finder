@@ -194,6 +194,27 @@ export function selectCity(city) {
   console.warn('[state] max compared cities reached —', CONFIG.MAX_COMPARED, 'max');
 }
 
+// Converts the selected city as the primary city
+export function setPrimaryCityFromHeader(clickedCity) {
+  if (!_primaryCity || clickedCity.city === _primaryCity.city) return;
+
+  // Save old primary city
+  const oldPrimaryCity = _primaryCity;
+
+  // Find clicked city index inside compared cities
+  const clickedIndex = _comparedCities.findIndex(
+    city => city.city === clickedCity.city
+  );
+
+  if (clickedIndex === -1) return;
+
+  // Swap positions
+  _comparedCities[clickedIndex] = oldPrimaryCity;
+  _primaryCity = clickedCity;
+
+  // Update city card, map colors, radar, etc.
+  _notifyModules();
+}
 
 /*
   Controlled in the 'main' module, called whenever weights
@@ -327,7 +348,10 @@ function _getAllMetricKeys() {
 }
 
 function _getCurrentCities() {
-  return [_primaryCity.city, ..._comparedCities.map(c => c.city)];
+  // Checks if there is a NULL city
+  return [_primaryCity, ..._comparedCities]
+    .filter(Boolean)
+    .map(city => city.city);
 }
 
 /* Debugging metrics for weights and scores:
