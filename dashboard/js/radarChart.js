@@ -18,13 +18,13 @@ const CONFIG = {
 
     // -- Radar Chart -----------------------------------------
     CHART_SIZE: 300,            // total SVG width & height (square)
-    RADAR_PADDING: 30,          // space reserved around the radar for labels
-    GRID_LEVELS: 4,             // number of concentric grid rings
+    RADAR_PADDING: 7,          // space reserved around the radar for labels
+    GRID_LEVELS: 3,             // number of concentric grid rings
     CURVE: d3.curveCardinalClosed.tension(0.35),  // smoothing — raise for rounder, lower for pointier
 
     // Axes
     AXIS_COLOR: "#ccc",
-    AXIS_STROKE_WIDTH: 1,
+    AXIS_STROKE_WIDTH: 0.5,
 
     // Grid
     GRID_COLOR: "#e0e0e0",
@@ -50,7 +50,7 @@ const CONFIG = {
     TITLE_FONT_SIZE: "12px",
     TITLE_FONT_WEIGHT: "bold",
     TITLE_COLOR: "#222",
-    TITLE_OFFSET_Y: 14,         // distance above chart area
+    TITLE_OFFSET_Y: 0,         // distance above chart area
 
     // Container
     CHARTS_ID: "comparison-radar",
@@ -172,7 +172,10 @@ function _resolveAttrs(data, extraExcluded = []) {
  * @param {Map}     norms     — global normalisation ranges
  * @param {number}  size      — SVG side length in px
  */
-function _drawRadar(cityRow, cityColor, attrs, norms, size) {
+
+
+//function _drawRadar(cityRow, cityColor, attrs, norms, size) {
+function _drawRadar(cityRow, cityColor, attrs, norms, size, targetEl) {
     const n = attrs.length;
     if (n < 3) return; // radar needs at least 3 axes
 
@@ -183,12 +186,14 @@ function _drawRadar(cityRow, cityColor, attrs, norms, size) {
     const angleSlice = (2 * Math.PI) / n;
 
     // --- SVG ---
-    const svg = d3.select(`#${CONFIG.CHARTS_ID}`)
+    //const svg = d3.select(`#${CONFIG.CHARTS_ID}`)
+    const svg = d3.select(targetEl)
         .append("svg")
         .attr("width", size)
         .attr("height", size)
         .style("flex-shrink", "1")   // participate in flex layout
         .style("min-width", "0");
+
 
     const g = svg.append("g")
         .attr("transform", `translate(${cx}, ${cy})`);
@@ -327,14 +332,14 @@ function _drawRadar(cityRow, cityColor, attrs, norms, size) {
     });
 
     // --- City title (below axes, inside bottom padding) ---
-    svg.append("text")
-        .attr("x", cx)
-        .attr("y", size - CONFIG.TITLE_OFFSET_Y / 2)
-        .attr("text-anchor", "middle")
-        .style("font-size", CONFIG.TITLE_FONT_SIZE)
-        .style("font-weight", CONFIG.TITLE_FONT_WEIGHT)
-        .style("fill", cityColor)
-        .text(cityRow.city);
+    //svg.append("text")
+    //    .attr("x", cx)
+    //    .attr("y", size - CONFIG.TITLE_OFFSET_Y / 2)
+    //    .attr("text-anchor", "middle")
+    //    .style("font-size", CONFIG.TITLE_FONT_SIZE)
+    //    .style("font-weight", CONFIG.TITLE_FONT_WEIGHT)
+    //    .style("fill", cityColor)
+    //    .text(cityRow.city);
 }
 
 
@@ -400,9 +405,26 @@ export function radar_render(data, selectedCities, excludedAttrs = CONFIG.DEFAUL
     const norms = _globalNorms(filteredData, attrs);
 
     const container = document.getElementById(CONFIG.CHARTS_ID);
+    //const containerWidth = container.clientWidth;
+    //const availablePerChart = containerWidth / cities.length;
+    //const size = Math.min(availablePerChart, CONFIG.CHART_SIZE);
     const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+    const labelHeight = 24; // approximate space the label takes
+
     const availablePerChart = containerWidth / cities.length;
-    const size = Math.min(availablePerChart, CONFIG.CHART_SIZE);
+    const availableHeight = containerHeight - labelHeight;
+    const size = Math.min(availablePerChart, availableHeight, CONFIG.CHART_SIZE);
+
+    //cities.forEach((cityName, i) => {
+    //    const cityRow = filteredData.find(d => d.city === cityName);
+    //    if (!cityRow) {
+    //        console.warn(`radar_render: city "${cityName}" not found in data — skipped.`);
+    //        return;
+    //    }
+    //    const color = CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
+    //    _drawRadar(cityRow, color, attrs, norms, size);
+    //});
 
     cities.forEach((cityName, i) => {
         const cityRow = filteredData.find(d => d.city === cityName);
@@ -411,7 +433,26 @@ export function radar_render(data, selectedCities, excludedAttrs = CONFIG.DEFAUL
             return;
         }
         const color = CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
-        _drawRadar(cityRow, color, attrs, norms, size);
+
+        const wrapper = document.createElement('div');
+        const parityClass = cities.length < 3
+            ? 'city-radar-wrapper--even'
+            : (i % 2 === 0 ? 'city-radar-wrapper--even' : 'city-radar-wrapper--odd');
+        wrapper.className = `city-radar-wrapper ${parityClass}`;
+        wrapper.style.width = `${100 / cities.length}%`;
+
+        const label = document.createElement('div');
+        label.className = 'city-radar-label';
+        label.textContent = cityName;
+        label.style.color = color;
+
+        wrapper.appendChild(label);
+        container.appendChild(wrapper);
+
+
+
+
+        _drawRadar(cityRow, color, attrs, norms, size, wrapper);
     });
 }
 
@@ -429,3 +470,9 @@ export function radar_render(data, selectedCities, excludedAttrs = CONFIG.DEFAUL
 
 
 // is there already another function to compute the normalizations?
+
+
+
+
+
+// 3 and 2 for the fingerprint 

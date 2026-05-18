@@ -2,7 +2,8 @@ html,
 body {
     width: 100%;
     height: 100%;
-    overflow: hidden;   /* no scroll */
+    overflow: hidden;
+    /* no scroll */
 
     /* background-color: var(--color-bg); */
     /* color:            var(--color-text-primary); */
@@ -104,19 +105,19 @@ body {
     grid-template-rows: var(--split-right) 1fr;
     height: 100vh;
     overflow: hidden;
-    
+
     background-color: orange;
 }
 
 #comparison-container {
     display: flex;
     flex-direction: column;
-    flex: 6; /* takes 2/3 of the vertical space */
-    
+    flex: 6;
+    /* takes 2/3 of the vertical space */
+
     width: 100%;
     height: 100%;
     overflow: hidden;
-
     background-color: maroon;
 }
 
@@ -147,9 +148,10 @@ body {
 }
 
 #city-card-container {
-    flex: 4; /* takes 1/3 of the vertical space */
+    flex: 4;
+    /* takes 1/3 of the vertical space */
     height: 100%;
-    
+
     background-color: orangered;
 }
 

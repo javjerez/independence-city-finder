@@ -1,0 +1,29 @@
+#comparison-radar {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background: #0f172a;
+    color: #e5e7eb;
+}
+
+.city-radar-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.city-radar-wrapper--even {
+    align-self: flex-start;
+    flex-direction: column;
+}
+
+.city-radar-wrapper--odd {
+    align-self: flex-end;
+    flex-direction: column-reverse;
+}
+
+.city-radar-label {
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    width: 100%;
+}

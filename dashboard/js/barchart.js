@@ -18,7 +18,7 @@ const CONFIG = {
 
     // -- Bar Chart ------------------------------------------
     CHART_HEIGHT: 300,
-    MARGIN: { TOP: 15, RIGHT: 10, BOTTOM: 60, LEFT: 25 },
+    MARGIN: { TOP: 10, RIGHT: 10, BOTTOM: 20, LEFT: 40 },
     BAR_PADDING: 0,
     BAR_COLOR: "steelblue",
     BAR_RADIUS: 3,
@@ -64,16 +64,16 @@ const tooltip = d3.select("body").append("div")
 
 
 
-function drawBarChart(data, attr, width) {
+function _drawBarChart(data, attr, width, height, targetEl) {
     // --- Derived dimensions ---
     const innerWidth = width - CONFIG.MARGIN.LEFT - CONFIG.MARGIN.RIGHT;
-    const innerHeight = CONFIG.CHART_HEIGHT - CONFIG.MARGIN.TOP - CONFIG.MARGIN.BOTTOM;
+    const innerHeight = height - CONFIG.MARGIN.TOP - CONFIG.MARGIN.BOTTOM;
 
     // --- SVG + inner group ---
-    const svg = d3.select(`#${CONFIG.CHARTS_ID}`)
+    const svg = d3.select(targetEl)
         .append("svg")
         .attr("width", width)
-        .attr("height", CONFIG.CHART_HEIGHT);
+        .attr("height", height);
 
     const g = svg.append("g")
         .attr("transform", `translate(${CONFIG.MARGIN.LEFT}, ${CONFIG.MARGIN.TOP})`);
@@ -146,13 +146,13 @@ function drawBarChart(data, attr, width) {
         });
 
     // --- Title ---
-    svg.append("text")
-        .attr("x", width / 2)
-        .attr("y", CONFIG.CHART_HEIGHT - 35)
-        .attr("text-anchor", "middle")
-        .style("font-size", CONFIG.TITLE_SIZE)
-        .style("font-weight", CONFIG.TITLE_WEIGHT)
-        .text(attr);
+    //svg.append("text")
+    //    .attr("x", width / 2)
+    //    .attr("y", height - 35)
+    //    .attr("text-anchor", "middle")
+    //    .style("font-size", CONFIG.TITLE_SIZE)
+    //    .style("font-weight", CONFIG.TITLE_WEIGHT)
+    //    .text(attr);
 }
 
 
@@ -216,18 +216,34 @@ export function barchart_render(data, selectedCities, selectedAttrs) {
     // The container width is divided equally among all charts.
     // clientWidth reads the actual rendered width of the flex container,
     // so this automatically adapts if the window is resized.
-    const containerWidth = document.getElementById(CONFIG.CHARTS_ID).clientWidth;
+    const container = document.getElementById(CONFIG.CHARTS_ID);
+    const containerWidth = container.clientWidth;
     const chartWidth = containerWidth / selectedAttrs.length;
+    const chartHeight = container.clientHeight;
 
     // --- Filter data to selected cities ---
-    // We do this once here rather than inside drawBarChart,
+    // We do this once here rather than inside _drawBarChart,
     // so the function receives only what it needs to draw.
     const filteredData = data.filter(d => selectedCities.includes(d.city));
 
     // --- Draw one chart per selected attribute ---
     // Each chart shares the same filtered city data but has its own y scale.
+    //selectedAttrs.forEach(attr => {
+    //    _drawBarChart(filteredData, attr, chartWidth);
+    //});
+
     selectedAttrs.forEach(attr => {
-        drawBarChart(filteredData, attr, chartWidth);
+        const wrapper = document.createElement('div');
+        wrapper.className = 'city-barchart-wrapper';
+        wrapper.style.width = `${100 / selectedAttrs.length}%`;
+
+        const label = document.createElement('div');
+        label.className = 'city-barchart-label';
+        label.textContent = attr.replace(/_/g, ' ');
+
+        container.appendChild(wrapper);
+        _drawBarChart(filteredData, attr, chartWidth, chartHeight, wrapper);
+        wrapper.appendChild(label);
     });
 }
 
