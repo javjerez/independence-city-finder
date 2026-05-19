@@ -111,7 +111,7 @@ function _drawBarChart(data, attr, width, height, targetEl) {
     g.selectAll("rect")
         .data(data)
         .join("rect")
-        .attr("x", d => x(d.city)).title
+        .attr("x", d => x(d.city))
         .attr("y", d => y(d[attr]))
         .attr("width", x.bandwidth())
         .attr("height", d => innerHeight - y(d[attr]))
