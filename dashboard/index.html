@@ -13,6 +13,7 @@
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 
   <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/button.js"></script>
   <!-- <script type="module" src="./js/resize.js"></script> -->
 
   <link rel="stylesheet" href="./css/main.css" />
@@ -31,7 +32,12 @@
     <div id="panel-left">
 
       <div id="globe-container">
-        <!-- globe.js mounts here -->
+        <div id="info-btn-wrapper">
+          <button id="info-btn" aria-label="Data information">i</button>
+          <div id="info-panel" hidden>
+            <!-- paste the transparency HTML here -->
+          </div>
+        </div>
       </div>
 
       <div id="controls-container">

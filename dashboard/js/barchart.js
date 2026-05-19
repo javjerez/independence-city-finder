@@ -2,6 +2,9 @@
 //  STEP 1 — CONFIGURATION
 // ============================================================
 
+const ATTRIBUTES = await fetch("./data/attributes.json").then(r => r.json());
+
+
 const CONFIG = {
 
     // -- Shared colors — index 0 = primary, 1–4 = compared ----
@@ -18,7 +21,7 @@ const CONFIG = {
 
     // -- Bar Chart ------------------------------------------
     CHART_HEIGHT: 300,
-    MARGIN: { TOP: 10, RIGHT: 10, BOTTOM: 20, LEFT: 40 },
+    MARGIN: { TOP: 10, RIGHT: 10, BOTTOM: 20, LEFT: 35 },
     BAR_PADDING: 0,
     BAR_COLOR: "steelblue",
     BAR_RADIUS: 3,
@@ -108,7 +111,7 @@ function _drawBarChart(data, attr, width, height, targetEl) {
     g.selectAll("rect")
         .data(data)
         .join("rect")
-        .attr("x", d => x(d.city))
+        .attr("x", d => x(d.city)).title
         .attr("y", d => y(d[attr]))
         .attr("width", x.bandwidth())
         .attr("height", d => innerHeight - y(d[attr]))
@@ -117,7 +120,7 @@ function _drawBarChart(data, attr, width, height, targetEl) {
         .on("mouseover", (event, d) => {
             tooltip
                 .style("opacity", 1)
-                .html(`<strong>${d.city}</strong><br>${attr}: ${d[attr]}`);
+                .html(`<strong>${d.city}</strong>: ${d[attr].toFixed(1)}${ATTRIBUTES[attr].unit_measure_short}`);
         })
         .on("mousemove", (event) => {
             const tooltipNode = tooltip.node();
@@ -239,7 +242,8 @@ export function barchart_render(data, selectedCities, selectedAttrs) {
 
         const label = document.createElement('div');
         label.className = 'city-barchart-label';
-        label.textContent = attr.replace(/_/g, ' ');
+        label.textContent = ATTRIBUTES[attr].name;
+        label.title = ATTRIBUTES[attr].description;
 
         container.appendChild(wrapper);
         _drawBarChart(filteredData, attr, chartWidth, chartHeight, wrapper);

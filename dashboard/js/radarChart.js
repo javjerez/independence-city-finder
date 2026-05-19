@@ -2,6 +2,9 @@
 //  STEP 1 — CONFIGURATION
 // ============================================================
 
+const ATTRIBUTES = await fetch("./data/attributes.json").then(r => r.json());
+
+
 const CONFIG = {
 
     // -- Shared colors — index 0 = primary, 1–4 = compared ----
@@ -20,25 +23,25 @@ const CONFIG = {
     CHART_SIZE: 300,            // total SVG width & height (square)
     RADAR_PADDING: 7,          // space reserved around the radar for labels
     GRID_LEVELS: 3,             // number of concentric grid rings
-    CURVE: d3.curveCardinalClosed.tension(0.35),  // smoothing — raise for rounder, lower for pointier
+    CURVE: d3.curveCardinalClosed.tension(0.2),  // smoothing — raise for rounder, lower for pointier
 
     // Axes
     AXIS_COLOR: "#ccc",
-    AXIS_STROKE_WIDTH: 0.5,
+    AXIS_STROKE_WIDTH: 0.35,
 
     // Grid
     GRID_COLOR: "#e0e0e0",
-    GRID_STROKE_WIDTH: 0.8,
-    GRID_STROKE_DASH: "3,3",
+    GRID_STROKE_WIDTH: 0.35,
+    GRID_STROKE_DASH: "3,6",
 
     // Blob (the filled shape)
-    BLOB_STROKE_WIDTH: 2,
+    BLOB_STROKE_WIDTH: 3,
     BLOB_FILL_OPACITY: 0.4,
     BLOB_STROKE_OPACITY: 0.9,
 
     // Dot on each axis spoke
-    DOT_RADIUS: 1,
-    DOT_STROKE_WIDTH: 1.5,
+    DOT_RADIUS: 1.5,
+    DOT_STROKE_WIDTH: 3,
 
     // Labels
     LABEL_FONT_SIZE: "9.5px",
@@ -63,14 +66,24 @@ const CONFIG = {
     TOOLTIP_OFFSET_X: 12,
     TOOLTIP_OFFSET_Y: 28,
 
+    HOVER_SLIDE_HITBOX_FRACTION: 0.5, // 1.0 = full width, lower = narrower
+
     // Attributes to always exclude (coordinates, IDs, etc.)
     DEFAULT_EXCLUDED_ATTRS: [
-        'lat', 'lon', 'iso3', 'city', 'country',
+        'lat', 'lon', 'iso3', 'city', 'country', 'population', 'mcmeal_combo',
         'sun_jan', 'sun_feb', 'sun_mar', 'sun_apr', 'sun_may', 'sun_jun',
         'sun_jul', 'sun_aug', 'sun_sep', 'sun_oct', 'sun_nov', 'sun_dec',
         'temp_jan', 'temp_feb', 'temp_mar', 'temp_apr', 'temp_may', 'temp_jun',
         'temp_jul', 'temp_aug', 'temp_sep', 'temp_oct', 'temp_nov', 'temp_dec',
     ],
+
+    INVERT_METRICS: new Set([
+        'cost_of_living',
+        'commute',
+        'taxation',
+        'mcmeal_combo',
+        'internet_60mbps'
+    ]),
 };
 
 
@@ -134,9 +147,10 @@ function _globalNorms(data, attrs) {
  * Normalise a raw value to [0, 1] using global min/max.
  * Returns 0 if min === max (degenerate attribute).
  */
-function _norm(value, min, max) {
+function _norm(value, min, max, invert = false) {
     if (max === min) return 0;
-    return Math.max(0, Math.min(1, (+value - min) / (max - min)));
+    const v = Math.max(0, Math.min(1, (+value - min) / (max - min)));
+    return invert ? 1 - v : v;
 }
 
 /**
@@ -159,188 +173,191 @@ function _resolveAttrs(data, extraExcluded = []) {
 }
 
 
-// ============================================================
-//  CORE DRAWING FUNCTION
-// ============================================================
+//// ============================================================
+////  CORE DRAWING FUNCTION
+//// ============================================================
+//
+///**
+// * Draw a single round radar / fingerprint for one city.
+// *
+// * @param {object}  cityRow   — single data object for the city
+// * @param {string}  cityColor — hex fill/stroke colour
+// * @param {string[]} attrs    — ordered list of attribute keys to plot
+// * @param {Map}     norms     — global normalisation ranges
+// * @param {number}  size      — SVG side length in px
+// */
+//
+//
+////function _drawRadar(cityRow, cityColor, attrs, norms, size) {
+//function _drawRadar(cityRow, cityColor, attrs, norms, size, targetEl) {
+//    const n = attrs.length;
+//    if (n < 3) return; // radar needs at least 3 axes
+//
+//    const radarR = (size - 2 * CONFIG.RADAR_PADDING) / 2;   // radius of the full ring
+//    const cx = size / 2;
+//    const cy = size / 2 + CONFIG.TITLE_OFFSET_Y / 2;    // shift down slightly for title
+//
+//    const angleSlice = (2 * Math.PI) / n;
+//
+//    // --- SVG ---
+//    //const svg = d3.select(`#${CONFIG.CHARTS_ID}`)
+//    const svg = d3.select(targetEl)
+//        .append("svg")
+//        .attr("width", size)
+//        .attr("height", size)
+//        .style("flex-shrink", "1")   // participate in flex layout
+//        .style("min-width", "0");
+//
+//
+//    const g = svg.append("g")
+//        .attr("transform", `translate(${cx}, ${cy})`);
+//
+//    // --- Concentric grid rings (circular, not polygon) ---
+//    const gridGroup = g.append("g").attr("class", "radar-grid");
+//
+//    d3.range(1, CONFIG.GRID_LEVELS + 1).forEach(level => {
+//        const r = radarR * (level / CONFIG.GRID_LEVELS);
+//        gridGroup.append("circle")
+//            .attr("r", r)
+//            .attr("fill", "none")
+//            .attr("stroke", CONFIG.GRID_COLOR)
+//            .attr("stroke-width", CONFIG.GRID_STROKE_WIDTH)
+//            .attr("stroke-dasharray", CONFIG.GRID_STROKE_DASH);
+//    });
+//
+//    // --- Axis spokes ---
+//    const axisGroup = g.append("g").attr("class", "radar-axes");
+//
+//    attrs.forEach((attr, i) => {
+//        const angle = angleSlice * i;
+//        const { x, y } = _polarToXY(angle, radarR);
+//
+//        axisGroup.append("line")
+//            .attr("x1", 0).attr("y1", 0)
+//            .attr("x2", x).attr("y2", y)
+//            .attr("stroke", CONFIG.AXIS_COLOR)
+//            .attr("stroke-width", CONFIG.AXIS_STROKE_WIDTH);
+//    });
+//
+//    // --- Axis labels ---
+//    //const labelGroup = g.append("g").attr("class", "radar-labels");
+//    //const LABEL_R = radarR + 14;   // push labels just beyond the outermost ring
+//    //
+//    //attrs.forEach((attr, i) => {
+//    //    const angle = angleSlice * i;
+//    //    const { x, y } = _polarToXY(angle, LABEL_R);
+//    //
+//    //    // Anchor: left side → "end", right side → "start", top/bottom → "middle"
+//    //    const sinA = Math.sin(angle);
+//    //    const anchor = Math.abs(sinA) < 0.1 ? "middle"
+//    //        : sinA > 0 ? "start"
+//    //            : "end";
+//    //
+//    //    // Vertical baseline nudge for top/bottom labels
+//    //    const dominantBaseline = Math.cos(angle) > 0.85 ? "auto"
+//    //        : Math.cos(angle) < -0.85 ? "hanging"
+//    //            : "middle";
+//    //
+//    //    labelGroup.append("text")
+//    //        .attr("x", x)
+//    //        .attr("y", y)
+//    //        .attr("text-anchor", anchor)
+//    //        .attr("dominant-baseline", dominantBaseline)
+//    //        .style("font-size", CONFIG.LABEL_FONT_SIZE)
+//    //        .style("font-family", CONFIG.LABEL_FONT_FAMILY)
+//    //        .style("fill", CONFIG.LABEL_COLOR)
+//    //        .text(_labelText(attr));
+//    //});
+//
+//    // --- Blob path (smooth, closed) ---
+//    // Compute normalised radius for each axis
+//    const points = attrs.map((attr, i) => {
+//        const { min, max } = norms.get(attr);
+//        const normVal = _norm(cityRow[attr], min, max);
+//        const r = normVal * radarR;
+//        const angle = angleSlice * i;
+//        return _polarToXY(angle, r);
+//    });
+//
+//    // Build the line generator with the chosen curve
+//    const radarLine = d3.lineRadial()
+//        .curve(CONFIG.CURVE)
+//        .radius((_, i) => {
+//            const attr = attrs[i];
+//            const { min, max } = norms.get(attr);
+//            return _norm(cityRow[attr], min, max) * radarR;
+//        })
+//        .angle((_, i) => angleSlice * i);
+//
+//    // lineRadial takes an array indexed 0..n-1
+//    const blobData = attrs.map((_, i) => i);
+//
+//    const blobGroup = g.append("g").attr("class", "radar-blob");
+//
+//    // Filled area
+//    blobGroup.append("path")
+//        .datum(blobData)
+//        .attr("d", radarLine)
+//        .attr("fill", cityColor)
+//        .attr("fill-opacity", CONFIG.BLOB_FILL_OPACITY)
+//        .attr("stroke", cityColor)
+//        .attr("stroke-width", CONFIG.BLOB_STROKE_WIDTH)
+//        .attr("stroke-opacity", CONFIG.BLOB_STROKE_OPACITY);
+//
+//    // --- Dots at each axis intersection ---
+//    const dotGroup = g.append("g").attr("class", "radar-dots");
+//
+//    attrs.forEach((attr, i) => {
+//        const { min, max } = norms.get(attr);
+//        const normVal = _norm(cityRow[attr], min, max);
+//        const r = normVal * radarR;
+//        const angle = angleSlice * i;
+//        const { x, y } = _polarToXY(angle, r);
+//        const rawVal = cityRow[attr];
+//
+//        dotGroup.append("circle")
+//            .attr("cx", x)
+//            .attr("cy", y)
+//            .attr("r", CONFIG.DOT_RADIUS)
+//            .attr("fill", "white")
+//            .attr("stroke", cityColor)
+//            .attr("stroke-width", CONFIG.DOT_STROKE_WIDTH)
+//            .style("cursor", "default")
+//            .on("mouseover", (event) => {
+//                _tooltip
+//                    .style("opacity", 1)
+//                    .html(`<strong>${_labelText(attr)}</strong><br>` +
+//                        `${cityRow.city}<br>` +
+//                        `Value: ${isFinite(+rawVal) ? (+rawVal).toLocaleString(undefined, { maximumFractionDigits: 2 }) : rawVal}`);
+//            })
+//            .on("mousemove", (event) => {
+//                const node = _tooltip.node();
+//                const tw = node.offsetWidth;
+//                const th = node.offsetHeight;
+//                const left = event.pageX + CONFIG.TOOLTIP_OFFSET_X + tw > window.innerWidth
+//                    ? event.pageX - tw - CONFIG.TOOLTIP_OFFSET_X
+//                    : event.pageX + CONFIG.TOOLTIP_OFFSET_X;
+//                const top = event.pageY + CONFIG.TOOLTIP_OFFSET_Y + th > window.innerHeight
+//                    ? event.pageY - th - CONFIG.TOOLTIP_OFFSET_Y
+//                    : event.pageY + CONFIG.TOOLTIP_OFFSET_Y;
+//                _tooltip.style("left", left + "px").style("top", top + "px");
+//            })
+//            .on("mouseout", () => _tooltip.style("opacity", 0));
+//    });
+//
+//    // --- City title (below axes, inside bottom padding) ---
+//    //svg.append("text")
+//    //    .attr("x", cx)
+//    //    .attr("y", size - CONFIG.TITLE_OFFSET_Y / 2)
+//    //    .attr("text-anchor", "middle")
+//    //    .style("font-size", CONFIG.TITLE_FONT_SIZE)
+//    //    .style("font-weight", CONFIG.TITLE_FONT_WEIGHT)
+//    //    .style("fill", cityColor)
+//    //    .text(cityRow.city);
+//}
 
-/**
- * Draw a single round radar / fingerprint for one city.
- *
- * @param {object}  cityRow   — single data object for the city
- * @param {string}  cityColor — hex fill/stroke colour
- * @param {string[]} attrs    — ordered list of attribute keys to plot
- * @param {Map}     norms     — global normalisation ranges
- * @param {number}  size      — SVG side length in px
- */
 
 
-//function _drawRadar(cityRow, cityColor, attrs, norms, size) {
-function _drawRadar(cityRow, cityColor, attrs, norms, size, targetEl) {
-    const n = attrs.length;
-    if (n < 3) return; // radar needs at least 3 axes
-
-    const radarR = (size - 2 * CONFIG.RADAR_PADDING) / 2;   // radius of the full ring
-    const cx = size / 2;
-    const cy = size / 2 + CONFIG.TITLE_OFFSET_Y / 2;    // shift down slightly for title
-
-    const angleSlice = (2 * Math.PI) / n;
-
-    // --- SVG ---
-    //const svg = d3.select(`#${CONFIG.CHARTS_ID}`)
-    const svg = d3.select(targetEl)
-        .append("svg")
-        .attr("width", size)
-        .attr("height", size)
-        .style("flex-shrink", "1")   // participate in flex layout
-        .style("min-width", "0");
-
-
-    const g = svg.append("g")
-        .attr("transform", `translate(${cx}, ${cy})`);
-
-    // --- Concentric grid rings (circular, not polygon) ---
-    const gridGroup = g.append("g").attr("class", "radar-grid");
-
-    d3.range(1, CONFIG.GRID_LEVELS + 1).forEach(level => {
-        const r = radarR * (level / CONFIG.GRID_LEVELS);
-        gridGroup.append("circle")
-            .attr("r", r)
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.GRID_COLOR)
-            .attr("stroke-width", CONFIG.GRID_STROKE_WIDTH)
-            .attr("stroke-dasharray", CONFIG.GRID_STROKE_DASH);
-    });
-
-    // --- Axis spokes ---
-    const axisGroup = g.append("g").attr("class", "radar-axes");
-
-    attrs.forEach((attr, i) => {
-        const angle = angleSlice * i;
-        const { x, y } = _polarToXY(angle, radarR);
-
-        axisGroup.append("line")
-            .attr("x1", 0).attr("y1", 0)
-            .attr("x2", x).attr("y2", y)
-            .attr("stroke", CONFIG.AXIS_COLOR)
-            .attr("stroke-width", CONFIG.AXIS_STROKE_WIDTH);
-    });
-
-    // --- Axis labels ---
-    //const labelGroup = g.append("g").attr("class", "radar-labels");
-    //const LABEL_R = radarR + 14;   // push labels just beyond the outermost ring
-    //
-    //attrs.forEach((attr, i) => {
-    //    const angle = angleSlice * i;
-    //    const { x, y } = _polarToXY(angle, LABEL_R);
-    //
-    //    // Anchor: left side → "end", right side → "start", top/bottom → "middle"
-    //    const sinA = Math.sin(angle);
-    //    const anchor = Math.abs(sinA) < 0.1 ? "middle"
-    //        : sinA > 0 ? "start"
-    //            : "end";
-    //
-    //    // Vertical baseline nudge for top/bottom labels
-    //    const dominantBaseline = Math.cos(angle) > 0.85 ? "auto"
-    //        : Math.cos(angle) < -0.85 ? "hanging"
-    //            : "middle";
-    //
-    //    labelGroup.append("text")
-    //        .attr("x", x)
-    //        .attr("y", y)
-    //        .attr("text-anchor", anchor)
-    //        .attr("dominant-baseline", dominantBaseline)
-    //        .style("font-size", CONFIG.LABEL_FONT_SIZE)
-    //        .style("font-family", CONFIG.LABEL_FONT_FAMILY)
-    //        .style("fill", CONFIG.LABEL_COLOR)
-    //        .text(_labelText(attr));
-    //});
-
-    // --- Blob path (smooth, closed) ---
-    // Compute normalised radius for each axis
-    const points = attrs.map((attr, i) => {
-        const { min, max } = norms.get(attr);
-        const normVal = _norm(cityRow[attr], min, max);
-        const r = normVal * radarR;
-        const angle = angleSlice * i;
-        return _polarToXY(angle, r);
-    });
-
-    // Build the line generator with the chosen curve
-    const radarLine = d3.lineRadial()
-        .curve(CONFIG.CURVE)
-        .radius((_, i) => {
-            const attr = attrs[i];
-            const { min, max } = norms.get(attr);
-            return _norm(cityRow[attr], min, max) * radarR;
-        })
-        .angle((_, i) => angleSlice * i);
-
-    // lineRadial takes an array indexed 0..n-1
-    const blobData = attrs.map((_, i) => i);
-
-    const blobGroup = g.append("g").attr("class", "radar-blob");
-
-    // Filled area
-    blobGroup.append("path")
-        .datum(blobData)
-        .attr("d", radarLine)
-        .attr("fill", cityColor)
-        .attr("fill-opacity", CONFIG.BLOB_FILL_OPACITY)
-        .attr("stroke", cityColor)
-        .attr("stroke-width", CONFIG.BLOB_STROKE_WIDTH)
-        .attr("stroke-opacity", CONFIG.BLOB_STROKE_OPACITY);
-
-    // --- Dots at each axis intersection ---
-    const dotGroup = g.append("g").attr("class", "radar-dots");
-
-    attrs.forEach((attr, i) => {
-        const { min, max } = norms.get(attr);
-        const normVal = _norm(cityRow[attr], min, max);
-        const r = normVal * radarR;
-        const angle = angleSlice * i;
-        const { x, y } = _polarToXY(angle, r);
-        const rawVal = cityRow[attr];
-
-        dotGroup.append("circle")
-            .attr("cx", x)
-            .attr("cy", y)
-            .attr("r", CONFIG.DOT_RADIUS)
-            .attr("fill", "white")
-            .attr("stroke", cityColor)
-            .attr("stroke-width", CONFIG.DOT_STROKE_WIDTH)
-            .style("cursor", "default")
-            .on("mouseover", (event) => {
-                _tooltip
-                    .style("opacity", 1)
-                    .html(`<strong>${_labelText(attr)}</strong><br>` +
-                        `${cityRow.city}<br>` +
-                        `Value: ${isFinite(+rawVal) ? (+rawVal).toLocaleString(undefined, { maximumFractionDigits: 2 }) : rawVal}`);
-            })
-            .on("mousemove", (event) => {
-                const node = _tooltip.node();
-                const tw = node.offsetWidth;
-                const th = node.offsetHeight;
-                const left = event.pageX + CONFIG.TOOLTIP_OFFSET_X + tw > window.innerWidth
-                    ? event.pageX - tw - CONFIG.TOOLTIP_OFFSET_X
-                    : event.pageX + CONFIG.TOOLTIP_OFFSET_X;
-                const top = event.pageY + CONFIG.TOOLTIP_OFFSET_Y + th > window.innerHeight
-                    ? event.pageY - th - CONFIG.TOOLTIP_OFFSET_Y
-                    : event.pageY + CONFIG.TOOLTIP_OFFSET_Y;
-                _tooltip.style("left", left + "px").style("top", top + "px");
-            })
-            .on("mouseout", () => _tooltip.style("opacity", 0));
-    });
-
-    // --- City title (below axes, inside bottom padding) ---
-    //svg.append("text")
-    //    .attr("x", cx)
-    //    .attr("y", size - CONFIG.TITLE_OFFSET_Y / 2)
-    //    .attr("text-anchor", "middle")
-    //    .style("font-size", CONFIG.TITLE_FONT_SIZE)
-    //    .style("font-weight", CONFIG.TITLE_FONT_WEIGHT)
-    //    .style("fill", cityColor)
-    //    .text(cityRow.city);
-}
 
 
 // ============================================================
@@ -369,29 +386,102 @@ function _renderPlaceholder(containerId) {
 }
 
 
-// ============================================================
-//  STEP 5 — RENDER RADAR CHARTS
+//// ============================================================
+////  STEP 5 — RENDER RADAR CHARTS
+////
+////  API mirrors barchart_render exactly:
+////
+////    radar_render(data, selectedCities, excludedAttrs)
+////
+////  @param {object[]} data           — full dataset (all cities, all attributes)
+////  @param {string[]} selectedCities — city names to plot (up to 5)
+////  @param {string[]} excludedAttrs  — extra attribute keys to suppress
+////                                     (on top of the built-in exclusions
+////                                     like latitude, longitude, etc.)
+//// ============================================================
+//export function radar_render(data, cities, norms, excludedAttrs = CONFIG.DEFAULT_EXCLUDED_ATTRS) {
 //
-//  API mirrors barchart_render exactly:
+//    d3.select(`#${CONFIG.CHARTS_ID}`).selectAll("*").remove();
 //
-//    radar_render(data, selectedCities, excludedAttrs)
+//    if (!cities || cities.length < 2) {
+//        _renderPlaceholder(CONFIG.CHARTS_ID);
+//        return;
+//    }
 //
-//  @param {object[]} data           — full dataset (all cities, all attributes)
-//  @param {string[]} selectedCities — city names to plot (up to 5)
-//  @param {string[]} excludedAttrs  — extra attribute keys to suppress
-//                                     (on top of the built-in exclusions
-//                                     like latitude, longitude, etc.)
-// ============================================================
-export function radar_render(data, selectedCities, excludedAttrs = CONFIG.DEFAULT_EXCLUDED_ATTRS) {
+//    const attrs = _resolveAttrs(data, excludedAttrs);
+//    if (attrs.length < 3) {
+//        console.warn("radar_render: fewer than 3 plottable attributes — skipping render.");
+//        _renderPlaceholder(CONFIG.CHARTS_ID);
+//        return;
+//    }
+//
+//    // --- Filter to selected cities first, then normalise only over them ---
+//    const filteredData = data.filter(d => cities.includes(d.city));
+//    const norms = _globalNorms(filteredData, attrs);
+//
+//    const container = document.getElementById(CONFIG.CHARTS_ID);
+//    //const containerWidth = container.clientWidth;
+//    //const availablePerChart = containerWidth / cities.length;
+//    //const size = Math.min(availablePerChart, CONFIG.CHART_SIZE);
+//    const containerWidth = container.clientWidth;
+//    const containerHeight = container.clientHeight;
+//    const labelHeight = 24; // approximate space the label takes
+//
+//    const availablePerChart = containerWidth / cities.length;
+//    const availableHeight = containerHeight - labelHeight;
+//    const size = Math.min(availablePerChart, availableHeight, CONFIG.CHART_SIZE);
+//
+//    //cities.forEach((cityName, i) => {
+//    //    const cityRow = filteredData.find(d => d.city === cityName);
+//    //    if (!cityRow) {
+//    //        console.warn(`radar_render: city "${cityName}" not found in data — skipped.`);
+//    //        return;
+//    //    }
+//    //    const color = CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
+//    //    _drawRadar(cityRow, color, attrs, norms, size);
+//    //});
+//
+//    cities.forEach((cityName, i) => {
+//        const cityRow = filteredData.find(d => d.city === cityName);
+//        if (!cityRow) {
+//            console.warn(`radar_render: city "${cityName}" not found in data — skipped.`);
+//            return;
+//        }
+//        const color = CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
+//
+//        const wrapper = document.createElement('div');
+//        const parityClass = cities.length < 3
+//            ? 'city-radar-wrapper--even'
+//            : (i % 2 === 0 ? 'city-radar-wrapper--even' : 'city-radar-wrapper--odd');
+//        wrapper.className = `city-radar-wrapper ${parityClass}`;
+//        wrapper.style.width = `${100 / cities.length}%`;
+//
+//        const label = document.createElement('div');
+//        label.className = 'city-radar-label';
+//        label.textContent = cityName;
+//        label.style.color = color;
+//
+//        wrapper.appendChild(label);
+//        container.appendChild(wrapper);
+//
+//        _drawRadar(cityRow, color, attrs, size, wrapper);
+//    });
+//}
 
+
+export function radar_render(
+    data,
+    cities,
+    norms,
+    excludedAttrs = CONFIG.DEFAULT_EXCLUDED_ATTRS,
+    invert = CONFIG.INVERT_METRICS
+) {
     d3.select(`#${CONFIG.CHARTS_ID}`).selectAll("*").remove();
 
-    if (!selectedCities || selectedCities.length < 2) {
+    if (!cities || cities.length < 2) {
         _renderPlaceholder(CONFIG.CHARTS_ID);
         return;
     }
-
-    const cities = selectedCities.slice(0, 5);
 
     const attrs = _resolveAttrs(data, excludedAttrs);
     if (attrs.length < 3) {
@@ -400,31 +490,15 @@ export function radar_render(data, selectedCities, excludedAttrs = CONFIG.DEFAUL
         return;
     }
 
-    // --- Filter to selected cities first, then normalise only over them ---
     const filteredData = data.filter(d => cities.includes(d.city));
-    const norms = _globalNorms(filteredData, attrs);
 
     const container = document.getElementById(CONFIG.CHARTS_ID);
-    //const containerWidth = container.clientWidth;
-    //const availablePerChart = containerWidth / cities.length;
-    //const size = Math.min(availablePerChart, CONFIG.CHART_SIZE);
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
-    const labelHeight = 24; // approximate space the label takes
-
+    const labelHeight = 24;
     const availablePerChart = containerWidth / cities.length;
     const availableHeight = containerHeight - labelHeight;
     const size = Math.min(availablePerChart, availableHeight, CONFIG.CHART_SIZE);
-
-    //cities.forEach((cityName, i) => {
-    //    const cityRow = filteredData.find(d => d.city === cityName);
-    //    if (!cityRow) {
-    //        console.warn(`radar_render: city "${cityName}" not found in data — skipped.`);
-    //        return;
-    //    }
-    //    const color = CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
-    //    _drawRadar(cityRow, color, attrs, norms, size);
-    //});
 
     cities.forEach((cityName, i) => {
         const cityRow = filteredData.find(d => d.city === cityName);
@@ -432,6 +506,13 @@ export function radar_render(data, selectedCities, excludedAttrs = CONFIG.DEFAUL
             console.warn(`radar_render: city "${cityName}" not found in data — skipped.`);
             return;
         }
+
+        const normValues = attrs.map(attr => {
+            const { min, max } = norms.get(attr);
+            const norm = max === min ? 0 : (cityRow[attr] - min) / (max - min);
+            return invert.has(attr) ? 1 - norm : norm;
+        });
+
         const color = CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
 
         const wrapper = document.createElement('div');
@@ -449,30 +530,105 @@ export function radar_render(data, selectedCities, excludedAttrs = CONFIG.DEFAUL
         wrapper.appendChild(label);
         container.appendChild(wrapper);
 
-
-
-
-        _drawRadar(cityRow, color, attrs, norms, size, wrapper);
+        _drawRadar(normValues, attrs, color, size, wrapper);
     });
 }
 
 
 
+function _drawRadar(normValues, attributeNames, color, size, wrapper) {
+    const n = normValues.length;
+    if (n < 3) return;
 
+    const radarR = (size - 2 * CONFIG.RADAR_PADDING) / 2;
+    const cx = size / 2;
+    const cy = size / 2 + CONFIG.TITLE_OFFSET_Y / 2;
+    const angleSlice = (2 * Math.PI) / n;
 
+    const svg = d3.select(wrapper)
+        .append("svg")
+        .attr("width", size)
+        .attr("height", size)
+        .style("flex-shrink", "1")
+        .style("min-width", "0");
 
+    const g = svg.append("g")
+        .attr("transform", `translate(${cx}, ${cy})`);
 
+    // --- Concentric grid rings ---
+    const gridGroup = g.append("g").attr("class", "radar-grid");
+    d3.range(1, CONFIG.GRID_LEVELS + 1).forEach(level => {
+        gridGroup.append("circle")
+            .attr("r", radarR * (level / CONFIG.GRID_LEVELS))
+            .attr("fill", "none")
+            .attr("stroke", CONFIG.GRID_COLOR)
+            .attr("stroke-width", CONFIG.GRID_STROKE_WIDTH);
+    });
 
+    // --- Axis spokes ---
+    const axisGroup = g.append("g").attr("class", "radar-axes");
+    normValues.forEach((_, i) => {
+        const { x, y } = _polarToXY(angleSlice * i, radarR);
+        axisGroup.append("line")
+            .attr("x1", 0).attr("y1", 0)
+            .attr("x2", x).attr("y2", y)
+            .attr("stroke", CONFIG.AXIS_COLOR)
+            .attr("stroke-width", CONFIG.AXIS_STROKE_WIDTH)
+            .attr("stroke-dasharray", CONFIG.GRID_STROKE_DASH);
+    });
 
+    // --- Blob path ---
+    const radarLine = d3.lineRadial()
+        .curve(CONFIG.CURVE)
+        .radius((_, i) => normValues[i] * radarR)
+        .angle((_, i) => angleSlice * i);
 
+    g.append("g").attr("class", "radar-blob")
+        .append("path")
+        .datum(normValues.map((_, i) => i))
+        .attr("d", radarLine)
+        .attr("fill", color)
+        .attr("fill-opacity", CONFIG.BLOB_FILL_OPACITY)
+        .attr("stroke", color)
+        .attr("stroke-width", CONFIG.BLOB_STROKE_WIDTH)
+        .attr("stroke-opacity", CONFIG.BLOB_STROKE_OPACITY);
 
+    // --- Hover wedges ---
+    const hoverGroup = g.append("g").attr("class", "radar-hover");
 
+    const arc = d3.arc()
+        .innerRadius(radarR * 0.3)
+        .outerRadius(radarR);
 
+    const sliceFraction = CONFIG.HOVER_SLIDE_HITBOX_FRACTION;
+    const halfSlice = (angleSlice * sliceFraction) / 2;
 
-// is there already another function to compute the normalizations?
-
-
-
-
-
-// 3 and 2 for the fingerprint 
+    normValues.forEach((val, i) => {
+        const midAngle = angleSlice * i;
+        hoverGroup.append("path")
+            .attr("d", arc({
+                startAngle: midAngle - halfSlice,
+                endAngle: midAngle + halfSlice
+            }))
+            .attr("fill", "transparent")
+            .style("cursor", "default")
+            .on("mouseover", (event) => {
+                _tooltip
+                    .style("opacity", 1)
+                    .html(`<strong>${ATTRIBUTES[attributeNames[i]].name}</strong><br>Score: ${(val * 100).toFixed(1)}/100`);
+            })
+            .on("mousemove", (event) => {
+                const node = _tooltip.node();
+                const tw = node.offsetWidth;
+                const th = node.offsetHeight;
+                const left = event.pageX + CONFIG.TOOLTIP_OFFSET_X + tw > window.innerWidth
+                    ? event.pageX - tw - CONFIG.TOOLTIP_OFFSET_X
+                    : event.pageX + CONFIG.TOOLTIP_OFFSET_X;
+                const top = event.pageY + CONFIG.TOOLTIP_OFFSET_Y + th > window.innerHeight
+                    ? event.pageY - th - CONFIG.TOOLTIP_OFFSET_Y
+                    : event.pageY + CONFIG.TOOLTIP_OFFSET_Y;
+                _tooltip.style("left", left + "px").style("top", top + "px");
+            })
+            .on("mouseout", () => _tooltip.style("opacity", 0));
+    });
+}

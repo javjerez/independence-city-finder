@@ -6,6 +6,8 @@
 
 // *** CONFIGURATION ***
 
+const ATTR = await fetch("./data/attributes.json").then(r => r.json());
+
 const CONFIG = {
   MAX_SELECTED: 5,      // max attributes selectable at once
   SLIDER_MIN: 1,        // min weight value
@@ -22,36 +24,39 @@ const CONFIG = {
 'attribute' (the key): it is the dot-path used to read the value from a city object
 'label': it is what appears in the UI box
 */
+export const ATTRIBUTES = Object.entries(ATTR)
+  .filter(([, meta]) => meta.visualize)
+  .map(([key, meta]) => ({ attribute: key, label: meta.name }));
 
-export const ATTRIBUTES = [
-  { attribute: 'housing', label: 'Housing' },
-  { attribute: 'cost_of_living', label: 'Cost of Living' },
-  { attribute: 'startups', label: 'Startups' },
-  { attribute: 'venture_capital', label: 'Venture Capital' },
-  { attribute: 'travel_connectivity', label: 'Travel Connectivity' },
-  { attribute: 'commute', label: 'Commute' },
-  { attribute: 'business_freedom', label: 'Business Freedom' },
-  { attribute: 'safety', label: 'Safety' },
-  { attribute: 'healthcare', label: 'Healthcare' },
-  { attribute: 'education', label: 'Education' },
-  { attribute: 'environmental_quality', label: 'Environmental Quality' },
-  { attribute: 'economy', label: 'Economy' },
-  { attribute: 'taxation', label: 'Taxation' },
-  { attribute: 'internet_access', label: 'Internet Access' },
-  { attribute: 'leisure_&_culture', label: 'Leisure & Culture' },
-  { attribute: 'tolerance', label: 'Tolerance' },
-  { attribute: 'outdoors', label: 'Outdoors' },
-
-  // Extra datasets
-  // { attribute: 'population', label: 'Population' },
-  // { attribute: 'mcmeal_combo', label: 'McMeal Price' },
-  { attribute: 'avg_monthly_net_salary', label: 'Monthly Salary' },
-  // { attribute: 'internet_60mbps', label: 'Internet 60Mbps Price' },
-
-  // Sunshine
-  { attribute: 'sun_year', label: 'Yearly Sunshine' }
-  // { attribute: 'temp_year', label: 'Yearly Temperature' }
-];
+//export const ATTRIBUTES = [
+//  { attribute: 'housing', label: 'Housing' },
+//  { attribute: 'cost_of_living', label: 'Cost of Living' },
+//  { attribute: 'startups', label: 'Startups' },
+//  { attribute: 'venture_capital', label: 'Venture Capital' },
+//  { attribute: 'travel_connectivity', label: 'Travel Connectivity' },
+//  { attribute: 'commute', label: 'Commute' },
+//  { attribute: 'business_freedom', label: 'Business Freedom' },
+//  { attribute: 'safety', label: 'Safety' },
+//  { attribute: 'healthcare', label: 'Healthcare' },
+//  { attribute: 'education', label: 'Education' },
+//  { attribute: 'environmental_quality', label: 'Environmental Quality' },
+//  { attribute: 'economy', label: 'Economy' },
+//  { attribute: 'taxation', label: 'Taxation' },
+//  { attribute: 'internet_access', label: 'Internet Access' },
+//  { attribute: 'leisure_&_culture', label: 'Leisure & Culture' },
+//  { attribute: 'tolerance', label: 'Tolerance' },
+//  { attribute: 'outdoors', label: 'Outdoors' },
+//
+//  // Extra datasets
+//  // { attribute: 'population', label: 'Population' },
+//  // { attribute: 'mcmeal_combo', label: 'McMeal Price' },
+//  { attribute: 'avg_monthly_net_salary', label: 'Monthly Salary' },
+//  // { attribute: 'internet_60mbps', label: 'Internet 60Mbps Price' },
+//
+//  // Sunshine
+//  { attribute: 'sun_year', label: 'Yearly Sunshine' }
+//  // { attribute: 'temp_year', label: 'Yearly Temperature' }
+//];
 
 
 // *** MODULE STATE *** 
@@ -109,12 +114,11 @@ export function initControls(onChange = () => { }) {
     new_attr_button.classList.add('attr-button');
     new_attr_button.dataset.attribute = attr.attribute;     // attribute is the 'key' used in the map
     new_attr_button.textContent = attr.label;
-    new_attr_button.title = attr.label;         // full label visible on hover
+    new_attr_button.title = ATTR[attr.attribute].description;         // full label visible on hover
     new_attr_button.addEventListener('click', () => onBoxClick(attr.attribute));
     grid.appendChild(new_attr_button);
   });
 }
-
 
 // *** INTERACTION HANDLERS *** 
 

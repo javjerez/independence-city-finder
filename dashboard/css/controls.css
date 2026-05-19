@@ -1,4 +1,4 @@
-#controls-wrapper {    
+#controls-wrapper {
     height: 100%;
     padding: 14px;
     display: grid;
@@ -8,7 +8,7 @@
     /* DEBUG: background-color: brown; */
     background: #101827;
     color: #f8fafc;
-    border-top: 1px solid rgba(255,255,255,0.12);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
     font-family: system-ui, sans-serif;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .attr-button {
-    border: 1px solid rgba(255,255,255,0.14);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 999px;
     padding: 7px 10px;
 
@@ -97,8 +97,8 @@
 
     padding: 6px 8px;
     border-radius: 9px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
 }
 

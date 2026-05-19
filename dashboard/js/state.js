@@ -252,7 +252,7 @@ function _notifyModules() {
   updateCityCard(_primaryCity, _comparedCities, weights, scores);
 
   // Radar: update radar chart
-  radar_render(_cities, _getCurrentCities());
+  radar_render(_cities, _getCurrentCities(), _metricStats);
 }
 
 
