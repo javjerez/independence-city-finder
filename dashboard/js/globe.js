@@ -211,9 +211,21 @@ function updateCityZoom() {
 
 // Functionn to activate the zoom/pan behavior on the SVG
 function attachZoom() {
+    // we obtain the current size of the map
+    const { width, height } = svg.node().getBoundingClientRect();
+
     // zoom: supports 'drag', 'scroll zoom' and 'trackpad zoom' (for laptops)
     const zoom = d3.zoom()
-      .scaleExtent([CONFIG.MIN_ZOOM, CONFIG.MAX_ZOOM])
+      .scaleExtent([CONFIG.MIN_ZOOM, CONFIG.MAX_ZOOM])    // limits the possible zoom done in the map
+
+      // Limits the visible area where the user can pan/zoom
+      .extent([[0, 0], [width, height]])
+
+      // Limits how far the map content can be dragged
+      .translateExtent([
+        [-width * 0.06, -height * 0.06],      // [xmin, ymin],
+        [width * 1.06, height * 1.06]         // [xmax, ymax]
+      ])
 
       // every time the user 'drags', 'scrolls zoom' or 'trackpad zoom':
       // this function is called with the new zoom/pan transform

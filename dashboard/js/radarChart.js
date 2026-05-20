@@ -2,9 +2,6 @@
 //  STEP 1 — CONFIGURATION
 // ============================================================
 
-const ATTRIBUTES = await fetch("./data/attributes.json").then(r => r.json());
-
-
 const CONFIG = {
 
     // -- Shared colors — index 0 = primary, 1–4 = compared ----
@@ -67,23 +64,6 @@ const CONFIG = {
     TOOLTIP_OFFSET_Y: 28,
 
     HOVER_SLIDE_HITBOX_FRACTION: 0.5, // 1.0 = full width, lower = narrower
-
-    // Attributes to always exclude (coordinates, IDs, etc.)
-    DEFAULT_EXCLUDED_ATTRS: [
-        'lat', 'lon', 'iso3', 'city', 'country', 'population', 'mcmeal_combo',
-        'sun_jan', 'sun_feb', 'sun_mar', 'sun_apr', 'sun_may', 'sun_jun',
-        'sun_jul', 'sun_aug', 'sun_sep', 'sun_oct', 'sun_nov', 'sun_dec',
-        'temp_jan', 'temp_feb', 'temp_mar', 'temp_apr', 'temp_may', 'temp_jun',
-        'temp_jul', 'temp_aug', 'temp_sep', 'temp_oct', 'temp_nov', 'temp_dec',
-    ],
-
-    INVERT_METRICS: new Set([
-        'cost_of_living',
-        'commute',
-        'taxation',
-        'mcmeal_combo',
-        'internet_60mbps'
-    ]),
 };
 
 
@@ -159,17 +139,20 @@ function _norm(value, min, max, invert = false) {
  *   – remove CONFIG.DEFAULT_EXCLUDED_ATTRS + caller-supplied excludedAttrs
  */
 function _resolveAttrs(data, extraExcluded = []) {
-    if (!data || !data.length) return [];
-    const excluded = new Set([
-        ...CONFIG.DEFAULT_EXCLUDED_ATTRS.map(s => s.toLowerCase()),
-        ...extraExcluded.map(s => s.toLowerCase()),
-    ]);
+    const excluded = new Set(extraExcluded.map(s => s.toLowerCase()));
 
-    return Object.keys(data[0]).filter(key => {
-        if (excluded.has(key.toLowerCase())) return false;
-        // Keep only numeric-valued attributes
-        return data.some(d => isFinite(+d[key]) && d[key] !== '' && d[key] !== null);
-    });
+    return Object.entries(ATTRIBUTES)
+        .filter(([key, meta]) => {
+            if (excluded.has(key.toLowerCase())) return false;
+            if (meta.visualize === false) return false;
+
+            return data.some(d =>
+                d[key] !== null &&
+                d[key] !== '' &&
+                isFinite(+d[key])
+            );
+        })
+        .map(([key]) => key);
 }
 
 
@@ -365,10 +348,13 @@ function _resolveAttrs(data, extraExcluded = []) {
 //  Call once from main.js after the DOM is ready.
 // ============================================================
 
-export function initRadarChart() {
+// Handling attributes
+let ATTRIBUTES = {};
+
+export function initRadarChart(attributes) {
+    ATTRIBUTES = attributes;
     _renderPlaceholder(CONFIG.CHARTS_ID);
 }
-
 
 // ============================================================
 //  PLACEHOLDER
@@ -473,8 +459,7 @@ export function radar_render(
     data,
     cities,
     norms,
-    excludedAttrs = CONFIG.DEFAULT_EXCLUDED_ATTRS,
-    invert = CONFIG.INVERT_METRICS
+    excludedAttrs = CONFIG.DEFAULT_EXCLUDED_ATTRS
 ) {
     d3.select(`#${CONFIG.CHARTS_ID}`).selectAll("*").remove();
 
@@ -510,7 +495,7 @@ export function radar_render(
         const normValues = attrs.map(attr => {
             const { min, max } = norms.get(attr);
             const norm = max === min ? 0 : (cityRow[attr] - min) / (max - min);
-            return invert.has(attr) ? 1 - norm : norm;
+            return ATTRIBUTES[attr]?.invert ? 1 - norm : norm;
         });
 
         const color = CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
@@ -604,6 +589,8 @@ function _drawRadar(normValues, attributeNames, color, size, wrapper) {
     const halfSlice = (angleSlice * sliceFraction) / 2;
 
     normValues.forEach((val, i) => {
+        const meta = ATTRIBUTES[attributeNames[i]] ?? attributeNames[i];
+
         const midAngle = angleSlice * i;
         hoverGroup.append("path")
             .attr("d", arc({
@@ -615,7 +602,7 @@ function _drawRadar(normValues, attributeNames, color, size, wrapper) {
             .on("mouseover", (event) => {
                 _tooltip
                     .style("opacity", 1)
-                    .html(`<strong>${ATTRIBUTES[attributeNames[i]].name}</strong><br>Score: ${(val * 100).toFixed(1)}/100`);
+                    .html(`<strong>${meta.name ?? attributeNames[i]}</strong><br>Score: ${(val * 100).toFixed(1)}/100`);
             })
             .on("mousemove", (event) => {
                 const node = _tooltip.node();

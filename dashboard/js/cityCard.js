@@ -4,8 +4,6 @@ City information card + radar chart
 Mounts into #city-card-container
 */
 
-import { ATTRIBUTES } from './controls.js';
-
 const CONFIG = {
   RADAR_LEVELS: 4,
   RADAR_MIN_LENGTH: 120,
@@ -23,7 +21,11 @@ let _weights = [];
 let _scores = new Map();        // normalized values of current city
 let _onCityTabClick = () => {}; // saves a functions that is executed when we click a city in the header
 
-export function initCityCard(onCityTabClick = () => {}) {
+// Handling attributes
+let ATTRIBUTES = {};
+
+export function initCityCard(attributes, onCityTabClick = () => {}) {
+  ATTRIBUTES = attributes;
   _onCityTabClick = onCityTabClick;
 
   const container = document.getElementById('city-card-container');
@@ -145,7 +147,7 @@ function renderInfo() {
   // For each selected attribute, show only the normalized score.
   // This keeps the row compact and avoids vertical overflow in the card.
   _weights.forEach(({ attribute }) => {
-    const label = getAttributeLabel(attribute);
+    const name = getAttributeName(attribute);
     const normalized = _scores.get(attribute);  // value between 0 and 1
     const score10 = normalized != null ? normalized * 10 : null;
 
@@ -153,7 +155,7 @@ function renderInfo() {
     row.className = 'attribute-row';
 
     row.innerHTML = `
-      <span class="attribute-label">${label}</span>
+      <span class="attribute-label">${name}</span>
 
       <div class="attribute-bar">
         <div 
@@ -247,9 +249,9 @@ function renderRadar() {
       .attr('dominant-baseline', 'middle')
       .attr('class', 'radar-label')
       // cuts the long labels so that they occupy too much space
-      .text(shortLabel(getAttributeLabel(attribute)))
+      .text(shortLabel(getAttributeName(attribute)))
       .append('title')
-      .text(getAttributeLabel(attribute));
+      .text(getAttributeName(attribute));
   });
 
   // For each attribute:
@@ -278,8 +280,8 @@ function renderRadar() {
     .attr('r', CONFIG.DOT_RADIUS);
 }
 
-function getAttributeLabel(attribute) {
-  return ATTRIBUTES.find(a => a.attribute === attribute)?.label ?? attribute;
+function getAttributeName(attribute) {
+  return ATTRIBUTES[attribute]?.name ?? attribute;
 }
 
 // 2 decimal values format

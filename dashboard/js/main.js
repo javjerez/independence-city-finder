@@ -6,33 +6,26 @@ Load order:
     2. Then other feature modules (globe, controls, city card, comparison)
 */
 
-// Load state first (since it is a shared store, other modules depend on it)
 import { initState, onWeightsChange, setPrimaryCityFromHeader } from './state.js';
-
-// Load each feature module
 import { initControls, getWeights } from './controls.js';
-
-initControls(() => {
-    onWeightsChange(getWeights());
-    console.log('UPDATE: weights changed!!!');
-});
-
 import { initGlobe } from './globe.js';
-
-// Non-finished modules
 import { initCityCard } from './cityCard.js';
-//import { initComparison } from './comparison.js';
 import { initBarChart } from './barChart.js';
 import { initRadarChart } from './radarChart.js';
 
-// Load the data and initialize the app
+// Load data
 const cities = await d3.json('data/pretty_columns_dataset.json');
-//const cities = await d3.json('data/cities_dataset.json');
-//const cities = await d3.json('data/columns_dataset.json');
+const attributes= await fetch("./data/attributes.json").then(r => r.json());
 
-initState(cities);
+// Load state first (since it is a shared store, other modules depend on it)
+initState(attributes, cities);
+
+initControls(attributes, () => {
+    onWeightsChange(getWeights());                        // DO NOT SEND THE 'getWeights()' function !!!
+    console.log('UPDATE: weights changed!!!');
+});
+
 initGlobe(cities);
-
-initBarChart();
-initRadarChart();
-initCityCard(setPrimaryCityFromHeader);   // for changing the names of the header in the city card
+initBarChart(attributes);
+initRadarChart(attributes);
+initCityCard(attributes, setPrimaryCityFromHeader);   // for changing the names of the header in the city card

@@ -2,9 +2,6 @@
 //  STEP 1 — CONFIGURATION
 // ============================================================
 
-const ATTRIBUTES = await fetch("./data/attributes.json").then(r => r.json());
-
-
 const CONFIG = {
 
     // -- Shared colors — index 0 = primary, 1–4 = compared ----
@@ -67,7 +64,9 @@ const tooltip = d3.select("body").append("div")
 
 
 
-function _drawBarChart(data, attr, width, height, targetEl) {
+function _drawBarChart(data, attribute, width, height, targetEl) {
+    const meta = ATTRIBUTES[attribute] ?? {};
+
     // --- Derived dimensions ---
     const innerWidth = width - CONFIG.MARGIN.LEFT - CONFIG.MARGIN.RIGHT;
     const innerHeight = height - CONFIG.MARGIN.TOP - CONFIG.MARGIN.BOTTOM;
@@ -88,7 +87,7 @@ function _drawBarChart(data, attr, width, height, targetEl) {
         .padding(CONFIG.BAR_PADDING);
 
     const y = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d[attr])])
+        .domain([0, d3.max(data, d => d[attribute])])
         .nice()
         .range([innerHeight, 0]);
 
@@ -112,15 +111,15 @@ function _drawBarChart(data, attr, width, height, targetEl) {
         .data(data)
         .join("rect")
         .attr("x", d => x(d.city))
-        .attr("y", d => y(d[attr]))
+        .attr("y", d => y(d[attribute]))
         .attr("width", x.bandwidth())
-        .attr("height", d => innerHeight - y(d[attr]))
+        .attr("height", d => innerHeight - y(d[attribute]))
         .attr("fill", d => colorForCity(d.city))
         .attr("rx", CONFIG.BAR_RADIUS)
         .on("mouseover", (event, d) => {
             tooltip
                 .style("opacity", 1)
-                .html(`<strong>${d.city}</strong>: ${d[attr].toFixed(1)}${ATTRIBUTES[attr].unit_measure_short}`);
+                .html(`<strong>${d.city}</strong>: ${d[attribute].toFixed(1)}${meta.unit_measure_short ?? ''}`);
         })
         .on("mousemove", (event) => {
             const tooltipNode = tooltip.node();
@@ -173,7 +172,11 @@ function _drawBarChart(data, attr, width, height, targetEl) {
 //  Call once from main.js after the DOM is ready.
 // ============================================================
 
-export function initBarChart() {
+// Handling attributes
+let ATTRIBUTES = {};
+
+export function initBarChart(attributes) {
+    ATTRIBUTES = attributes;
     _renderPlaceholder('comparison-histogram');
 }
 
@@ -235,18 +238,20 @@ export function barchart_render(data, selectedCities, selectedAttrs) {
     //    _drawBarChart(filteredData, attr, chartWidth);
     //});
 
-    selectedAttrs.forEach(attr => {
+    selectedAttrs.forEach(attribute => {
+        const meta = ATTRIBUTES[attribute] ?? {};
+
         const wrapper = document.createElement('div');
         wrapper.className = 'city-barchart-wrapper';
         wrapper.style.width = `${100 / selectedAttrs.length}%`;
 
         const label = document.createElement('div');
         label.className = 'city-barchart-label';
-        label.textContent = ATTRIBUTES[attr].name;
-        label.title = ATTRIBUTES[attr].description;
+        label.textContent = meta.name ?? attribute;
+        label.title = meta.description ?? meta.name ?? attribute;
 
         container.appendChild(wrapper);
-        _drawBarChart(filteredData, attr, chartWidth, chartHeight, wrapper);
+        _drawBarChart(filteredData, attribute, chartWidth, chartHeight, wrapper);
         wrapper.appendChild(label);
     });
 }

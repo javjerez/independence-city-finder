@@ -24,26 +24,13 @@ import { updateDotsColor, updateDotSizes } from './globe.js';
 import { getWeights, getSelectedAttributes } from './controls.js';
 
 import { updateCityCard } from './cityCard.js';
-import { initComparison, updateComparison, renderLegend } from './comparison.js';
+// import { initComparison, updateComparison, renderLegend } from './comparison.js';
 import { barchart_render } from './barChart.js';
 import { radar_render } from './radarChart.js';
 
 // CONFIGURATION
 const CONFIG = {
   MAX_COMPARED: 4,
-
-  // Metrics where a LOWER value is better
-  // These are inverted before normalization so that
-  // after normalization, higher always = better
-  INVERT_METRICS: new Set([
-    'cost_of_living',
-    'commute',
-    'taxation',
-    'mcmeal_combo',
-    'internet_60mbps'
-  ]),
-  // contains the 'keys' of the attributes
-
 };
 
 // MODULE STATE
@@ -57,10 +44,13 @@ let _scoreMap = new Map();  // city.city --> composite score (0–1)
 // Min/max per metric key (computed once on init from full dataset)
 let _metricStats = new Map();   // key → { min, max }
 
+// Handling attributes
+let _attributes = {};
 
 //  Computes metric stats across the full dataset once and stores them
-export function initState(cities) {
+export function initState(attributes, cities) {
   _cities = cities;
+  _attributes = attributes;
   _computeMetricStats();
   console.log('[state] initialised with', _cities.length, 'cities');
 }
@@ -246,7 +236,7 @@ function _notifyModules() {
 
   // BarChart: update bar chart
   barchart_render(_cities, _getCurrentCities(), getSelectedAttributes());
-  renderLegend();
+  // renderLegend();
 
   // update of cityCard.js
   updateCityCard(_primaryCity, _comparedCities, weights, scores);
@@ -301,7 +291,7 @@ function _normalizeCityValue(city, attribute) {
   if (max === min) return null;
 
   // Invert if lower-is-better
-  if (CONFIG.INVERT_METRICS.has(attribute)) {
+  if (_attributes[attribute]?.invert) {
     val = max - val + min;
     // e.g: if min = 10, max = 100, val = 30 
     // --> invertedVal = 100 - 30 + 10 = 80 (originally low, now high)
@@ -322,29 +312,10 @@ function _getNestedValue(obj, dotPath) {
 }
 
 // Returns dot-path strings for all numeric metric keys, by walking the first city object.
-// dot-path example: 'qol.safety_index'
 function _getAllMetricKeys() {
-  // We assume all cities have the same structure
-  if (_cities.length === 0) return [];
-  const keys = [];
-
-  // We walk the object tree and collect dot-paths for numeric values
-  function walk(obj, prefix) {
-    // For example, if prefix is 'qol' and attribute is 'safety_index', path becomes 'qol.safety_index'
-    Object.entries(obj).forEach(([attribute, value]) => {
-      // so path prefix is '' at the root, then 'qol', then 'qol.safety_index', etc
-      const path = prefix ? `${prefix}.${attribute}` : attribute;
-      if (typeof value === 'object' && value !== null) {
-        walk(value, path);
-      } else if (typeof value === 'number') {
-        keys.push(path);
-      }
-    });
-  }
-
-  // Start walking from the first city object
-  walk(_cities[0], '');   // walk means we traverse the object tree recursively, building dot-paths as we go, collecting keys for numeric values
-  return keys;
+  return Object.entries(_attributes)
+    .filter(([, meta]) => meta.visualize !== false)
+    .map(([attribute]) => attribute);
 }
 
 function _getCurrentCities() {
