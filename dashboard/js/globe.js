@@ -35,7 +35,7 @@ let currentZPTransform = d3.zoomIdentity; // stores the current zoom, position a
 // k: scale (zoom level)
 
 let cities = [];              // list of city data loaded from JSON
-let scoreMap = new Map();     // city name --> score
+let _scoreMap = new Map();     // city name --> score
 
 // For 'hover' tooltip
 let tooltip = null;
@@ -175,7 +175,7 @@ function drawCities() {
 // Computes the radius of a city dot based on its SCORE and ZOOM level (currentZPTransform.k)
 function getCityRadius(city) {
     // the city does not have a score --> '0'
-    const score = scoreMap.get(city.city) ?? 0;
+    const score = _scoreMap.get(city.city) ?? 0;
 
     // Converts scores (0 to 1) to a radius size in the range [CITY_RADIUS_MIN, CITY_RADIUS_MAX]
     const radiusScale = d3.scaleLinear()
@@ -183,7 +183,7 @@ function getCityRadius(city) {
       .range([CONFIG.CITY_RADIUS_MIN, CONFIG.CITY_RADIUS_MAX]);
 
     // if the city has a score, use the scaled radius, otherwise use the default radius
-    const baseRadius = scoreMap.size > 0
+    const baseRadius = _scoreMap.size > 0
       ? radiusScale(score)
       : CONFIG.CITY_RADIUS;
 
@@ -245,6 +245,9 @@ function attachZoom() {
 
 // Shows the tooltip with city name and country when hovering on a city dot
 function showTooltip(event, city) {
+  const score = _scoreMap.size > 0 ? _scoreMap.get(city.city) : null;
+  const score10 = score != null ? score * 10 : null;
+
   tooltip
     .style('display', 'block')
     .html(`
@@ -253,6 +256,9 @@ function showTooltip(event, city) {
       </div>
       <div class="tooltip-country">
         ${city.country}
+      </div>
+      <div class="tooltip-score">
+        Score: <strong>${score10 != null ? score10.toFixed(1) : '—'} / 10</strong>
       </div>
     `)
     .style('left', (event.offsetX + 12) + 'px')
@@ -297,7 +303,7 @@ function createMapToggleButton(map_container) {
 
 // Function to update the radius of city dots based on their scores
 export function updateDotSizes(newscoreMap) {
-    scoreMap = newscoreMap ?? new Map();  // if map does not exist, use empty map (not possible case)
+    _scoreMap = newscoreMap ?? new Map();  // if map does not exist, use empty map (not possible case)
 
     // if cities not drawn yet --> do nothing
     if (!gCities) return; // To avoid errors when trying to update dot sizes before the map is initialized

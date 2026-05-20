@@ -18,7 +18,8 @@ const CONFIG = {
 let _primaryCity = null;
 let _comparedCities = [];
 let _weights = [];
-let _scores = new Map();        // normalized values of current city
+let _scores = new Map();        // ("arttribute" --> score) - normalized values of current city
+let _cityScore = null;
 let _onCityTabClick = () => {}; // saves a functions that is executed when we click a city in the header
 
 // Handling attributes
@@ -55,11 +56,12 @@ export function initCityCard(attributes, onCityTabClick = () => {}) {
 }
 
 // Called by state.js when the primaryCity, compared cities, weights or score changes
-export function updateCityCard(primaryCity, comparedCities, weights, scores) {
+export function updateCityCard(primaryCity, comparedCities, weights, scores, cityScore) {
   _primaryCity = primaryCity;
   _comparedCities = comparedCities ?? [];
   _weights = weights ?? [];
   _scores = scores ?? new Map();
+  _cityScore = cityScore ?? null;
   // '??' means: if value is NULL/undefined, we use default value
 
   renderCityCard();
@@ -115,7 +117,14 @@ function renderInfo() {
   }
 
   title.textContent = `${_primaryCity.city}, ${_primaryCity.country}`;
-  subtitle.textContent = `Population: ${formatNumber(_primaryCity.population)}`;
+
+  const score10 = _cityScore != null ? _cityScore * 10 : null;
+
+  // subtitle.textContent = `Population: ${formatNumber(_primaryCity.population)}
+  subtitle.innerHTML = `
+    Population: ${formatNumber(_primaryCity.population)}<br>
+    Score: <strong>${score10 != null ? score10.toFixed(1) : '—'} / 10</strong>
+  `;
 
   // Compute derived affordability indicator
   // "How many McMeal menus can be bought with one average monthly salary"

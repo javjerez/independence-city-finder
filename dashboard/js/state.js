@@ -227,6 +227,7 @@ function _notifyModules() {
   const weights = getWeights();
   // we compute the normalized scores for the primary city
   const scores = _getNormalizedScoresForCity(_primaryCity, weights);
+  const cityScore = (_primaryCity && _scoreMap.size > 0) ? _scoreMap.get(_primaryCity.city) : null; 
 
   // Globe: update dot colours
   updateDotsColor(_primaryCity, _comparedCities);
@@ -239,7 +240,7 @@ function _notifyModules() {
   // renderLegend();
 
   // update of cityCard.js
-  updateCityCard(_primaryCity, _comparedCities, weights, scores);
+  updateCityCard(_primaryCity, _comparedCities, weights, scores, cityScore);
 
   // Radar: update radar chart
   radar_render(_cities, _getCurrentCities(), _metricStats);
