@@ -2,15 +2,16 @@
 // Mounts into: #globe-container
 
 import { selectCity } from './state.js';
+import { COLORS } from './colors.js';
 
 const CONFIG = {
     CITY_RADIUS: 4,
     CITY_RADIUS_MIN: 3,
     CITY_RADIUS_MAX: 16,
 
-    CITY_COLOR: '#38bdf8',
-    CITY_COLOR_PRIMARY: '#ff7a3d',
-    CITY_COLOR_COMPARISON: '#facc15',
+    CITY_COLOR: COLORS.accent,
+    CITY_COLOR_PRIMARY: COLORS.selectedPrimary,
+    CITY_COLOR_COMPARISON: COLORS.selectedComparison,
 
     LAND_COLOR: '#254437',
     BORDER_COLOR: 'rgba(255,255,255,0.25)',

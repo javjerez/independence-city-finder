@@ -4,6 +4,8 @@ City information card + radar chart
 Mounts into #city-card-container
 */
 
+import { getScoreColor } from './colors.js';
+
 const CONFIG = {
   RADAR_LEVELS: 4,
   RADAR_MIN_LENGTH: 120,
@@ -13,6 +15,8 @@ const CONFIG = {
   RADAR_FILL_OPACITY: 0.22,
   RADAR_STROKE_WIDTH: 2,
   DOT_RADIUS: 4,
+  MIN_SCORE: 0.5,
+  MID_SCORE: 0.75,
 };
 
 let _primaryCity = null;
@@ -159,6 +163,7 @@ function renderInfo() {
     const name = getAttributeName(attribute);
     const normalized = _scores.get(attribute);  // value between 0 and 1
     const score10 = normalized != null ? normalized * 10 : null;
+    const scoreColor = getScoreColor(normalized, CONFIG.MIN_SCORE, CONFIG.MID_SCORE);
 
     const row = document.createElement('div');
     row.className = 'attribute-row';
@@ -169,7 +174,10 @@ function renderInfo() {
       <div class="attribute-bar">
         <div 
           class="attribute-bar-fill" 
-          style="width: ${score10 != null ? score10 * 10 : 0}%"
+          style="
+                width: ${score10 != null ? score10 * 10 : 0}%;
+                background: ${scoreColor};
+                "
         ></div>
       </div>
 
