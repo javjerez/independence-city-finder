@@ -28,7 +28,7 @@ body {
     width: 100vw;
     height: 100vh;
 
-    background-color: red;
+    background: #0f172a;
 }
 
 
@@ -42,6 +42,11 @@ body {
 }
 
 #info-btn {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 20;
+
     width: 22px;
     height: 22px;
     border-radius: 50%;
@@ -86,14 +91,13 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
 
     flex: 55;
 
     /* border-right: 1px solid var(--color-border); */
     --split-left: 70%;
     /* ← single source of truth for globe/controls split */
-
-    background-color: blueviolet;
 }
 
 #globe-container {
@@ -119,7 +123,6 @@ body {
     overflow-y: auto;
     /* allows controls to scroll if they overflow */
 
-    background-color: lightslategray;
     /*border-radius: 25px;*/
 }
 
@@ -135,10 +138,7 @@ body {
     cursor: col-resize;
     z-index: 100;
     transform: translateX(-50%);
-
     /* background: var(--color-border); */
-
-    background-color: yellow;
 }
 
 /**************** RIGHT PANEL  (city card (bot) + comparison views (top)) ******************/
@@ -154,7 +154,6 @@ body {
     height: 100vh;
     overflow: hidden;
 
-    background-color: orange;
 }
 
 /*
@@ -174,16 +173,12 @@ body {
     flex: 3;
     overflow: hidden;
     position: relative;
-
-    background-color: lightpink;
 }
 
 #comparison-radar {
-    flex: 2;
+    flex: 0 0 auto;
     overflow: hidden;
     position: relative;
-
-    background-color: limegreen;
 }
 
 .comparison-placeholder {
@@ -199,8 +194,6 @@ body {
     height: 100%;
     overflow: hidden;
     flex-direction: column;
-
-    background-color: orangered;
 }
 
 /*

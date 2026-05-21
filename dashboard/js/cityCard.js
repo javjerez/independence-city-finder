@@ -66,6 +66,10 @@ function renderTabs() {
     tabs.innerHTML = `<span class="city-card-empty-tab">No selected cities</span>`;
     return;
   }
+  if (cities.length === 1) {
+    tabs.innerHTML = `<span class="city-card-empty-tab">Select at least two cities to compare them</span>`;
+    return;
+  }
 
   tabs.innerHTML = '';
 

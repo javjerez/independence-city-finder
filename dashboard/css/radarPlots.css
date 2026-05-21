@@ -1,29 +1,37 @@
 #comparison-radar {
+    flex: 0 0 auto;
+    max-height: 30vh;
     display: flex;
     flex-direction: row;
-    align-items: stretch;
+    align-items: flex-start;
     background: #0f172a;
     color: #e5e7eb;
 }
 
+/*
 .city-radar-wrapper {
     display: flex;
     align-items: center;
-}
-
-.city-radar-wrapper--even {
-    align-self: flex-start;
     flex-direction: column;
 }
-
-.city-radar-wrapper--odd {
-    align-self: flex-end;
-    flex-direction: column-reverse;
-}
+*/
 
 .city-radar-label {
     text-align: center;
     font-size: 12px;
     font-weight: bold;
     width: 100%;
+    padding: 5px;
+}
+
+.city-radar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 30vh;
+}
+
+/* SVG fills wrapper width, height follows aspect ratio */
+.city-radar-wrapper svg {
+    display: block;
 }

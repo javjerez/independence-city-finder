@@ -230,7 +230,7 @@ export function barchart_render(data, selectedCities, selectedAttrs) {
     // --- Filter data to selected cities ---
     // We do this once here rather than inside _drawBarChart,
     // so the function receives only what it needs to draw.
-    const filteredData = data.filter(d => selectedCities.includes(d.city));
+    const filteredData = selectedCities.map(city => data.find(d => d.city === city)).filter(Boolean);
 
     // --- Draw one chart per selected attribute ---
     // Each chart shares the same filtered city data but has its own y scale.

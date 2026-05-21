@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="./css/radarPlots.css" />
   <link rel="stylesheet" href="./css/barChart.css" />
   <link rel="stylesheet" href="./css/colors.css" />
+  <link rel="stylesheet" href="./css/button.css" />
 </head>
 
 <body>
@@ -34,11 +35,76 @@
     <!------------------------ LEFT PANEL ------------------------------>
     <div id="panel-left">
 
-      <div id="globe-container">
-        <div id="info-btn-wrapper">
-          <button id="info-btn" aria-label="Data information">i</button>
-          <div id="info-panel" hidden>
-            <!-- paste the transparency HTML here -->
+      <div id="globe-container"></div>
+
+      <div id="info-overlay"></div>
+
+      <div id="info-btn-wrapper">
+        <button id="info-btn" aria-label="Data information">i</button>
+        <div id="info-panel">
+          <div class="info-box">
+            <h2>Data transparency</h2>
+
+            <div class="stat-row">
+              <div class="stat">
+                <div class="stat-label">Cities</div>
+                <div class="stat-value">238</div>
+                <div class="stat-sub">after cleaning &amp; merging</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Attributes</div>
+                <div class="stat-value">20</div>
+                <div class="stat-sub">across 4 categories</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Data period</div>
+                <div class="stat-value">2023–24</div>
+                <div class="stat-sub">static snapshot</div>
+              </div>
+            </div>
+
+            <h3>Sources</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Attributes</th>
+                  <th>Dataset</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>17 quality-of-life scores</td>
+                  <td>Teleport City Scores <span class="tag">Kaggle</span></td>
+                  <td>Composite index (0–10)</td>
+                </tr>
+                <tr>
+                  <td>Meal price, net salary, internet cost</td>
+                  <td>Numbeo Cost of Living <span class="tag">Kaggle</span></td>
+                  <td>Crowdsourced · USD</td>
+                </tr>
+                <tr>
+                  <td>Coordinates, population</td>
+                  <td>World Cities Info <span class="tag">Kaggle</span></td>
+                  <td>Curated</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Methodology notes</h3>
+            <ul class="note-list">
+              <li>The 17 QoL scores are composite indices computed by Teleport from multiple sub-indicators. Exact
+                weighting
+                is proprietary.</li>
+              <li>Numbeo data is user-reported; accuracy may vary in less-represented cities.</li>
+              <li>Monetary values are in USD and not inflation-adjusted. Since all figures are from roughly the same
+                period,
+                the effect on comparisons is negligible.</li>
+              <li>The dataset is anchored on Teleport's city list (289 cities). Cities missing any attribute after
+                merging
+                were dropped, introducing a bias toward larger, well-documented cities.</li>
+              <li>Data reflects a static snapshot and is not updated in real time.</li>
+            </ul>
           </div>
         </div>
       </div>

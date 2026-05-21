@@ -476,14 +476,8 @@ export function radar_render(
     }
 
     const filteredData = data.filter(d => cities.includes(d.city));
-
     const container = document.getElementById(CONFIG.CHARTS_ID);
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
-    const labelHeight = 24;
-    const availablePerChart = containerWidth / cities.length;
-    const availableHeight = containerHeight - labelHeight;
-    const size = Math.min(availablePerChart, availableHeight, CONFIG.CHART_SIZE);
+    const maxHeight = parseFloat(getComputedStyle(container).maxHeight);
 
     cities.forEach((cityName, i) => {
         const cityRow = filteredData.find(d => d.city === cityName);
@@ -501,10 +495,10 @@ export function radar_render(
         const color = CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
 
         const wrapper = document.createElement('div');
-        const parityClass = cities.length < 3
-            ? 'city-radar-wrapper--even'
-            : (i % 2 === 0 ? 'city-radar-wrapper--even' : 'city-radar-wrapper--odd');
-        wrapper.className = `city-radar-wrapper ${parityClass}`;
+        //const parityClass = cities.length < 3
+        //    ? 'city-radar-wrapper--even'
+        //    : (i % 2 === 0 ? 'city-radar-wrapper--even' : 'city-radar-wrapper--odd');
+        wrapper.className = `city-radar-wrapper`;
         wrapper.style.width = `${100 / cities.length}%`;
 
         const label = document.createElement('div');
@@ -515,6 +509,7 @@ export function radar_render(
         wrapper.appendChild(label);
         container.appendChild(wrapper);
 
+        const size = Math.min(wrapper.clientWidth, maxHeight - 24);
         _drawRadar(normValues, attrs, color, size, wrapper);
     });
 }
