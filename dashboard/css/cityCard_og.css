@@ -4,25 +4,17 @@
   padding: 18px;
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   background: #0f172a;
   color: #e5e7eb;
   overflow: hidden;
 }
 
-/* Main layout — fills the card wrapper */
-#city-card-content {
-  flex: 1 1 auto;
-  min-width: 0;
-  min-height: 0;
-
-  display: flex;
-  overflow: hidden;
-}
-
-/* City selector — lives at the bottom of #top-right, outside the card wrapper */
+/* Header */
 #city-card-tabs {
   flex: 0 0 auto;
   height: 52px;
+  margin-bottom: 3px;
   padding: 6px;
   box-sizing: border-box;
 
@@ -30,12 +22,11 @@
   align-items: center;
   gap: 8px;
 
-  border-top: 1px solid #334155;
+  border: 2px solid #334155;
+  border-radius: 999px;
 
   overflow-x: auto;
   overflow-y: hidden;
-
-  background: #0f172a;
 }
 
 .city-tab,
@@ -71,6 +62,16 @@
 .city-tab--active {
 }
 */
+
+/* Main layout */
+#city-card-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  overflow: hidden;
+}
 
 /* Left information column */
 #city-card-info {
@@ -161,14 +162,13 @@
   min-width: 0;
   height: 6px;
   border-radius: 999px;
-  background: #334155;
+  background: var(--color-surface-soft);
   overflow: hidden;
 }
 
 .attribute-bar-fill {
   height: 100%;
   border-radius: 999px;
-  background: #38bdf8;
 }
 
 .attribute-score {

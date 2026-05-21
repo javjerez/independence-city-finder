@@ -24,38 +24,14 @@ let _comparedCities = [];
 let _weights = [];
 let _scores = new Map();        // ("arttribute" --> score) - normalized values of current city
 let _cityScore = null;
-let _onCityTabClick = () => {}; // saves a functions that is executed when we click a city in the header
+let _onCityTabClick = () => { }; // saves a functions that is executed when we click a city in the header
 
 // Handling attributes
 let ATTRIBUTES = {};
 
-export function initCityCard(attributes, onCityTabClick = () => {}) {
+export function initCityCard(attributes, onCityTabClick = () => { }) {
   ATTRIBUTES = attributes;
   _onCityTabClick = onCityTabClick;
-
-  const container = document.getElementById('city-card-container');
-  container.innerHTML = `
-    <div id="city-card-wrapper">
-      <div id="city-card-tabs"></div>
-
-      <div id="city-card-content">
-        <section id="city-card-info">
-          <div>
-            <h2 id="city-card-title">No city selected</h2>
-            <p id="city-card-subtitle">Click a city on the map to inspect it.</p>
-          </div>
-
-          <div id="city-card-stats"></div>
-
-          <div id="city-card-attributes"></div>
-
-        </section>
-
-        <section id="city-card-radar"></section>
-      </div>
-    </div>
-  `;
-
   renderCityCard();
 }
 
@@ -156,7 +132,7 @@ function renderInfo() {
   */
 
   attributes.innerHTML = '';
-  
+
   // For each selected attribute, show only the normalized score.
   // This keeps the row compact and avoids vertical overflow in the card.
   _weights.forEach(({ attribute }) => {

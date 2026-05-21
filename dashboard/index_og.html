@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="./css/cityCard.css" />
   <link rel="stylesheet" href="./css/radarPlots.css" />
   <link rel="stylesheet" href="./css/barChart.css" />
-  <link rel="stylesheet" href="./css/colors.css" />
+  <link rel="stylesheet" href="./css/colors.css" />  
 </head>
 
 <body>
@@ -55,34 +55,17 @@
     <!------------------------ RIGHT PANEL --------------------------->
     <div id="panel-right">
 
-      <div id="comparison-radar">
-        <!-- comparison radar mounts here -->
+      <div id="comparison-container">
+        <div id="comparison-radar">
+          <!-- comparison radar mounts here -->
+        </div>
+        <div id="comparison-histogram">
+          <!-- comparison histogram mounts here -->
+        </div>
       </div>
 
       <div id="city-card-container">
-        <div id="city-card-tabs"></div>
-        <div id="city-card-wrapper">
-          <div id="city-card-content">
-            <section id="city-card-info">
-              <div>
-                <h2 id="city-card-title">No city selected</h2>
-                <p id="city-card-subtitle">Click a city on the map to inspect it.</p>
-              </div>
-
-              <div id="city-card-stats"></div>
-
-              <div id="city-card-attributes"></div>
-
-            </section>
-
-            <section id="city-card-radar"></section>
-          </div>
-        </div>
         <!-- cityCard.js mounts here -->
-      </div>
-
-      <div id="comparison-histogram">
-        <!-- comparison histogram mounts here -->
       </div>
 
     </div>
