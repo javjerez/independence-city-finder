@@ -37,10 +37,6 @@ const CONFIG = {
     CHARTS_ID: "comparison-histogram",
 
     // Tooltip
-    TOOLTIP_FONT_SIZE: "12px",
-    TOOLTIP_PADDING: "6px 10px",
-    TOOLTIP_BORDER: "1px solid #ccc",
-    TOOLTIP_BORDER_RADIUS: "4px",
     TOOLTIP_OFFSET_X: 12,
     TOOLTIP_OFFSET_Y: 28,
 };
@@ -49,16 +45,9 @@ const CONFIG = {
 
 
 
-
 const tooltip = d3.select("body").append("div")
-    .style("position", "absolute")
-    .style("background", "white")
-    .style("border", "1px solid #ccc")
-    .style("border-radius", "4px")
-    .style("padding", "6px 10px")
-    .style("font-size", "12px")
-    .style("pointer-events", "none")   // so it doesn't interfere with mouse events
-    .style("opacity", 0);       // hidden by default
+    .attr("class", "bar-tooltip")
+    .style("opacity", 0);  
 
 
 

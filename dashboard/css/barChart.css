@@ -18,3 +18,13 @@
     width: 100%;
     padding: 10px;
 }
+
+.bar-tooltip {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    pointer-events: none;
+}

@@ -1,6 +1,6 @@
 #comparison-radar {
     flex: 0 0 auto;
-    max-height: 30vh;
+    max-height: 25vh;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -34,4 +34,14 @@
 /* SVG fills wrapper width, height follows aspect ratio */
 .city-radar-wrapper svg {
     display: block;
+}
+
+.radar-tooltip {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    pointer-events: none;
 }
