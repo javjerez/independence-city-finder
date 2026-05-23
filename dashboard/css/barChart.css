@@ -1,4 +1,5 @@
 #comparison-histogram {
+    flex: 1 1 0;
     display: flex;
     flex-direction: row;
     background: var(--color-bg);

@@ -93,6 +93,8 @@ body {
     overflow: hidden;
     position: relative;
 
+    background-color: var(--color-bg);
+
     flex: 55;
 
     /* border-right: 1px solid var(--color-border); */
@@ -111,7 +113,8 @@ body {
     overflow: hidden;
 
     background-color: skyblue;
-    /*border-radius: 25px;*/
+    border-radius: 25px;
+    border-color: var(--color-border);
 }
 
 #controls-container {
@@ -122,8 +125,6 @@ body {
     overflow: hidden;
     overflow-y: auto;
     /* allows controls to scroll if they overflow */
-
-    /*border-radius: 25px;*/
 }
 
 
@@ -142,6 +143,18 @@ body {
 }
 
 /**************** RIGHT PANEL  (city card (bot) + comparison views (top)) ******************/
+
+#city-panel {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    border-radius: 28px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+}
+
 
 #panel-right {
     /*grid-column: 2;*/
@@ -170,7 +183,7 @@ body {
 */
 
 #comparison-histogram {
-    flex: 3;
+    flex: 0 0 auto;
     overflow: hidden;
     position: relative;
 }

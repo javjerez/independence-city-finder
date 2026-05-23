@@ -5,10 +5,11 @@
     grid-template-rows: auto 1fr;
     gap: 12px;
 
-    /* DEBUG: background-color: brown; */
     background: var(--color-surface-controls);
     color: var(--color-text-primary);
-    border-top: 1px solid var(--color-border-subtle);
+    border-color: var(--color-border-subtle);
+    border-radius: 25px;
+
     font-family: system-ui, sans-serif;
 }
 
@@ -96,7 +97,7 @@
     gap: 8px;
 
     padding: 6px 8px;
-    border-radius: 9px;
+    border-radius: 999px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid var(--color-border-faint);
 

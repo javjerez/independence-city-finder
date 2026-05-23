@@ -182,12 +182,6 @@ export function radar_render(
     }
 
     const attrs = _resolveAttrs(data, excludedAttrs);
-    if (attrs.length < 3) {
-        console.warn("radar_render: fewer than 3 plottable attributes — skipping render.");
-        _renderPlaceholder(CONFIG.CHARTS_ID);
-        return;
-    }
-
     const filteredData = data.filter(d => cities.includes(d.city));
     const container = document.getElementById(CONFIG.CHARTS_ID);
     const maxHeight = parseFloat(getComputedStyle(container).maxHeight);
@@ -208,9 +202,6 @@ export function radar_render(
         const color = CITY_COLORS[i % CITY_COLORS.length];
 
         const wrapper = document.createElement('div');
-        //const parityClass = cities.length < 3
-        //    ? 'city-radar-wrapper--even'
-        //    : (i % 2 === 0 ? 'city-radar-wrapper--even' : 'city-radar-wrapper--odd');
         wrapper.className = `city-radar-wrapper`;
         wrapper.style.width = `${100 / cities.length}%`;
 

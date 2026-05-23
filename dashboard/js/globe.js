@@ -247,7 +247,7 @@ function attachZoom() {
 // Shows the tooltip with city name and country when hovering on a city dot
 function showTooltip(event, city) {
   const score = _scoreMap.size > 0 ? _scoreMap.get(city.city) : null;
-  const score10 = score != null ? score * 10 : null;
+  const score10 = score != null ? score * 100 : null;
 
   tooltip
     .style('display', 'block')
@@ -259,7 +259,7 @@ function showTooltip(event, city) {
         ${city.country}
       </div>
       <div class="tooltip-score">
-        Score: <strong>${score10 != null ? score10.toFixed(1) : '—'} / 10</strong>
+        Score: <strong>${score10 != null ? score10.toFixed(1) : '—'} / 100</strong>
       </div>
     `)
     .style('left', (event.offsetX + 12) + 'px')

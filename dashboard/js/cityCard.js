@@ -9,7 +9,7 @@ import { getScoreColor, COLORS } from './colors.js';
 const CONFIG = {
   RADAR_LEVELS: 4,
   RADAR_MIN_LENGTH: 120,
-  RADAR_MARGIN: 55,
+  RADAR_MARGIN: 40,
   RADAR_MAX_VALUE: 1,
   RADAR_COLOR: COLORS.accent,
   RADAR_FILL_OPACITY: 0.22,
@@ -102,12 +102,12 @@ function renderInfo() {
 
   title.textContent = `${_primaryCity.city}, ${_primaryCity.country}`;
 
-  const score10 = _cityScore != null ? _cityScore * 10 : null;
+  const score10 = _cityScore != null ? _cityScore * 100 : null;
 
   // subtitle.textContent = `Population: ${formatNumber(_primaryCity.population)}
   subtitle.innerHTML = `
     Population: ${formatNumber(_primaryCity.population)}<br>
-    Score: <strong>${score10 != null ? score10.toFixed(1) : '—'} / 10</strong>
+    Score: <strong>${score10 != null ? score10.toFixed(1) : '—'} / 100</strong>
   `;
 
   // Compute derived affordability indicator
@@ -141,21 +141,22 @@ function renderInfo() {
   // This keeps the row compact and avoids vertical overflow in the card.
   _weights.forEach(({ attribute }) => {
     const name = getAttributeName(attribute);
+    const descr = getAttributeDescription(attribute);
     const normalized = _scores.get(attribute);  // value between 0 and 1
-    const score10 = normalized != null ? normalized * 10 : null;
+    const score10 = normalized != null ? normalized * 100 : null;
     const scoreColor = getScoreColor(normalized, CONFIG.MIN_SCORE, CONFIG.MID_SCORE);
 
     const row = document.createElement('div');
     row.className = 'attribute-row';
 
     row.innerHTML = `
-      <span class="attribute-label">${name}</span>
+      <span class="attribute-label" title="${descr}">${name}</span>
 
       <div class="attribute-bar">
         <div 
           class="attribute-bar-fill" 
           style="
-                width: ${score10 != null ? score10 * 10 : 0}%;
+                width: ${score10 != null ? score10 : 0}%;
                 background: ${scoreColor};
                 "
         ></div>
@@ -170,32 +171,49 @@ function renderInfo() {
   });
 }
 
+
+
+function _renderPlaceholder() {
+  const panel = document.getElementById('city-card-radar');
+  panel.innerHTML = '';
+  if (!_primaryCity) {
+    panel.innerHTML = `<div class="radar-placeholder">Select a city to show its fingerprint</div>`;
+    return;
+  }
+  
+  if (_weights.length < 3) {
+    panel.innerHTML = `<div class="radar-placeholder">Select at least 3 attributes for a useful radar chart</div>`;
+    return;
+  }
+}
+
+
 // Prints the radar chart
 function renderRadar() {
   const panel = document.getElementById('city-card-radar');
   panel.innerHTML = '';
 
-  if (!_primaryCity) {
-    panel.innerHTML = `<div class="radar-placeholder">Select a city to show its fingerprint</div>`;
+  if (!_primaryCity || _weights.length < 3){
+    _renderPlaceholder();
     return;
   }
+  
+  const wrapper = document.createElement('div');
+  wrapper.className = `city-radar-wrap`;
+  wrapper.style.height = `${100}%`;
+  panel.appendChild(wrapper);
 
-  if (_weights.length < 3) {
-    panel.innerHTML = `<div class="radar-placeholder">Select at least 3 attributes for a useful radar chart</div>`;
-    return;
-  }
-
-  const { width, height } = panel.getBoundingClientRect();
+  const size = wrapper.clientHeight
 
   // minimum size of the graph is equal to RADAR_MIN_LENGTH
-  const size = Math.max(CONFIG.RADAR_MIN_LENGTH, Math.min(width, height));
+  //const size = Math.max(CONFIG.RADAR_MIN_LENGTH, Math.min(width, height));
   const radius = size / 2 - CONFIG.RADAR_MARGIN;
   const center = size / 2;
-
-  const svg = d3.select(panel)
+  
+  const svg = d3.select(wrapper)
     .append('svg')
-    .attr('width', size)
-    .attr('height', size);
+    .attr('width', wrapper.clientWidth)
+    .attr('height', wrapper.clientHeight);
 
   const g = svg.append('g')
     .attr('transform', `translate(${center}, ${center})`);
@@ -248,8 +266,8 @@ function renderRadar() {
       // cuts the long labels so that they occupy too much space
       .text(shortLabel(getAttributeName(attribute)))
       .append('title')
-      .text(getAttributeName(attribute));
-  });
+      .text(`${getAttributeName(attribute)}: ${getAttributeDescription(attribute)}`)  
+    });
 
   // For each attribute:
   const dataPoints = _weights.map(({ attribute }, i) => {
@@ -279,6 +297,10 @@ function renderRadar() {
 
 function getAttributeName(attribute) {
   return ATTRIBUTES[attribute]?.name ?? attribute;
+}
+
+function getAttributeDescription(attribute) {
+  return ATTRIBUTES[attribute]?.description ?? null;
 }
 
 // 2 decimal values format

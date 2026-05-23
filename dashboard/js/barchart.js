@@ -36,13 +36,9 @@ const CONFIG = {
 
 
 
-
-
 const tooltip = d3.select("body").append("div")
     .attr("class", "bar-tooltip")
     .style("opacity", 0);  
-
-
 
 
 
@@ -128,15 +124,6 @@ function _drawBarChart(data, attribute, width, height, targetEl) {
         .on("mouseout", () => {
             tooltip.style("opacity", 0);
         });
-
-    // --- Title ---
-    //svg.append("text")
-    //    .attr("x", width / 2)
-    //    .attr("y", height - 35)
-    //    .attr("text-anchor", "middle")
-    //    .style("font-size", CONFIG.TITLE_SIZE)
-    //    .style("font-weight", CONFIG.TITLE_WEIGHT)
-    //    .text(attr);
 }
 
 
