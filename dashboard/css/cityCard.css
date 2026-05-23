@@ -5,8 +5,8 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: #0f172a;
-  color: #e5e7eb;
+  background: var(--color-bg);
+  color: var(--color-text-base);
   overflow: hidden;
 }
 
@@ -22,11 +22,11 @@
   align-items: center;
   gap: 8px;
 
-  border: 2px solid #334155;
+  border: 2px solid var(--color-border);
   border-radius: 999px;
 
-  background: #0f172a;
-  color: #e5e7eb;
+  background: var(--color-bg);
+  color: var(--color-text-base);
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -38,25 +38,25 @@
   padding: 8px 12px;
   box-sizing: border-box;
 
-  color: #cbd5e1;
+  color: var(--color-text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .city-tab {
-  border: 1px solid #334155;
+  border: 1px solid var(--color-border);
   border-radius: 999px;
-  background: #1e293b;
+  background: var(--color-surface-soft);
   cursor: pointer;
   text-align: center;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .city-tab:hover {
-  background: #334155;
-  border-color: #38bdf8;
-  color: #f8fafc;
+  background: var(--color-border);
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
   transform: translateY(-1px);
 }
 
@@ -98,7 +98,7 @@
 
 #city-card-subtitle {
   margin: 4px 0 0;
-  color: #cbd5e1;
+  color: var(--color-text-secondary);
 }
 
 /* Salary / McMeal text */
@@ -112,7 +112,7 @@
 .mcmeal-summary {
   margin: 0;
   font-size: 14px;
-  color: #cbd5e1;
+  color: var(--color-text-secondary);
 
   white-space: nowrap;
   overflow: hidden;
@@ -120,7 +120,7 @@
 }
 
 .mcmeal-summary strong {
-  color: #f8fafc;
+  color: var(--color-text-primary);
 }
 
 /* Attribute score bars */
@@ -132,10 +132,10 @@
 
   overflow: hidden;
 
-  border: 1px solid #334155;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 10px 12px;
-  background: #111827;
+  background: var(--color-surface);
 }
 
 .attribute-row {
@@ -144,7 +144,7 @@
   align-items: center;
   gap: 7px;
   padding: 4px 0;
-  border-bottom: 1px solid #243244;
+  border-bottom: 1px solid var(--color-border-deep);
 }
 
 .attribute-row:last-child {
@@ -192,9 +192,9 @@
   align-items: center;
   justify-content: center;
 
-  /*border: 1px solid #334155;
+  /*border: 1px solid var(--color-border);
   border-radius: 14px;
-  background: #111827;*/
+  background: var(--color-surface);*/
   overflow: hidden;
 }
 
@@ -209,22 +209,22 @@
 .radar-grid-ring,
 .radar-axis {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.18);
+  stroke: var(--color-border-medium);
 }
 
 .radar-area {
-  fill: #38bdf8;
+  fill: var(--color-accent);
   fill-opacity: 0.22;
-  stroke: #38bdf8;
+  stroke: var(--color-accent);
   stroke-width: 2;
 }
 
 .radar-dot {
-  fill: #38bdf8;
+  fill: var(--color-accent);
 }
 
 .radar-label {
-  fill: #cbd5e1;
+  fill: var(--color-text-secondary);
   font-size: 11px;
 }
 
@@ -237,5 +237,5 @@
   justify-content: center;
   text-align: center;
 
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }

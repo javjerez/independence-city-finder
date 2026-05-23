@@ -1,8 +1,8 @@
 #comparison-histogram {
     display: flex;
     flex-direction: row;
-    background: #0f172a;
-    color: #e5e7eb;
+    background: var(--color-bg);
+    color: var(--color-text-base);
 }
 
 .city-barchart-wrapper {
@@ -21,10 +21,12 @@
 
 .bar-tooltip {
     position: absolute;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 6px 10px;
-    font-size: 12px;
+    background: var(--tooltip-bg);
+    border: var(--tooltip-border);
+    border-radius: var(--tooltip-radius);
+    padding: var(--tooltip-padding);
+    font-size: var(--tooltip-font-size);
+    color: var(--tooltip-color);
+    box-shadow: var(--tooltip-shadow);
     pointer-events: none;
 }

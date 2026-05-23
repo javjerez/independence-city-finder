@@ -1,15 +1,54 @@
 :root {
+  /* ── Surfaces ── */
   --color-bg: #0f172a;
   --color-surface: #111827;
   --color-surface-soft: #1e293b;
+  --color-surface-controls: #101827;
+  --color-background-secondary: #1e293b;  /* alias for surface-soft */
+  --color-overlay-bg: rgba(15, 23, 42, 0.88);
 
+  /* ── Text ── */
   --color-text-primary: #f8fafc;
+  --color-text-base: #e5e7eb;
   --color-text-secondary: #cbd5e1;
+  --color-text-light: #e2e8f0;
   --color-text-muted: #94a3b8;
 
+  /* ── Accent ── */
   --color-accent: #38bdf8;
+  --color-accent-text: #020617;
 
+  /* ── Borders ── */
+  --color-border: #334155;
+  --color-border-deep: #243244;
+  --color-border-faint: rgba(255, 255, 255, 0.08);
+  --color-border-tertiary: rgba(255, 255, 255, 0.1);
+  --color-border-subtle: rgba(255, 255, 255, 0.12);
+  --color-border-medium: rgba(255, 255, 255, 0.18);
+
+  /* ── Scores ── */
   --color-score-low: #ef4444;
   --color-score-medium: #f97316;
   --color-score-high: #22c55e;
+
+  /* ── Tooltip ─────────────────────────────────────────────────
+     Shared by .bar-tooltip, .radar-tooltip, and #map-tooltip.
+     Change here to restyle all tooltips at once.
+  ────────────────────────────────────────────────────────────── */
+  --tooltip-bg: rgba(15, 23, 42, 0.96);
+  --tooltip-border: 1px solid rgba(255, 255, 255, 0.12);
+  --tooltip-radius: 10px;
+  --tooltip-padding: 8px 10px;
+  --tooltip-font-size: 12px;
+  --tooltip-color: #e5e7eb;
+  --tooltip-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
 }
+
+
+
+/*
+- change score to 100 instead of 10
+
+
+
+*/

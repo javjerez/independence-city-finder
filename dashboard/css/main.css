@@ -28,7 +28,7 @@ body {
     width: 100vw;
     height: 100vh;
 
-    background: #0f172a;
+    background: var(--color-bg);
 }
 
 
@@ -293,6 +293,7 @@ body {
 
 :root {
     --color-bg:           ;   // page / app background              
+    --color-bg-secondary: ;   // slightly lighter bg tone           
     --color-surface:      ;   // panel / card background            
     --color-surface-alt:  ;   // slightly different surface tone    
     --color-border:       ;   // dividers, resize handle            
