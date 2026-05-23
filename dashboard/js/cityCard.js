@@ -4,14 +4,14 @@ City information card + radar chart
 Mounts into #city-card-container
 */
 
-import { getScoreColor } from './colors.js';
+import { getScoreColor, COLORS } from './colors.js';
 
 const CONFIG = {
   RADAR_LEVELS: 4,
   RADAR_MIN_LENGTH: 120,
   RADAR_MARGIN: 55,
   RADAR_MAX_VALUE: 1,
-  RADAR_COLOR: '#38bdf8',
+  RADAR_COLOR: COLORS.accent,
   RADAR_FILL_OPACITY: 0.22,
   RADAR_STROKE_WIDTH: 2,
   DOT_RADIUS: 4,

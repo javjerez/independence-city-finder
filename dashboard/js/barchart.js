@@ -1,18 +1,11 @@
+
+import { CITY_COLORS} from './colors.js';
+
 // ============================================================
 //  STEP 1 — CONFIGURATION
 // ============================================================
 
 const CONFIG = {
-
-    // -- Shared colors — index 0 = primary, 1–4 = compared ----
-    CITY_COLORS: [
-        '#ff6b35',   // primary
-        '#ffd700',   // compared 1
-        '#00bfff',   // compared 2
-        '#7fff00',   // compared 3
-        '#ff69b4',   // compared 4
-    ],
-
     // -- Placeholder -----------------------------------------
     PLACEHOLDER_TEXT: 'Select at least 2 cities on the globe and 1 attribute to compare',
 
@@ -83,7 +76,7 @@ function _drawBarChart(data, attribute, width, height, targetEl) {
     // Color lookup: maps each city name to its color by position in the x domain
     const colorForCity = city => {
         const i = x.domain().indexOf(city);
-        return CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
+        return CITY_COLORS[i % CITY_COLORS.length];
     };
 
     // --- Axes ---

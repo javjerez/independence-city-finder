@@ -1,18 +1,10 @@
+import { CITY_COLORS} from './colors.js';
+
 // ============================================================
 //  STEP 1 — CONFIGURATION
 // ============================================================
 
 const CONFIG = {
-
-    // -- Shared colors — index 0 = primary, 1–4 = compared ----
-    CITY_COLORS: [
-        '#ff6b35',   // primary
-        '#ffd700',   // compared 1
-        '#00bfff',   // compared 2
-        '#7fff00',   // compared 3
-        '#ff69b4',   // compared 4
-    ],
-
     // -- Placeholder ------------------------------------------
     PLACEHOLDER_TEXT: 'Select at least 2 cities on the globe to compare their fingerprints',
 
@@ -213,7 +205,7 @@ export function radar_render(
             return ATTRIBUTES[attr]?.invert ? 1 - norm : norm;
         });
 
-        const color = CONFIG.CITY_COLORS[i % CONFIG.CITY_COLORS.length];
+        const color = CITY_COLORS[i % CITY_COLORS.length];
 
         const wrapper = document.createElement('div');
         //const parityClass = cities.length < 3
