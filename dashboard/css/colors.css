@@ -1,11 +1,11 @@
 :root {
   /* ── Surfaces ── */
-  --color-bg: #0f172a;
-  --color-surface: #111827;
-  --color-surface-soft: #1e293b;
-  --color-surface-controls: #101827;
+  --color-bg: #111111;
+  --color-surface: #1a1a1a;
+  --color-surface-soft: #262626;
+  --color-surface-controls: #111111;
   --color-background-secondary: #1e293b;  /* alias for surface-soft */
-  --color-overlay-bg: rgba(15, 23, 42, 0.88);
+  --color-overlay-bg: #111111;
 
   /* ── Text ── */
   --color-text-primary: #f8fafc;
