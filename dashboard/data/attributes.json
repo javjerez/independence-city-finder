@@ -13,7 +13,7 @@
     "cost_of_living": {
         "name": "Affordability",
         "invert": false,
-        "description": "Affordability of everyday goods and services relative to local salaries; higher score means cheaper city",
+        "description": "Affordability of everyday goods and services relative to local salaries (higher score means cheaper city)",
         "unit_measure": "Out of 10",
         "unit_measure_short": "/10",
         "category": "Economy",
@@ -24,7 +24,7 @@
     "startups": {
         "name": "Startup Ecosystem",
         "invert": false,
-        "description": "Strength of the local startup scene, including founders, accelerators, and growth companies",
+        "description": "Strength of the local startup scene, including founders, accelerators and growth companies",
         "unit_measure": "Out of 10",
         "unit_measure_short": "/10",
         "category": "Economy",
@@ -57,7 +57,7 @@
     "commute": {
         "name": "Commute",
         "invert": false,
-        "description": "Ease and efficiency of daily commuting; higher score means shorter and less stressful commutes",
+        "description": "Ease and efficiency of daily commuting (higher score means shorter and less stressful commutes)",
         "unit_measure": "Out of 10",
         "unit_measure_short": "/10",
         "category": "Infrastructure",
@@ -112,7 +112,7 @@
     "environmental_quality": {
         "name": "Environment",
         "invert": false,
-        "description": "Air quality, green spaces, water cleanliness, and overall ecological health",
+        "description": "Air quality, green spaces, water cleanliness and overall ecological health",
         "unit_measure": "Out of 10",
         "unit_measure_short": "/10",
         "category": "Environment",
@@ -123,7 +123,7 @@
     "economy": {
         "name": "Economy",
         "invert": false,
-        "description": "Overall economic strength, job market vitality, and employment opportunities",
+        "description": "Overall economic strength, job market vitality and employment opportunities",
         "unit_measure": "Out of 10",
         "unit_measure_short": "/10",
         "category": "Economy",
@@ -134,7 +134,7 @@
     "taxation": {
         "name": "Taxation",
         "invert": false,
-        "description": "Favorability of the tax regime for individuals and businesses; higher score means lower tax burden",
+        "description": "Favorability of the tax regime for individuals and businesses (higher score means lower tax burden)",
         "unit_measure": "Out of 10",
         "unit_measure_short": "/10",
         "category": "Economy",
@@ -156,7 +156,7 @@
     "leisure_&_culture": {
         "name": "Leisure & Culture",
         "invert": false,
-        "description": "Richness of entertainment, arts, restaurants, nightlife, and cultural attractions",
+        "description": "Richness of entertainment, arts, restaurants, nightlife and cultural attractions",
         "unit_measure": "Out of 10",
         "unit_measure_short": "/10",
         "category": "Livability",
@@ -167,7 +167,7 @@
     "tolerance": {
         "name": "Tolerance",
         "invert": false,
-        "description": "Social diversity and openness toward minorities, LGBTQ+ individuals, and immigrants",
+        "description": "Social diversity and openness toward minorities, LGBTQ+ individuals and immigrants",
         "unit_measure": "Out of 10",
         "unit_measure_short": "/10",
         "category": "Livability",
@@ -178,7 +178,7 @@
     "outdoors": {
         "name": "Outdoors",
         "invert": false,
-        "description": "Access to parks, nature, and outdoor activities",
+        "description": "Access to parks, nature and outdoor activities",
         "unit_measure": "Out of 10",
         "unit_measure_short": "/10",
         "category": "Environment",
@@ -211,7 +211,7 @@
     "population": {
         "name": "Population",
         "invert": false,
-        "description": "City population; contextual info, not a direct quality metric",
+        "description": "City population (contextual info, not a direct quality metric)",
         "unit_measure": "Persons",
         "unit_measure_short": "pop",
         "category": null,
@@ -222,7 +222,7 @@
     "mcmeal_combo": {
         "name": "Meal Price",
         "invert": true,
-        "description": "Price of a standard fast-food combo meal; lower means cheaper daily food costs",
+        "description": "Price of a standard fast-food combo meal (lower means cheaper daily food costs)",
         "unit_measure": "US Dollar",
         "unit_measure_short": "USD",
         "category": "Economy",
@@ -233,7 +233,7 @@
     "internet_60mbps": {
         "name": "Internet Cost",
         "invert": true,
-        "description": "Monthly cost of a 60 Mbps broadband internet plan; lower means more affordable connectivity",
+        "description": "Monthly cost of a 60 Mbps broadband internet plan (lower means more affordable connectivity)",
         "unit_measure": "US Dollar",
         "unit_measure_short": "USD",
         "category": "Infrastructure",
