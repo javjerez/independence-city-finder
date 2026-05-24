@@ -200,10 +200,16 @@ function renderRadar() {
   
   const wrapper = document.createElement('div');
   wrapper.className = `city-radar-wrap`;
-  wrapper.style.height = `${100}%`;
+
+  // ---
   panel.appendChild(wrapper);
 
-  const size = wrapper.clientHeight
+  const rect = panel.getBoundingClientRect();
+  const size = Math.max(
+    CONFIG.RADAR_MIN_LENGTH,
+    Math.min(rect.width, rect.height)
+  );
+  // ---
 
   // minimum size of the graph is equal to RADAR_MIN_LENGTH
   //const size = Math.max(CONFIG.RADAR_MIN_LENGTH, Math.min(width, height));
@@ -212,8 +218,14 @@ function renderRadar() {
   
   const svg = d3.select(wrapper)
     .append('svg')
+    /*
     .attr('width', wrapper.clientWidth)
     .attr('height', wrapper.clientHeight);
+    */
+    .attr('width', size)
+    .attr('height', size)
+    .attr('viewBox', `0 0 ${size} ${size}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet');
 
   const g = svg.append('g')
     .attr('transform', `translate(${center}, ${center})`);
@@ -266,7 +278,7 @@ function renderRadar() {
       // cuts the long labels so that they occupy too much space
       .text(shortLabel(getAttributeName(attribute)))
       .append('title')
-      .text(`${getAttributeName(attribute)}: ${getAttributeDescription(attribute)}`)  
+      .text(`${getAttributeName(attribute)}`)  
     });
 
   // For each attribute:
