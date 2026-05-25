@@ -4,6 +4,7 @@
     flex-direction: row;
     background: var(--color-bg);
     color: var(--color-text-base);
+    margin-top: 5px;
 }
 
 .city-barchart-wrapper {
@@ -28,6 +29,13 @@
     padding: var(--tooltip-padding);
     font-size: var(--tooltip-font-size);
     color: var(--tooltip-color);
-    box-shadow: var(--tooltip-shadow);
     pointer-events: none;
+}
+
+#comparison-histogram svg rect {
+    transition: opacity 0.15s ease;
+}
+
+#comparison-histogram svg rect:hover {
+    opacity: 0.75;
 }

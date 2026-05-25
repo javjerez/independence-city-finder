@@ -48,7 +48,7 @@
     gap: 8px;
 
     padding-right: 14px;
-    border-right: 1px solid rgba(255, 255, 255, 0.25);
+    border-right: 1px solid  var(--color-border-subtle);
 }
 
 .attr-button {

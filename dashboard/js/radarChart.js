@@ -6,7 +6,7 @@ import { CITY_COLORS} from './colors.js';
 
 const CONFIG = {
     // -- Placeholder ------------------------------------------
-    PLACEHOLDER_TEXT: 'Select at least 2 cities on the globe to compare their fingerprints',
+    PLACEHOLDER_TEXT: 'Select a cities on the globe to see their fingerprint',
 
     // -- Radar Chart -----------------------------------------
     CHART_SIZE: 300,            // total SVG width & height (square)
@@ -14,28 +14,7 @@ const CONFIG = {
     GRID_LEVELS: 3,             // number of concentric grid rings
     CURVE: d3.curveCardinalClosed.tension(0.2),  // smoothing — raise for rounder, lower for pointier
 
-    // Axes
-    AXIS_COLOR: "#ccc",
-    AXIS_STROKE_WIDTH: 0.35,
-
-    // Grid
-    GRID_COLOR: "#e0e0e0",
-    GRID_STROKE_WIDTH: 0.35,
-    GRID_STROKE_DASH: "3,6",
-
-    // Blob (the filled shape)
-    BLOB_STROKE_WIDTH: 3,
-    BLOB_FILL_OPACITY: 0.4,
-    BLOB_STROKE_OPACITY: 0.9,
-
-    // Dot on each axis spoke
-    DOT_RADIUS: 1.5,
-    DOT_STROKE_WIDTH: 3,
-
     // Labels
-    LABEL_FONT_SIZE: "9.5px",
-    LABEL_FONT_FAMILY: "sans-serif",
-    LABEL_COLOR: "#444",
     LABEL_MAX_LENGTH: 18,       // truncate attribute names longer than this
 
     // Title (city name)
@@ -176,7 +155,7 @@ export function radar_render(
 ) {
     d3.select(`#${CONFIG.CHARTS_ID}`).selectAll("*").remove();
 
-    if (!cities || cities.length < 2) {
+    if (!cities || cities.length < 1) {
         _renderPlaceholder(CONFIG.CHARTS_ID);
         return;
     }
@@ -243,10 +222,8 @@ function _drawRadar(normValues, attributeNames, color, size, wrapper) {
     const gridGroup = g.append("g").attr("class", "radar-grid");
     d3.range(1, CONFIG.GRID_LEVELS + 1).forEach(level => {
         gridGroup.append("circle")
-            .attr("r", radarR * (level / CONFIG.GRID_LEVELS))
-            .attr("fill", "none")
-            .attr("stroke", CONFIG.GRID_COLOR)
-            .attr("stroke-width", CONFIG.GRID_STROKE_WIDTH);
+            .attr("class", "radar-grid-ring")
+            .attr("r", radarR * (level / CONFIG.GRID_LEVELS));
     });
 
     // --- Axis spokes ---
@@ -254,11 +231,9 @@ function _drawRadar(normValues, attributeNames, color, size, wrapper) {
     normValues.forEach((_, i) => {
         const { x, y } = _polarToXY(angleSlice * i, radarR);
         axisGroup.append("line")
+            .attr("class", "radar-axis")
             .attr("x1", 0).attr("y1", 0)
-            .attr("x2", x).attr("y2", y)
-            .attr("stroke", CONFIG.AXIS_COLOR)
-            .attr("stroke-width", CONFIG.AXIS_STROKE_WIDTH)
-            .attr("stroke-dasharray", CONFIG.GRID_STROKE_DASH);
+            .attr("x2", x).attr("y2", y);
     });
 
     // --- Blob path ---
@@ -269,13 +244,11 @@ function _drawRadar(normValues, attributeNames, color, size, wrapper) {
 
     g.append("g").attr("class", "radar-blob")
         .append("path")
+        .attr("class", "radar-blob-path")
         .datum(normValues.map((_, i) => i))
         .attr("d", radarLine)
         .attr("fill", color)
-        .attr("fill-opacity", CONFIG.BLOB_FILL_OPACITY)
-        .attr("stroke", color)
-        .attr("stroke-width", CONFIG.BLOB_STROKE_WIDTH)
-        .attr("stroke-opacity", CONFIG.BLOB_STROKE_OPACITY);
+        .attr("stroke", color);
 
     // --- Hover wedges ---
     const hoverGroup = g.append("g").attr("class", "radar-hover");

@@ -236,12 +236,12 @@ function _notifyModules() {
   //updateComparison(_primaryCity, _comparedCities);
 
   // BarChart: update bar chart
-  barchart_render(_cities, _getCurrentCities(), getSelectedAttributes());
   // renderLegend();
-
+  
   // update of cityCard.js
   updateCityCard(_primaryCity, _comparedCities, weights, scores, cityScore);
-
+  
+  barchart_render(_cities, _getCurrentCities(), getSelectedAttributes());
   // Radar: update radar chart
   radar_render(_cities, _getCurrentCities(), _metricStats);
 }

@@ -4,17 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Professional City Finder</title> <!-- Urban Independence Index -->
-
-  <!-- EXTERNAL FONTS -->
-  <!-- Font example: <link href="https://fonts.googleapis.com/css2?family=YourFont&display=swap" rel="stylesheet"> -->
+  <title>Your Professional City Finder</title>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 
   <script type="module" src="./js/main.js"></script>
   <script type="module" src="./js/button.js"></script>
-  <!-- <script type="module" src="./js/resize.js"></script> -->
 
   <link rel="icon" type="image/png" href="assets/icon.png">
 
@@ -37,73 +33,32 @@
 
       <div id="globe-container"></div>
 
-      <div id="info-overlay"></div>
+      <button id="info-btn" aria-label="Data information">i</button>
 
-      <div id="info-btn-wrapper">
-        <button id="info-btn" aria-label="Data information">i</button>
+      <div id="info-overlay">
         <div id="info-panel">
           <div class="info-box">
             <h2>Data transparency</h2>
 
             <div class="stat-row">
-              <div class="stat">
-                <div class="stat-label">Cities</div>
-                <div class="stat-value">238</div>
-                <div class="stat-sub">after cleaning &amp; merging</div>
-              </div>
-              <div class="stat">
-                <div class="stat-label">Attributes</div>
-                <div class="stat-value">20</div>
-                <div class="stat-sub">across 4 categories</div>
-              </div>
-              <div class="stat">
-                <div class="stat-label">Data period</div>
-                <div class="stat-value">2023–24</div>
-                <div class="stat-sub">static snapshot</div>
-              </div>
+              <div class="stat">138 cities</div>
+              <div class="stat">19 attributes</div>
+              <div class="stat">Data year: 2023/24</div>
             </div>
 
-            <h3>Sources</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Attributes</th>
-                  <th>Dataset</th>
-                  <th>Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>17 quality-of-life scores</td>
-                  <td>Teleport City Scores <span class="tag">Kaggle</span></td>
-                  <td>Composite index (0–10)</td>
-                </tr>
-                <tr>
-                  <td>Meal price, net salary, internet cost</td>
-                  <td>Numbeo Cost of Living <span class="tag">Kaggle</span></td>
-                  <td>Crowdsourced · USD</td>
-                </tr>
-                <tr>
-                  <td>Coordinates, population</td>
-                  <td>World Cities Info <span class="tag">Kaggle</span></td>
-                  <td>Curated</td>
-                </tr>
-              </tbody>
-            </table>
+            <h3>Sources <span class="tag">Kaggle</span></h3>
+            <p>Teleport City Scores <span class="tag">Kaggle</span> — attributes metric: composite index between 0-10</p>
+            <p>Numbeo Cost of Living <span class="tag">Kaggle</span> — Meal price, net salary, internet cost. Crowdsourced, USD</p>
+            <p>World Cities Info <span class="tag">Kaggle</span> — Coordinates and population. Curated dataset</p>
 
-            <h3>Methodology notes</h3>
-            <ul class="note-list">
-              <li>The 17 QoL scores are composite indices computed by Teleport from multiple sub-indicators. Exact
-                weighting
-                is proprietary.</li>
-              <li>Numbeo data is user-reported; accuracy may vary in less-represented cities.</li>
-              <li>Monetary values are in USD and not inflation-adjusted. Since all figures are from roughly the same
-                period,
-                the effect on comparisons is negligible.</li>
-              <li>The dataset is anchored on Teleport's city list (289 cities). Cities missing any attribute after
-                merging
-                were dropped, introducing a bias toward larger, well-documented cities.</li>
-              <li>Data reflects a static snapshot and is not updated in real time.</li>
+            <h3>How to use the program</h3>
+            <ul>
+              <li>Select the desired attbutes on the panel.</li>
+              <li>Adjust the weights of the selected attributes.</li>
+              <li>Click on a city on the map to inspect it in the city card on the right.</li>
+              <li>Select multiple cities on the map to compare them.</li>
+              <li>Use the radar chart on top to compare the city's fingerprints against each other.</li>
+              <li>Use the bar charts on the bottom to compare the selected attributes between the cities.</li>
             </ul>
           </div>
         </div>
@@ -115,16 +70,12 @@
 
     </div>
 
-    <!----------------------- RESIZE HANDLE --------------------------->
-    <!-- <div id="resize-handle" aria-hidden="true"></div> -->
-
     <!------------------------ RIGHT PANEL --------------------------->
     <div id="panel-right">
 
       <div id="city-panel">
         <div id="comparison-radar">
           <div id="comparison-radar-title">Cities Fingerprint</div>
-          <!-- comparison radar mounts here -->
         </div>
 
         <div id="city-card-container">
@@ -136,17 +87,13 @@
                   <h2 id="city-card-title">No city selected</h2>
                   <p id="city-card-subtitle">Click a city on the map to inspect it.</p>
                 </div>
-
                 <div id="city-card-stats"></div>
-
                 <div id="city-card-attributes"></div>
-
               </section>
 
               <section id="city-card-radar"></section>
             </div>
           </div>
-          <!-- cityCard.js mounts here -->
         </div>
       </div>
 

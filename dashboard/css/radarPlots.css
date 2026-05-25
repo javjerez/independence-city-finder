@@ -9,13 +9,6 @@
     color: var(--color-text-base);
 }
 
-/*
-.city-radar-wrapper {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-*/
 
 .city-radar-label {
     text-align: center;
@@ -47,4 +40,21 @@
     color: var(--tooltip-color);
     box-shadow: var(--tooltip-shadow);
     pointer-events: none;
+}
+
+/* ── Comparison radar visual styles (moved from radarChart.js CONFIG) ── */
+
+#comparison-radar .radar-grid-ring {
+    stroke-width: var(--color-border-tertiary);
+}
+
+#comparison-radar .radar-axis {
+    stroke-width: var(--color-border-tertiary);
+    stroke-dasharray: var(--radar-grid-stroke-dash);
+}
+
+.radar-blob-path {
+    fill-opacity: var(--radar-blob-fill-opacity);
+    stroke-width: var(--radar-blob-stroke-width);
+    stroke-opacity: var(--radar-blob-stroke-opacity);
 }

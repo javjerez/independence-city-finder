@@ -211,6 +211,8 @@ function renderRadar() {
   );
   // ---
 
+  const width = wrapper.clientWidth;
+
   // minimum size of the graph is equal to RADAR_MIN_LENGTH
   //const size = Math.max(CONFIG.RADAR_MIN_LENGTH, Math.min(width, height));
   const radius = size / 2 - CONFIG.RADAR_MARGIN;
@@ -228,7 +230,7 @@ function renderRadar() {
     .attr('preserveAspectRatio', 'xMidYMid meet');
 
   const g = svg.append('g')
-    .attr('transform', `translate(${center}, ${center})`);
+    .attr('transform', `translate(${center}, ${center +20})`);
 
   /*
   We divide the axis (number of weights) in a circle distribution

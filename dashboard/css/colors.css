@@ -35,20 +35,23 @@
      Shared by .bar-tooltip, .radar-tooltip, and #map-tooltip.
      Change here to restyle all tooltips at once.
   ────────────────────────────────────────────────────────────── */
-  --tooltip-bg: rgba(15, 23, 42, 0.96);
-  --tooltip-border: 1px solid rgba(255, 255, 255, 0.12);
+  --tooltip-bg: var(--color-surface-soft);
+  --tooltip-border: 1px solid var(--color-border-subtle);
   --tooltip-radius: 10px;
   --tooltip-padding: 8px 10px;
   --tooltip-font-size: 12px;
   --tooltip-color: #e5e7eb;
   --tooltip-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+
+  /* ── Radar chart (comparison) ─────────────────────────────────
+     Visual-only properties moved from radarChart.js CONFIG.
+     Geometry (size, padding, levels) stays in JS.
+  ────────────────────────────────────────────────────────────── */
+  --radar-axis-stroke-width: 0.5px;
+  --radar-grid-stroke-width: 0.4px;
+  --radar-grid-stroke-dash: 3 6;
+  --radar-blob-stroke-width: 3px;
+  --radar-blob-fill-opacity: 0.4;
+  --radar-blob-stroke-opacity: 0.9;
+  --radar-label-font-size: 9.5px;
 }
-
-
-
-/*
-- change score to 100 instead of 10
-
-
-
-*/
