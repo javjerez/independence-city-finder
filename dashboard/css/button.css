@@ -1,4 +1,4 @@
-/* ── Info button ─────────────────────────────────────────── */
+/* -- Info button -- */
 
 #info-btn {
     position: fixed;
@@ -31,7 +31,7 @@
     color: var(--color-text-primary);
 }
 
-/* ── Overlay (backdrop + click-outside target) ───────────── */
+/* -- Overlay (backdrop + click-outside target) --*/
 
 #info-overlay {
     position: fixed;
@@ -50,7 +50,7 @@
     pointer-events: auto;
 }
 
-/* ── Panel ───────────────────────────────────────────────── */
+/* -- Panel -- */
 
 #info-panel {
     position: fixed;
@@ -77,7 +77,7 @@
     transform: translateY(0);
 }
 
-/* ── Info box content ────────────────────────────────────── */
+/* -- Info box content -- */
 
 .info-box {
     padding: 1.25rem 0 0.5rem;
@@ -109,7 +109,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* ── Stat row ────────────────────────────────────────────── */
+/* -- Stat row -- */
 
 .stat-row {
     display: flex;
@@ -128,7 +128,7 @@
     border: 1px solid var(--color-border-faint);
 }
 
-/* ── Tag pill ────────────────────────────────────────────── */
+/* -- Tag pill -- */
 
 .tag {
     display: inline-block;
@@ -141,7 +141,7 @@
     border: 1px solid var(--color-border-subtle);
 }
 
-/* ── HR ──────────────────────────────────────────────── */
+/* -- HR -- */
 #hr {
     border: 0.5px solid var(--color-text-secondary); 
     margin-top: 20px;

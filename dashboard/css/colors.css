@@ -1,5 +1,5 @@
 :root {
-  /* ── Surfaces ── */
+  /* -- Surfaces -- */
   --color-bg: #111111;
   --color-surface: #1a1a1a;
   --color-surface-soft: #262626;
@@ -7,18 +7,18 @@
   --color-background-secondary: #1e293b;  /* alias for surface-soft */
   --color-overlay-bg: #111111;
 
-  /* ── Text ── */
+  /* -- Text -- */
   --color-text-primary: #f8fafc;
   --color-text-base: #e5e7eb;
   --color-text-secondary: #cbd5e1;
   --color-text-light: #e2e8f0;
   --color-text-muted: #94a3b8;
 
-  /* ── Accent ── */
+  /* -- Accent -- */
   --color-accent: #38bdf8;
   --color-accent-text: #020617;
 
-  /* ── Borders ── */
+  /* -- Borders -- */
   --color-border: #334155;
   --color-border-deep: #243244;
   --color-border-faint: rgba(255, 255, 255, 0.08);
@@ -26,15 +26,15 @@
   --color-border-subtle: rgba(255, 255, 255, 0.12);
   --color-border-medium: rgba(255, 255, 255, 0.18);
 
-  /* ── Scores ── */
+  /* -- Scores -- */
   --color-score-low: #ef4444;
   --color-score-medium: #f97316;
   --color-score-high: #22c55e;
 
-  /* ── Tooltip ─────────────────────────────────────────────────
+  /* -- Tooltip --
      Shared by .bar-tooltip, .radar-tooltip, and #map-tooltip.
      Change here to restyle all tooltips at once.
-  ────────────────────────────────────────────────────────────── */
+   */
   --tooltip-bg: var(--color-surface-soft);
   --tooltip-border: 1px solid var(--color-border-subtle);
   --tooltip-radius: 10px;
@@ -43,10 +43,7 @@
   --tooltip-color: #e5e7eb;
   --tooltip-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
 
-  /* ── Radar chart (comparison) ─────────────────────────────────
-     Visual-only properties moved from radarChart.js CONFIG.
-     Geometry (size, padding, levels) stays in JS.
-  ────────────────────────────────────────────────────────────── */
+  /* -- Radar chart (comparison) --*/
   --radar-axis-stroke-width: 0.5px;
   --radar-grid-stroke-width: 0.4px;
   --radar-grid-stroke-dash: 3 6;

@@ -1,15 +1,15 @@
 
 import { CITY_COLORS} from './colors.js';
 
-// ============================================================
-//  STEP 1 — CONFIGURATION
-// ============================================================
+
+
+// CONFIGURATION
 
 const CONFIG = {
-    // -- Placeholder -----------------------------------------
+    // Placeholder
     PLACEHOLDER_TEXT: 'Select at least 2 cities on the globe and 1 attribute to compare',
 
-    // -- Bar Chart ------------------------------------------
+    // Bar Chart
     CHART_HEIGHT: 300,
     MARGIN: { TOP: 10, RIGHT: 10, BOTTOM: 20, LEFT: 35 },
     BAR_PADDING: 0,
@@ -34,22 +34,18 @@ const CONFIG = {
     TOOLTIP_OFFSET_Y: 28,
 };
 
-
-
 const tooltip = d3.select("body").append("div")
     .attr("class", "bar-tooltip")
     .style("opacity", 0);  
 
-
-
 function _drawBarChart(data, attribute, width, height, targetEl) {
     const meta = ATTRIBUTES[attribute] ?? {};
 
-    // --- Derived dimensions ---
+    // Derived dimensions
     const innerWidth = width - CONFIG.MARGIN.LEFT - CONFIG.MARGIN.RIGHT;
     const innerHeight = height - CONFIG.MARGIN.TOP - CONFIG.MARGIN.BOTTOM;
 
-    // --- SVG + inner group ---
+    // SVG + inner group
     const svg = d3.select(targetEl)
         .append("svg")
         .attr("width", width)
@@ -58,7 +54,7 @@ function _drawBarChart(data, attribute, width, height, targetEl) {
     const g = svg.append("g")
         .attr("transform", `translate(${CONFIG.MARGIN.LEFT}, ${CONFIG.MARGIN.TOP})`);
 
-    // --- Scales ---
+    // Scales
     const x = d3.scaleBand()
         .domain(data.map(d => d.city))
         .range([0, innerWidth])
@@ -75,7 +71,7 @@ function _drawBarChart(data, attribute, width, height, targetEl) {
         return CITY_COLORS[i % CITY_COLORS.length];
     };
 
-    // --- Axes ---
+    // Axes
     g.append("g")
         .attr("transform", `translate(0, ${innerHeight})`)
         .call(d3.axisBottom(x).tickSize(CONFIG.X_TICK_SIZE))
@@ -84,7 +80,7 @@ function _drawBarChart(data, attribute, width, height, targetEl) {
     g.append("g")
         .call(d3.axisLeft(y).ticks(CONFIG.Y_TICKS));
 
-    // --- Bars ---
+    // Bars
     g.selectAll("rect")
         .data(data)
         .join("rect")
@@ -128,18 +124,7 @@ function _drawBarChart(data, attribute, width, height, targetEl) {
 
 
 
-
-
-
-
-
-
-
-
-// ============================================================
-//  STEP 3 — INITIALISE
-//  Call once from main.js after the DOM is ready.
-// ============================================================
+// INITIALISE - (Call once from main.js after the DOM is ready)
 
 // Handling attributes
 let ATTRIBUTES = {};
@@ -151,10 +136,7 @@ export function initBarChart(attributes) {
 
 
 
-
-// ============================================================
-//  STEP 5 — PLACEHOLDER
-// ============================================================
+// PLACEHOLDER
 
 function _renderPlaceholder(containerId) {
     const el = document.getElementById(containerId);
@@ -169,44 +151,28 @@ function _renderPlaceholder(containerId) {
 
 
 
-// ============================================================
-//  STEP 5 — RENDER BAR CHART
-// ============================================================
-
+//  RENDER BAR CHART
 
 export function barchart_render(data, selectedCities, selectedAttrs) {
-    // --- Clear previous charts ---
-    // Every time render is called we start from scratch.
-    // This is simpler than trying to update existing SVGs in place,
-    // since the number of charts can change entirely.
+    // Clear previous charts (every time render is called we start from scratch)
     d3.select(`#${CONFIG.CHARTS_ID}`).selectAll("*").remove();
 
-    // --- Guard: nothing to draw ---
+    // nothing to draw
     if (selectedCities.length < 2 || selectedAttrs.length < 1) {
         _renderPlaceholder(CONFIG.CHARTS_ID);
         return;
     }
 
-    // --- Compute per-chart width ---
-    // The container width is divided equally among all charts.
-    // clientWidth reads the actual rendered width of the flex container,
-    // so this automatically adapts if the window is resized.
+    // Compute per-chart width (the container width is divided equally among all charts)
     const container = document.getElementById(CONFIG.CHARTS_ID);
     const containerWidth = container.clientWidth;
     const chartWidth = containerWidth / selectedAttrs.length;
     const chartHeight = container.clientHeight;
 
-    // --- Filter data to selected cities ---
-    // We do this once here rather than inside _drawBarChart,
-    // so the function receives only what it needs to draw.
+    // Filter data to selected cities (this function receives only what it needs to draw)
     const filteredData = selectedCities.map(city => data.find(d => d.city === city)).filter(Boolean);
 
-    // --- Draw one chart per selected attribute ---
-    // Each chart shares the same filtered city data but has its own y scale.
-    //selectedAttrs.forEach(attr => {
-    //    _drawBarChart(filteredData, attr, chartWidth);
-    //});
-
+    // Draw one chart per selected attribute (each chart shares the same filtered city data but has its own y scale)
     selectedAttrs.forEach(attribute => {
         const meta = ATTRIBUTES[attribute] ?? {};
 
@@ -224,4 +190,3 @@ export function barchart_render(data, selectedCities, selectedAttrs) {
         wrapper.appendChild(label);
     });
 }
-

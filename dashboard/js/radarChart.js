@@ -1,14 +1,14 @@
 import { CITY_COLORS} from './colors.js';
 
-// ============================================================
-//  STEP 1 — CONFIGURATION
-// ============================================================
+
+
+// CONFIGURATION
 
 const CONFIG = {
-    // -- Placeholder ------------------------------------------
+    // Placeholder
     PLACEHOLDER_TEXT: 'Select a cities on the globe to see their fingerprint',
 
-    // -- Radar Chart -----------------------------------------
+    // Radar Chart
     CHART_SIZE: 300,            // total SVG width & height (square)
     RADAR_PADDING: 7,          // space reserved around the radar for labels
     GRID_LEVELS: 3,             // number of concentric grid rings
@@ -33,22 +33,20 @@ const CONFIG = {
 };
 
 
-// ============================================================
-//  TOOLTIP (shared across all radar charts in the container)
-// ============================================================
+
+// TOOLTIP (shared across all radar charts in the container)
 
 const _tooltip = d3.select("body").append("div")
     .attr("class", "radar-tooltip")
     .style("opacity", 0);
 
 
-// ============================================================
-//  INTERNAL HELPERS
-// ============================================================
+
+// INTERNAL HELPERS
 
 /**
- * Convert polar coordinates to Cartesian.
- * angle 0 = top (12 o'clock), increases clockwise.
+ * Convert polar coordinates to Cartesian
+ * angle 0 = top (12 o'clock), increases clockwise
  */
 function _polarToXY(angle, radius) {
     return {
@@ -58,7 +56,7 @@ function _polarToXY(angle, radius) {
 }
 
 /**
- * Clamp and truncate an attribute name for display.
+ * Clamp and truncate an attribute name for display
  */
 function _labelText(attr) {
     const pretty = attr.replace(/_/g, ' ');
@@ -117,10 +115,7 @@ function _resolveAttrs(data, extraExcluded = []) {
 
 
 
-// ============================================================
-//  STEP 3 — INITIALISE
-//  Call once from main.js after the DOM is ready.
-// ============================================================
+// STEP 3 — INITIALISE (call once from main.js after the DOM is ready)
 
 // Handling attributes
 let ATTRIBUTES = {};
@@ -130,9 +125,9 @@ export function initRadarChart(attributes) {
     _renderPlaceholder(CONFIG.CHARTS_ID);
 }
 
-// ============================================================
-//  PLACEHOLDER
-// ============================================================
+
+
+// PLACEHOLDER
 
 function _renderPlaceholder(containerId) {
     const el = document.getElementById(containerId);
@@ -144,8 +139,6 @@ function _renderPlaceholder(containerId) {
     msg.textContent = CONFIG.PLACEHOLDER_TEXT;
     el.appendChild(msg);
 }
-
-
 
 export function radar_render(
     data,
@@ -198,7 +191,6 @@ export function radar_render(
 }
 
 
-
 function _drawRadar(normValues, attributeNames, color, size, wrapper) {
     const n = normValues.length;
     if (n < 3) return;
@@ -218,7 +210,7 @@ function _drawRadar(normValues, attributeNames, color, size, wrapper) {
     const g = svg.append("g")
         .attr("transform", `translate(${cx}, ${cy})`);
 
-    // --- Concentric grid rings ---
+    // Concentric grid rings
     const gridGroup = g.append("g").attr("class", "radar-grid");
     d3.range(1, CONFIG.GRID_LEVELS + 1).forEach(level => {
         gridGroup.append("circle")
@@ -226,7 +218,7 @@ function _drawRadar(normValues, attributeNames, color, size, wrapper) {
             .attr("r", radarR * (level / CONFIG.GRID_LEVELS));
     });
 
-    // --- Axis spokes ---
+    // Axis spokes
     const axisGroup = g.append("g").attr("class", "radar-axes");
     normValues.forEach((_, i) => {
         const { x, y } = _polarToXY(angleSlice * i, radarR);
@@ -236,7 +228,7 @@ function _drawRadar(normValues, attributeNames, color, size, wrapper) {
             .attr("x2", x).attr("y2", y);
     });
 
-    // --- Blob path ---
+    // Blob path
     const radarLine = d3.lineRadial()
         .curve(CONFIG.CURVE)
         .radius((_, i) => normValues[i] * radarR)
@@ -250,7 +242,7 @@ function _drawRadar(normValues, attributeNames, color, size, wrapper) {
         .attr("fill", color)
         .attr("stroke", color);
 
-    // --- Hover wedges ---
+    // Hover wedges
     const hoverGroup = g.append("g").attr("class", "radar-hover");
 
     const arc = d3.arc()

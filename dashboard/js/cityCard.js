@@ -1,5 +1,4 @@
 /*
-cityCard.js
 City information card + radar chart
 Mounts into #city-card-container
 */
@@ -22,7 +21,7 @@ const CONFIG = {
 let _primaryCity = null;
 let _comparedCities = [];
 let _weights = [];
-let _scores = new Map();        // ("arttribute" --> score) - normalized values of current city
+let _scores = new Map();         // ("attribute" --> score) - normalized values of current city
 let _cityScore = null;
 let _onCityTabClick = () => { }; // saves a functions that is executed when we click a city in the header
 
@@ -172,7 +171,6 @@ function renderInfo() {
 }
 
 
-
 function _renderPlaceholder() {
   const panel = document.getElementById('city-card-radar');
   panel.innerHTML = '';
@@ -260,7 +258,7 @@ function renderRadar() {
       .attr('class', 'radar-grid-ring');
   }
 
-  // for each attribute, draws a line from the center to the border, and puts the label outside
+  // for each attribute, draws a line from the center to the border and puts the label outside
   _weights.forEach(({ attribute }, i) => {
     const a = angle(i);
 
