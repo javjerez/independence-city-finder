@@ -76,7 +76,7 @@
     font-weight: 700;
 }
 
-/* Sliders */
+/* -- Sliders -- */
 #controls-sliders {
     min-height: 0;
     overflow-y: auto;
@@ -139,7 +139,7 @@
     accent-color: var(--color-accent);
 }
 
-/* Custom scrollbar for sliders */
+/* -- Custom scrollbar for sliders -- */
 
 #controls-sliders::-webkit-scrollbar,
 #controls-grid::-webkit-scrollbar {

@@ -1,9 +1,7 @@
-// JAVASCRIPT MODULES
-
 /*
 Load order: 
     1. state first (shared store)
-    2. Then other feature modules (globe, controls, city card, comparison)
+    2. Then other feature modules (globe, controls, city card, comparison, etc
 */
 
 import { initState, onWeightsChange, setPrimaryCityFromHeader } from './state.js';
@@ -21,7 +19,7 @@ const attributes= await fetch("./data/attributes.json").then(r => r.json());
 initState(attributes, cities);
 
 initControls(attributes, () => {
-    onWeightsChange(getWeights());                        // DO NOT SEND THE 'getWeights()' function !!!
+    onWeightsChange(getWeights());                    // DO NOT SEND THE 'getWeights()' function !!!
     console.log('UPDATE: weights changed!!!');
 });
 

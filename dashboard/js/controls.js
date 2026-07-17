@@ -14,7 +14,6 @@ const CONFIG = {
   SLIDER_DEFAULT: 3,    // weight when an attribute is first selected
 };
 
-// *** ATTRIBUTE DEFINITIONS *** (All numeric metrics from cities.json, grouped by source)
 
 // *** MODULE STATE *** 
 
@@ -29,6 +28,7 @@ let notifyChange = () => { };
 
 // Handling attributes
 let ATTRIBUTES = {};
+
 
 // *** INITIALISE *** (call once from index.html after DOM is ready)
 
@@ -85,6 +85,7 @@ export function initControls(attributes, onChange = () => { }) {
   });
 }
 
+
 // *** INTERACTION HANDLERS *** 
 
 function onBoxClick(attribute) {
@@ -105,8 +106,8 @@ function onBoxClick(attribute) {
   }
 
   // Update box highlight
-  const button = document.querySelector(`.attr-button[data-attribute="${attribute}"]`);     // find the box corresponding to this attribute
-  if (button) button.classList.toggle('attr-button--selected', selected.has(attribute)); // Assign highlight class
+  const button = document.querySelector(`.attr-button[data-attribute="${attribute}"]`);   // find the box corresponding to this attribute
+  if (button) button.classList.toggle('attr-button--selected', selected.has(attribute));  // Assign highlight class
 
   // Update counter
   updateCounter();
@@ -114,6 +115,7 @@ function onBoxClick(attribute) {
   // notify state.js that weights changed
   notifyChange();
 }
+
 
 // *** SLIDER MANAGEMENT ***
 
@@ -146,8 +148,8 @@ function addSlider(attribute) {
   // Update weight on change
   new_slider.querySelector('.slider-input').addEventListener('input', (e) => {
     const val = Number(e.target.value);
-    weights.set(attribute, val);                                        // update weight in map
-    new_slider.querySelector('.slider-value').textContent = val;  // update displayed value
+    weights.set(attribute, val);                                    // update weight in map
+    new_slider.querySelector('.slider-value').textContent = val;    // update displayed value
 
     // notify state.js that weights changed
     notifyChange();
@@ -160,6 +162,7 @@ function removeSlider(attribute) {
   const slider = document.querySelector(`.slider-row[data-attribute="${attribute}"]`);
   if (slider) slider.remove();
 }
+
 
 // *** UI HELPERS ***
 

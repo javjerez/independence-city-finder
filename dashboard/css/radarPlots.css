@@ -9,7 +9,6 @@
     color: var(--color-text-base);
 }
 
-
 .city-radar-label {
     text-align: center;
     font-size: 12px;
@@ -42,7 +41,7 @@
     pointer-events: none;
 }
 
-/* ── Comparison radar visual styles (moved from radarChart.js CONFIG) ── */
+/* -- Comparison radar visual styles (moved from radarChart.js CONFIG) -- */
 
 #comparison-radar .radar-grid-ring {
     stroke-width: var(--color-border-tertiary);

@@ -1,4 +1,4 @@
-// globe.js — flat D3 world map with city dots
+// globe.js --> flat D3 world map with city dots
 // Mounts into: #globe-container
 
 import { selectCity } from './state.js';
@@ -35,7 +35,7 @@ let currentZPTransform = d3.zoomIdentity; // stores the current zoom, position a
 // y: vertical translation (pan)
 // k: scale (zoom level)
 
-let cities = [];              // list of city data loaded from JSON
+let cities = [];               // list of city data loaded from JSON
 let _scoreMap = new Map();     // city name --> score
 
 // For 'hover' tooltip
@@ -67,11 +67,10 @@ export async function initGlobe(citiesData) {
   // Create path generator (converts GeoJSON to SVG paths)
   path = d3.geoPath(projection);
 
-  //gGeoImage = svg.append('g').attr('class', 'geo-image-layer');       // the the geographical map layer (geography)
+  //gGeoImage = svg.append('g').attr('class', 'geo-image-layer');     // the the geographical map layer (geography)
 
   // the 'g' is used to group SVG elements together
   gViewport = svg.append('g').attr('class', 'map-viewport');          // 1. first the viewport group --> SVG container (for zoom/pan)
-
   gMap = gViewport.append('g').attr('class', 'map-layer');            // 2. then the smooth map layer (only countries)
   gCities = gViewport.append('g').attr('class', 'city-layer');        // 3. then the city layer (dots on top of countries)
 
@@ -96,9 +95,9 @@ export async function initGlobe(citiesData) {
 
   // Draw the map and cities
   // drawGeoImage(width, height);          // draw the geography (detailed map)
-  drawMap(land, borders);               // 1. draw the map (countries)
-  drawCities();                         // 2. draw the cities on top (dots)
-  attachZoom();                         // 3. attach zoom/pan behavior to the SVG
+  drawMap(land, borders);                  // 1. draw the map (countries)
+  drawCities();                            // 2. draw the cities on top (dots)
+  attachZoom();                            // 3. attach zoom/pan behavior to the SVG
   // createMapToggleButton(map_container); // Create the visibility button
 }
 
@@ -145,12 +144,12 @@ function drawCities() {
     .attr('fill', CONFIG.CITY_COLOR)                        // initial color
     .attr('opacity', 0.85)
     .attr('stroke', '#0f172a')                            // border color
-    .attr('stroke-width', getCityStrokeWidth())                                // border width
+    .attr('stroke-width', getCityStrokeWidth())             // border width
 
     // City 'click' --> we connect it to the other views
     .on('click', (event, clickedCity) => {
-      event.stopPropagation();            // prevents 'click' from propagating to other elements 
-      selectCity(clickedCity);            // we select the city in the app 'state'
+      event.stopPropagation();              // prevents 'click' from propagating to other elements 
+      selectCity(clickedCity);              // we select the city in the app 'state'
     })
 
     // City 'hover' --> show tooltip with city name
@@ -170,6 +169,7 @@ function drawCities() {
         .style('top', (event.offsetY - 12) + 'px');
     })
 }
+
 
 /************************ ZOOM & PAN **********************/
 
@@ -242,6 +242,7 @@ function attachZoom() {
   svg.call(zoom);
 }
 
+
 /********************** HOVER TOOLTIP *********************/
 
 // Shows the tooltip with city name and country when hovering on a city dot
@@ -273,6 +274,7 @@ function hideTooltip() {
   tooltip.style('display', 'none');
 }
 
+
 /****************** VISIBILITY MAP ******************/
 
 /*
@@ -299,6 +301,7 @@ function createMapToggleButton(map_container) {
     });
 }
 */
+
 
 /****************** INTERACTION HANDLERS ******************/
 

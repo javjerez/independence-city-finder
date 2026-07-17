@@ -9,16 +9,6 @@
 4. Notifies the map, city card and comparison modules
 */
 
-/*
-DUDAS:
-
-- Deberia de llamar "initComparison(_metricStats);" desde el main.js
-
-- Está bien que el state.js llame a funciones de otros módulos para actualizarse?
-
-- Estoy llamando el updateDotSize() dos veces. Solo debería de dejar una verdad?
-
-*/
 
 import { updateDotsColor, updateDotSizes } from './globe.js';
 import { getWeights, getSelectedAttributes } from './controls.js';
@@ -28,10 +18,12 @@ import { updateCityCard } from './cityCard.js';
 import { barchart_render } from './barChart.js';
 import { radar_render } from './radarChart.js';
 
+
 // CONFIGURATION
 const CONFIG = {
   MAX_COMPARED: 4,
 };
+
 
 // MODULE STATE
 let _cities = [];             // full dataset (set once on init)
@@ -257,8 +249,8 @@ export function getScore(cityName) { return _scoreMap.get(cityName) ?? 0; }
 export function getScoreMap() { return new Map(_scoreMap); }
 
 
-/****************** HELPER FUNCTIONS *******************/
 
+/****************** HELPER FUNCTIONS *******************/
 
 // Computes normalized scores for all metrics for a given city, based on current weights
 function _getNormalizedScoresForCity(city, weights) {

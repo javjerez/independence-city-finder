@@ -1,5 +1,3 @@
-// RESIZE HANDLE LOGIC
-
 /*
     Dragging the handle writes a new value to #app's --split variable.
     No module dependencies.

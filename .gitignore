@@ -1,0 +1,15 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Audit files
+project_tree.txt
+file_sizes.csv
+tracked_files.txt
+
+# Editor files
+.vscode/
+
+# Temporary files
+*.tmp
+*.bak
