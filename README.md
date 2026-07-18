@@ -212,12 +212,12 @@ Although this mapping is familiar to many users, red-green semantics can still p
 
 The dashboard is implemented as a static client-side web application using:
 
-- HTML5;
-- modular CSS;
-- JavaScript ES Modules;
-- D3.js;
-- TopoJSON Client;
-- World Atlas geographic data.
+- HTML5
+- modular CSS
+- JavaScript ES Modules
+- D3.js
+- TopoJSON Client
+- World Atlas geographic data
 
 A separate Jupyter notebook is included under `data/` to document and reproduce the dataset construction and preprocessing pipeline.
 
