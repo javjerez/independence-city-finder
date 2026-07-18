@@ -10,7 +10,7 @@ https://javjerez.github.io/independence-city-finder/
 <p align="center">
   <img src="presentation/Figures/dashboard-overview.png"
        alt="Overview of the Independence City Finder dashboard"
-       width="100%">
+       width="50%">
 </p>
 
 ## Project Overview
@@ -54,7 +54,7 @@ Cities are represented as circles positioned using their geographic coordinates.
 <p align="center">
   <img src="presentation/Figures/map.png"
        alt="Interactive map with cities represented as score-scaled circles"
-       width="70%">
+       width="50%">
 </p>
 
 This view provides an overview of the geographical distribution of the available cities. It also acts as a selection interface: choosing a city on the map updates the detailed city view and the comparison visualizations.
@@ -66,7 +66,7 @@ Users can select up to five attributes and assign each one a weight from 1 to 5.
 <p align="center">
   <img src="presentation/Figures/weights.png"
        alt="Attribute selection and weighting controls"
-       width="55%">
+       width="50%">
 </p>
 
 Changing a weight triggers an immediate recomputation of the score for every city. This supports interactive *what-if* analysis: users can observe how city rankings change when their priorities change.
@@ -78,7 +78,7 @@ The City Card acts as the main details-on-demand component.
 <p align="center">
   <img src="presentation/Figures/card.png"
        alt="Detailed city card combining textual information, indicators and a radar chart"
-       width="90%">
+       width="50%">
 </p>
 
 It combines:
@@ -100,7 +100,7 @@ Radar charts provide a compact visual signature for each city.
 <p align="center">
   <img src="presentation/Figures/radars.png"
        alt="Radar chart profiles for two selected cities"
-       width="70%">
+       width="50%">
 </p>
 
 Each axis represents one attribute. The shape of the polygon summarizes the relative profile of the city across several dimensions.
@@ -114,7 +114,7 @@ Bar charts support direct comparison of selected cities for individual attribute
 <p align="center">
   <img src="presentation/Figures/bars.png"
        alt="Bar charts comparing selected cities across several attributes"
-       width="80%">
+       width="50%">
 </p>
 
 Unlike the radar charts, the bar charts use position and length, which are more accurate perceptual channels for comparing quantitative values.
