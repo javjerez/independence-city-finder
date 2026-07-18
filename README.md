@@ -8,7 +8,7 @@ The application combines heterogeneous urban datasets into a unified multidimens
 https://javjerez.github.io/independence-city-finder/
 
 <p align="center">
-  <img src="docs/images/dashboard-overview.png"
+  <img src="presentation/dashboard.png"
        alt="Overview of the Independence City Finder dashboard"
        width="100%">
 </p>
