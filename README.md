@@ -219,6 +219,8 @@ The dashboard is implemented as a static client-side web application using:
 - TopoJSON Client;
 - World Atlas geographic data.
 
+A separate Jupyter notebook is included under `data/` to document and reproduce the dataset construction and preprocessing pipeline.
+
 The application entry point is:
 
 ```text
