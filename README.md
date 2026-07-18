@@ -10,7 +10,7 @@ https://javjerez.github.io/independence-city-finder/
 <p align="center">
   <img src="presentation/Figures/dashboard-overview.png"
        alt="Overview of the Independence City Finder dashboard"
-       width="50%">
+       width="55%">
 </p>
 
 ## Project Overview
@@ -343,6 +343,7 @@ This was a collaborative academic project developed by:
 
 - **Javier Jerez Reinoso**
 - **Marco Zennaro**
+
 
 This project was developed for the DT056A Visualization course at Mid Sweden University within the Erasmus Mundus Joint Master in Imaging.
 
