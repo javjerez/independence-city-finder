@@ -1,7 +1,5 @@
 # Independence City Finder
 
-# Independence City Finder
-
 An interactive visual analytics dashboard for exploring and comparing cities according to important factors related to financial, residential and personal independence for young adults.
 
 The application combines heterogeneous urban datasets into a unified multidimensional city profile. Users can select the attributes that matter the most to them, assign different importance weights, explore cities geographically and compare detailed city profiles through coordinated visualizations.
