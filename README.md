@@ -8,7 +8,7 @@ The application combines heterogeneous urban datasets into a unified multidimens
 https://javjerez.github.io/independence-city-finder/
 
 <p align="center">
-  <img src="presentation/dashboard-overview.png"
+  <img src="presentation/Figures/dashboard-overview.png"
        alt="Overview of the Independence City Finder dashboard"
        width="100%">
 </p>
@@ -52,7 +52,7 @@ The dashboard is organised as a set of coordinated views. An action performed in
 Cities are represented as circles positioned using their geographic coordinates. Circle size is derived from the current city score.
 
 <p align="center">
-  <img src="presentation/map.png"
+  <img src="presentation/Figures/map.png"
        alt="Interactive map with cities represented as score-scaled circles"
        width="70%">
 </p>
@@ -64,7 +64,7 @@ This view provides an overview of the geographical distribution of the available
 Users can select up to five attributes and assign each one a weight from 1 to 5.
 
 <p align="center">
-  <img src="presentation/weights.png"
+  <img src="presentation/Figures/weights.png"
        alt="Attribute selection and weighting controls"
        width="55%">
 </p>
@@ -76,7 +76,7 @@ Changing a weight triggers an immediate recomputation of the score for every cit
 The City Card acts as the main details-on-demand component.
 
 <p align="center">
-  <img src="presentation/card.png"
+  <img src="presentation/Figures/card.png"
        alt="Detailed city card combining textual information, indicators and a radar chart"
        width="90%">
 </p>
@@ -98,7 +98,7 @@ The numerical values provide precision, while the graphical indicators make stre
 Radar charts provide a compact visual signature for each city.
 
 <p align="center">
-  <img src="presentation/radars.png"
+  <img src="presentation/Figures/radars.png"
        alt="Radar chart profiles for two selected cities"
        width="70%">
 </p>
@@ -112,7 +112,7 @@ Radar charts are useful for identifying broad patterns and contrasting profiles,
 Bar charts support direct comparison of selected cities for individual attributes.
 
 <p align="center">
-  <img src="presentation/bars.png"
+  <img src="presentation/Figures/bars.png"
        alt="Bar charts comparing selected cities across several attributes"
        width="80%">
 </p>
