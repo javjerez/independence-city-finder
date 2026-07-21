@@ -10,7 +10,7 @@ The application combines heterogeneous urban datasets into a unified multidimens
        width="55%">
 </p>
 
-**Live application:**  https://javjerez.github.io/independence-city-finder/
+**Live application:** https://javjerez.github.io/Independence-city-finder/
 
 ## Project Overview
 
